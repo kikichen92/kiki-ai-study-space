@@ -2,79 +2,77 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kiki's Study Space V2</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4eee5">
+<title>Kiki's Study Space V2.1</title>
 <style>
-:root{--bg:#f4eee5;--paper:#fffaf3;--ink:#433d37;--muted:#8b8177;--line:#e6dacb;--green:#7f9475;--soft:#e7eee3;--shadow:0 14px 34px rgba(80,64,45,.1)}
+:root{--bg:#f4eee5;--paper:#fffaf3;--paper2:#f8f1e8;--ink:#433d37;--muted:#8b8177;--line:#e6dacb;--green:#7f9475;--green2:#e7eee3;--wood:#b18e6c;--shadow:0 14px 34px rgba(80,64,45,.1)}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#faf6ef,#eee1d1);color:var(--ink)}
 button,input,textarea{font:inherit}.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
-aside{padding:24px 18px;background:rgba(255,250,243,.92);border-right:1px solid var(--line);position:sticky;top:0;height:100vh}
+aside{padding:24px 18px;background:rgba(255,250,243,.93);border-right:1px solid var(--line);position:sticky;top:0;height:100vh}
 .brand{display:flex;gap:11px;align-items:center;margin-bottom:26px}.logo{width:44px;height:44px;border-radius:15px;background:var(--green);display:grid;place-items:center;color:white}
 nav{display:grid;gap:7px}nav button{border:0;background:transparent;text-align:left;padding:13px;border-radius:14px;color:var(--muted)}nav button.active{background:#eee6db;color:var(--ink)}
 main{padding:30px;max-width:1350px;width:100%;margin:auto}.view{display:none}.view.active{display:block}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.top h1{margin:0 0 6px}.muted{color:var(--muted);line-height:1.7}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:17px}.card{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:21px;box-shadow:var(--shadow)}
 .hero{grid-column:span 8}.progress{grid-column:span 4}.tasks{grid-column:span 5}.english{grid-column:span 7}.third{grid-column:span 4}
-.btn{border:0;border-radius:14px;padding:12px 17px;background:var(--green);color:white;margin-top:12px}.secondary{background:var(--soft);color:#607059}
+.btn{border:0;border-radius:14px;padding:12px 17px;background:var(--green);color:white;margin-top:12px}.secondary{background:var(--green2);color:#607059}.wood{background:var(--wood)}
 .task{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.task input{width:20px;height:20px;accent-color:var(--green)}.task input:checked+label{text-decoration:line-through;color:#aaa}
-.word{display:flex;justify-content:space-between;gap:10px;padding:13px;background:#f8f1e8;border-radius:15px;margin-bottom:9px}.word small{display:block;color:var(--muted)}.sound{border:0;border-radius:999px;background:#e5eee1;padding:8px 10px}
-.metric{background:#f8f1e8;padding:14px;border-radius:15px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric strong{display:block;font-size:18px}
+.word{display:flex;justify-content:space-between;gap:10px;padding:13px;background:var(--paper2);border-radius:15px;margin-bottom:9px}.word small{display:block;color:var(--muted)}.actions{display:flex;gap:7px;align-items:center}.sound,.mini{border:0;border-radius:999px;background:#e5eee1;padding:8px 10px}.mini.active{background:var(--green);color:#fff}
+.metric{background:var(--paper2);padding:14px;border-radius:15px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric strong{display:block;font-size:18px}
 .section{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.section h1{margin:0}
 textarea,input[type=text],input[type=number],input[type=date]{width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;margin-top:7px}textarea{min-height:130px}
-.notice{background:#edf2e9;color:#5f6f58;padding:14px;border-radius:14px;margin:14px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:#f8f1e8;padding:17px;border-radius:17px}.stat strong{display:block;font-size:25px}
+.notice{background:#edf2e9;color:#5f6f58;padding:14px;border-radius:14px;margin:14px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:var(--paper2);padding:17px;border-radius:17px}.stat strong{display:block;font-size:25px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{border:0;background:#eee7dd;padding:9px 12px;border-radius:999px}.tab.active{background:var(--green);color:#fff}
+.badge{display:inline-flex;padding:7px 10px;border-radius:999px;background:var(--green2);margin-right:6px}
 @media(max-width:900px){.app{grid-template-columns:80px 1fr}.brand span,nav span{display:none}.hero,.progress,.tasks,.english,.third{grid-column:span 12}}
-@media(max-width:640px){.app{display:block}aside{position:fixed;z-index:20;bottom:0;left:0;right:0;top:auto;height:auto;padding:8px}aside .brand{display:none}nav{display:flex;justify-content:space-around}nav button:nth-child(n+6){display:none}main{padding:20px 14px 86px}.grid{display:block}.card{margin-bottom:15px}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.app{display:block}aside{position:fixed;z-index:20;bottom:0;left:0;right:0;top:auto;height:auto;padding:8px}aside .brand{display:none}nav{display:flex;justify-content:space-around}nav button:nth-child(n+6){display:none}main{padding:20px 14px 86px}.grid{display:block}.card{margin-bottom:15px}.stats{grid-template-columns:1fr 1fr}.actions{gap:4px}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside>
-<div class="brand"><div class="logo">🌿</div><span><b>Kiki's Study Space</b><br><small>Every day, a little progress.</small></span></div>
+<div class="brand"><div class="logo">🌿</div><span><b>Kiki's Study Space</b><br><small>V2.1 · Every day, a little progress.</small></span></div>
 <nav>
 <button class="active" data-v="home">🏡 <span>首页</span></button>
 <button data-v="english">🇺🇸 <span>英语</span></button>
-<button data-v="courses">🎓 <span>高中课程</span></button>
+<button data-v="courses">🎓 <span>课程</span></button>
 <button data-v="reading">📖 <span>阅读</span></button>
-<button data-v="baby">👶 <span>宝宝成长</span></button>
+<button data-v="baby">👶 <span>宝宝</span></button>
 <button data-v="goals">🎯 <span>目标</span></button>
 <button data-v="stats">📊 <span>统计</span></button>
 </nav>
 </aside>
 <main>
 <section id="home" class="view active">
-<div class="top"><div><h1>欢迎回来，Kiki ☕</h1><p class="muted" id="date"></p></div><b>K</b></div>
+<div class="top"><div><h1>欢迎回来，Kiki ☕</h1><p class="muted" id="date"></p></div><b>V2.1</b></div>
 <div class="grid">
 <div class="card hero"><small style="color:var(--green)">TODAY'S FOCUS</small><h2>每天学习一点点，不急着追赶别人，只认真成为更好的自己。</h2><p class="muted">今天先完成20分钟英语、阅读《活着》10页，再做一道数学练习。</p><button class="btn" onclick="openV('english')">开始今天的学习</button></div>
-<div class="card progress"><h3>本周学习进度</h3><h1 style="text-align:center">68%</h1><p class="muted">连续学习6天 · 完成17项</p></div>
+<div class="card progress"><h3>本周学习进度</h3><h1 style="text-align:center" id="weeklyPercent">68%</h1><p class="muted">连续学习6天 · 完成17项</p></div>
 <div class="card tasks"><h3>✅ 今日任务</h3>
 <div class="task"><input data-k="t1" type="checkbox" checked><label>复习昨天单词</label></div>
 <div class="task"><input data-k="t2" type="checkbox"><label>学习10个新单词</label></div>
 <div class="task"><input data-k="t3" type="checkbox"><label>阅读《活着》10页</label></div>
 <div class="task"><input data-k="t4" type="checkbox"><label>完成一道数学题</label></div></div>
-<div class="card english"><h3>🇺🇸 今日英语</h3><div class="word"><div><b>progress</b><small>/ˈprɑːɡres/ · 进步</small></div><button class="sound" onclick="say('progress')">🔊</button></div><div class="word"><div><b>schedule</b><small>/ˈskedʒuːl/ · 日程</small></div><button class="sound" onclick="say('schedule')">🔊</button></div><button class="btn secondary" onclick="openV('english')">学习10词</button></div>
-<div class="card third"><h3>📖 阅读</h3><p class="muted">《活着》已读92页<br>今日目标10页</p><button class="btn secondary" onclick="openV('reading')">记录阅读</button></div>
-<div class="card third"><h3>👶 宝宝成长</h3><div class="metrics"><div class="metric">月龄<strong>6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">辅食<strong>米糊</strong></div></div><button class="btn secondary" onclick="openV('baby')">添加记录</button></div>
-<div class="card third"><h3>🎯 我的方向</h3><p class="muted">持续学习<br>医疗口译<br>高中自学<br>坚持阅读</p><button class="btn secondary" onclick="openV('goals')">查看目标</button></div>
+<div class="card english"><h3>🇺🇸 今日英语</h3><div id="homeWords"></div><button class="btn secondary" onclick="openV('english')">学习今日10词</button></div>
+<div class="card third"><h3>📖 阅读</h3><p class="muted">《活着》已读 <b id="homeReadingPage">92</b> 页<br>今日目标10页</p><button class="btn secondary" onclick="openV('reading')">记录阅读</button></div>
+<div class="card third"><h3>👶 宝宝成长</h3><div class="metrics"><div class="metric">月龄<strong id="babyAge">6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">辅食<strong id="homeBabyFood">米糊</strong></div></div><button class="btn secondary" onclick="openV('baby')">添加记录</button></div>
+<div class="card third"><h3>🎯 我的方向</h3><span class="badge">持续学习</span><span class="badge">医疗口译</span><span class="badge">高中自学</span><span class="badge">坚持阅读</span><p class="muted">学历是梦想，学习是一辈子的习惯。</p></div>
 </div></section>
 
-<section id="english" class="view"><div class="section"><h1>🇺🇸 英语学习</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h3>今日10词</h3>
-<div class="word"><div><b>progress</b><small>/ˈprɑːɡres/ · 进步</small></div><button class="sound" onclick="say('progress')">🔊</button></div>
-<div class="word"><div><b>schedule</b><small>/ˈskedʒuːl/ · 日程</small></div><button class="sound" onclick="say('schedule')">🔊</button></div>
-<div class="word"><div><b>available</b><small>/əˈveɪləbəl/ · 有空的</small></div><button class="sound" onclick="say('available')">🔊</button></div>
-<div class="word"><div><b>appointment</b><small>/əˈpɔɪntmənt/ · 预约</small></div><button class="sound" onclick="say('appointment')">🔊</button></div>
-<div class="word"><div><b>insurance</b><small>/ɪnˈʃʊrəns/ · 保险</small></div><button class="sound" onclick="say('insurance')">🔊</button></div>
-<div class="word"><div><b>receipt</b><small>/rɪˈsiːt/ · 收据</small></div><button class="sound" onclick="say('receipt')">🔊</button></div>
-<div class="word"><div><b>practice</b><small>/ˈpræktɪs/ · 练习</small></div><button class="sound" onclick="say('practice')">🔊</button></div>
-<div class="word"><div><b>improve</b><small>/ɪmˈpruːv/ · 提高</small></div><button class="sound" onclick="say('improve')">🔊</button></div>
-<div class="word"><div><b>patient</b><small>/ˈpeɪʃənt/ · 病人；耐心的</small></div><button class="sound" onclick="say('patient')">🔊</button></div>
-<div class="word"><div><b>continue</b><small>/kənˈtɪnjuː/ · 继续</small></div><button class="sound" onclick="say('continue')">🔊</button></div>
-<div class="notice">Small steps every day lead to big changes. <button class="sound" onclick="say('Small steps every day lead to big changes.')">🔊</button></div></div></section>
+<section id="english" class="view">
+<div class="section"><h1>🇺🇸 英语学习</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+<div class="card">
+<div class="tabs"><button class="tab active" onclick="filterWords('all',this)">今日10词</button><button class="tab" onclick="filterWords('fav',this)">已收藏</button><button class="tab" onclick="filterWords('mastered',this)">已掌握</button></div>
+<div id="wordList"></div>
+<div class="notice">今日一句：Small steps every day lead to big changes. <button class="sound" onclick="say('Small steps every day lead to big changes.')">🔊</button></div>
+</div></section>
 
-<section id="courses" class="view"><div class="section"><h1>🎓 高中课程</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h3>今日数学</h3><p style="font-size:22px">3x + 5 = 20，x 等于多少？</p><details><summary class="btn">查看答案</summary><p class="muted">3x=15，所以x=5。</p></details><div class="notice">今天只学15分钟，也算完成。</div></div></section>
+<section id="courses" class="view"><div class="section"><h1>🎓 高中课程</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h3>今日数学</h3><p style="font-size:22px">3x + 5 = 20，x 等于多少？</p><input id="mathAnswer" type="number" placeholder="输入答案"><button class="btn" onclick="checkMath()">检查答案</button><div id="mathResult" class="notice" style="display:none"></div></div></section>
 
-<section id="reading" class="view"><div class="section"><h1>📖 阅读中心</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h2>《活着》</h2><label>今天读到第几页</label><input data-k="rp" type="number" value="92"><label>阅读感悟</label><textarea data-k="rn" placeholder="写下最打动你的一句话"></textarea><button class="btn" onclick="save('阅读笔记已保存')">保存</button></div></section>
+<section id="reading" class="view"><div class="section"><h1>📖 阅读中心</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h2>《活着》</h2><label>今天读到第几页</label><input data-k="rp" id="readingPage" type="number" value="92"><label>今天阅读了多少分钟</label><input data-k="rt" type="number" placeholder="例如：20"><label>阅读感悟</label><textarea data-k="rn" placeholder="写下最打动你的一句话"></textarea><button class="btn" onclick="save('阅读笔记已保存')">保存</button></div></section>
 
-<section id="baby" class="view"><div class="section"><h1>👶 宝宝成长</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><div class="metrics"><div class="metric">月龄<strong>6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">辅食<strong>米糊</strong></div></div><h3 style="margin-top:20px">今日记录</h3><input data-k="bf" type="text" placeholder="今天吃了什么"><textarea data-k="bn" placeholder="睡眠、便便或成长变化"></textarea><button class="btn" onclick="save('宝宝记录已保存')">保存</button></div></section>
+<section id="baby" class="view"><div class="section"><h1>👶 宝宝成长</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><label>宝宝出生日期</label><input data-k="birth" id="birth" type="date" value="2026-01-25"><div class="notice">当前月龄：<b id="babyAgeDetail"></b></div><label>今天辅食</label><input data-k="bf" id="babyFood" type="text" placeholder="例如：米糊"><label>今天体重（lb）</label><input data-k="bw" type="number" step="0.1" placeholder="例如：18.8"><label>睡眠、便便或成长变化</label><textarea data-k="bn" placeholder="记录宝宝今天的变化"></textarea><button class="btn" onclick="save('宝宝记录已保存')">保存</button></div></section>
 
 <section id="goals" class="view"><div class="section"><h1>🎯 目标计划</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card">
 <div class="task"><input data-k="g1" type="checkbox"><label>每天学习10个英语单词</label></div>
@@ -83,12 +81,24 @@ textarea,input[type=text],input[type=number],input[type=date]{width:100%;padding
 <div class="task"><input data-k="g4" type="checkbox"><label>坚持阅读并记录</label></div>
 <div class="task"><input data-k="g5" type="checkbox"><label>持续学习，不轻易放弃</label></div></div></section>
 
-<section id="stats" class="view"><div class="section"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="stats"><div class="stat">连续学习<strong>6天</strong></div><div class="stat">本周任务<strong>17项</strong></div><div class="stat">累计单词<strong>60个</strong></div><div class="stat">阅读页数<strong>92页</strong></div></div></section>
+<section id="stats" class="view"><div class="section"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="stats"><div class="stat">连续学习<strong>6天</strong></div><div class="stat">本周任务<strong>17项</strong></div><div class="stat">已收藏单词<strong id="favCount">0</strong></div><div class="stat">已掌握单词<strong id="masteredCount">0</strong></div></div></section>
 </main></div>
 <script>
+const words=[
+['progress','/ˈprɑːɡres/','进步'],['schedule','/ˈskedʒuːl/','日程'],['available','/əˈveɪləbəl/','有空的'],['appointment','/əˈpɔɪntmənt/','预约'],['insurance','/ɪnˈʃʊrəns/','保险'],['receipt','/rɪˈsiːt/','收据'],['practice','/ˈpræktɪs/','练习'],['improve','/ɪmˈpruːv/','提高'],['patient','/ˈpeɪʃənt/','病人；耐心的'],['continue','/kənˈtɪnjuː/','继续']
+];
 function openV(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.v===id));scrollTo(0,0)}
 function say(t){if(!('speechSynthesis'in window)){alert('请用Safari打开');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.86;speechSynthesis.speak(u)}
-function save(m){document.querySelectorAll('[data-k]').forEach(e=>localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value));alert(m)}
-document.addEventListener('DOMContentLoaded',()=>{document.getElementById('date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';document.querySelectorAll('[data-k]').forEach(e=>{let v=localStorage.getItem(e.dataset.k);if(v!==null){e.type==='checkbox'?e.checked=v==='true':e.value=v}e.onchange=()=>localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value)})})
+function statusKey(type,w){return 'word-'+type+'-'+w}
+function toggleStatus(type,w,btn){let k=statusKey(type,w),v=localStorage.getItem(k)==='1';localStorage.setItem(k,v?'0':'1');btn.classList.toggle('active',!v);updateCounts()}
+function wordHtml(w){let fav=localStorage.getItem(statusKey('fav',w[0]))==='1',mas=localStorage.getItem(statusKey('mastered',w[0]))==='1';return `<div class="word"><div><b>${w[0]}</b><small>${w[1]} · ${w[2]}</small></div><div class="actions"><button class="sound" onclick="say('${w[0]}')">🔊</button><button class="mini ${fav?'active':''}" onclick="toggleStatus('fav','${w[0]}',this)">☆</button><button class="mini ${mas?'active':''}" onclick="toggleStatus('mastered','${w[0]}',this)">✓</button></div></div>`}
+function renderWords(filter='all'){document.getElementById('wordList').innerHTML=words.filter(w=>filter==='all'||localStorage.getItem(statusKey(filter,w[0]))==='1').map(wordHtml).join('')||'<p class="muted">这里还没有单词。</p>';document.getElementById('homeWords').innerHTML=words.slice(0,2).map(wordHtml).join('')}
+function filterWords(f,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderWords(f)}
+function updateCounts(){let f=words.filter(w=>localStorage.getItem(statusKey('fav',w[0]))==='1').length,m=words.filter(w=>localStorage.getItem(statusKey('mastered',w[0]))==='1').length;document.getElementById('favCount').textContent=f;document.getElementById('masteredCount').textContent=m}
+function checkMath(){let v=document.getElementById('mathAnswer').value,r=document.getElementById('mathResult');r.style.display='block';r.textContent=Number(v)===5?'答对了！x = 5 🎉':'再想一下：先把5移到右边。'}
+function ageText(dateStr){if(!dateStr)return'未设置';let b=new Date(dateStr),n=new Date(),months=(n.getFullYear()-b.getFullYear())*12+n.getMonth()-b.getMonth();if(n.getDate()<b.getDate())months--;let d=Math.max(0,Math.floor((n-b)/86400000-months*30.44));return months+'个月左右'}
+function refreshHome(){let p=localStorage.getItem('rp')||92;document.getElementById('homeReadingPage').textContent=p;let food=localStorage.getItem('bf')||'米糊';document.getElementById('homeBabyFood').textContent=food;let birth=localStorage.getItem('birth')||'2026-01-25';let a=ageText(birth);document.getElementById('babyAge').textContent=a;document.getElementById('babyAgeDetail').textContent=a}
+function save(m){document.querySelectorAll('[data-k]').forEach(e=>localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value));refreshHome();alert(m)}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';document.querySelectorAll('[data-k]').forEach(e=>{let v=localStorage.getItem(e.dataset.k);if(v!==null){e.type==='checkbox'?e.checked=v==='true':e.value=v}e.onchange=()=>{localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value);refreshHome()}});renderWords();updateCounts();refreshHome()})
 </script>
 </body></html>
