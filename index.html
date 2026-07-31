@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#efe3d4">
-<title>Kiki's Study Space V6</title>
+<title>Kiki's Study Space V6.1</title>
 <style>
 :root{
   --bg:#eadfce;--paper:#fffaf2;--soft:#f6ede2;--soft2:#eee0d0;--ink:#433b35;--muted:#8e8176;
@@ -61,6 +61,15 @@ main{padding:22px 24px 105px;max-width:1500px;width:100%;margin:auto}
 .section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-top:7px}textarea{min-height:110px}
 .timeline{border-left:3px solid var(--soft2);padding-left:18px}.event{padding-bottom:14px}
+
+.subjects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.subject-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);min-height:170px;display:flex;flex-direction:column}
+.subject-card .emoji{font-size:32px}.subject-card h3{margin:9px 0 5px}.subject-card p{color:var(--muted);margin:0 0 12px;line-height:1.55}.subject-card .btn{margin-top:auto}
+.lesson-box{margin-top:16px}.lesson-title{display:flex;justify-content:space-between;align-items:center;gap:10px}.lesson-chip{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--soft2);font-size:13px;margin:4px 5px 4px 0}
+.answer-row{display:flex;gap:8px;flex-wrap:wrap}.answer-row .btn{margin-top:6px}
+@media(max-width:900px){.subjects-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.subjects-grid{grid-template-columns:1fr}}
+
 @media(max-width:980px){
   .app{grid-template-columns:82px 1fr}.brand h1,.brand p,nav span,.side-note{display:none}
   .tasks,.plan,.ring-card,.words,.reading,.goals,.math,.mood,.baby{grid-column:span 12}
@@ -79,6 +88,7 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
   <div class="brand"><h1>Kiki's ♡</h1><p>Study Space</p><small>✦ 成为更好的自己 ✦</small></div>
   <nav>
     <button class="active" data-v="home" onclick="openV('home')">🏠 <span>首页工作台</span></button>
+    <button data-v="highschool" onclick="openV('highschool')">🎓 <span>高中课程</span></button>
     <button data-v="english" onclick="openV('english')">🔤 <span>英语学习</span></button>
     <button data-v="reading" onclick="openV('reading')">📖 <span>阅读笔记</span></button>
     <button data-v="math" onclick="openV('math')">🧮 <span>数学练习</span></button>
@@ -152,7 +162,20 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
       <div class="goal"><div class="goal-row"><span>减脂到 115 lb</span><b>40%</b></div><div class="progress"><span style="width:40%"></span></div></div>
     </div>
 
+
     <div class="card math">
+      <h3>高中课程 🎓</h3>
+      <div class="metric-grid">
+        <div class="metric">数学<strong>方程</strong></div>
+        <div class="metric">英语<strong>词汇</strong></div>
+        <div class="metric">语文<strong>阅读</strong></div>
+        <div class="metric">理科<strong>物化生</strong></div>
+      </div>
+      <p class="muted">数学、英语、语文、历史、地理、生物、物理、化学都已加回。</p>
+      <button class="btn" onclick="openV('highschool')">进入高中课程</button>
+    </div>
+
+    <div class="card goals">
       <h3>数学练习 ✏️</h3>
       <div class="math-paper">23 + 17 = 40<br>56 - 28 = 28<br>15 + 36 = 51</div>
       <button class="btn" onclick="openV('math')">再练一道</button>
@@ -181,6 +204,25 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
       </div>
       <button class="btn secondary" onclick="openV('baby')">添加成长记录</button>
     </div>
+  </div>
+</section>
+
+
+<section id="highschool" class="view">
+  <div class="section-head"><div><h2>🎓 高中课程</h2><p class="muted">先从基础开始，每天完成一个小知识点。</p></div><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="subjects-grid">
+    <div class="subject-card"><div class="emoji">🧮</div><h3>数学</h3><p>数与代数、一元一次方程、函数基础。</p><button class="btn" onclick="openLesson('math')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🔤</div><h3>英语</h3><p>高中词汇、语法、阅读理解和写作。</p><button class="btn" onclick="openLesson('englishCourse')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">📖</div><h3>语文</h3><p>现代文阅读、中心思想、古诗文基础。</p><button class="btn" onclick="openLesson('chinese')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">📜</div><h3>历史</h3><p>中国古代史、近代史和世界史时间线。</p><button class="btn" onclick="openLesson('history')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🌍</div><h3>地理</h3><p>地图、经纬度、气候和人口城市。</p><button class="btn" onclick="openLesson('geography')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🧬</div><h3>生物</h3><p>细胞、遗传、人体系统与生态。</p><button class="btn" onclick="openLesson('biology')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">⚙️</div><h3>物理</h3><p>运动、力、能量、电学和实验基础。</p><button class="btn" onclick="openLesson('physics')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🧪</div><h3>化学</h3><p>元素、原子、化学式和常见反应。</p><button class="btn" onclick="openLesson('chemistry')">开始学习</button></div>
+  </div>
+  <div class="card lesson-box" id="lessonPanel">
+    <div class="lesson-title"><h3>今日建议</h3><span class="lesson-chip">基础阶段</span></div>
+    <p class="muted">点击任意课程的“开始学习”，这里会显示知识点和练习。</p>
   </div>
 </section>
 
@@ -232,7 +274,7 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
 </main>
 
 <div class="bottom-dock">
-  <button class="dock-btn" onclick="openV('english')">🤖<br>AI助手</button>
+  <button class="dock-btn" onclick="openV('highschool')">🎓<br>高中课程</button>
   <button class="dock-btn" onclick="openV('english')">Aa<br>单词本</button>
   <button class="dock-btn" onclick="openV('baby')">📒<br>成长本</button>
   <button class="dock-btn" onclick="openV('math')">✕<br>错题本</button>
@@ -268,6 +310,47 @@ function completion(){
   const all=[...document.querySelectorAll('.daily')],done=all.filter(x=>x.checked).length;
   return Math.round(done/all.length*100);
 }
+
+function openLesson(subject){
+  const p=document.getElementById('lessonPanel');
+  const lessons={
+    math:`<div class="lesson-title"><h3>🧮 数学：一元一次方程</h3><span class="lesson-chip">第1课</span></div>
+      <p>等式两边做相同的运算，等式仍然成立。</p>
+      <p style="font-size:22px"><b>2x + 6 = 18</b></p>
+      <input id="courseMathAnswer" type="number" placeholder="x 等于多少？">
+      <button class="btn" onclick="checkCourseMath()">检查答案</button><div id="courseMathResult"></div>`,
+    englishCourse:`<div class="lesson-title"><h3>🔤 英语：高中基础词汇</h3><span class="lesson-chip">第1课</span></div>
+      <span class="lesson-chip">education 教育</span><span class="lesson-chip">environment 环境</span><span class="lesson-chip">experience 经历</span>
+      <p class="muted">例句：Education can change a person's future. 教育可以改变一个人的未来。</p>
+      <button class="btn" onclick="say('Education can change a person\\'s future.')">播放例句</button>`,
+    chinese:`<div class="lesson-title"><h3>📖 语文：中心思想</h3><span class="lesson-chip">第1课</span></div>
+      <p>概括中心思想时，可以按“文章写了什么 + 表达了什么感情或道理”来回答。</p>
+      <div class="notice">例：文章通过福贵一生的经历，表现了人在苦难中依然顽强活着的力量。</div>`,
+    history:`<div class="lesson-title"><h3>📜 历史：中国早期朝代</h3><span class="lesson-chip">第1课</span></div>
+      <p style="font-size:21px"><b>夏 → 商 → 周 → 秦 → 汉</b></p>
+      <p class="muted">先记住顺序，再慢慢补充每个朝代的重要人物和事件。</p>`,
+    geography:`<div class="lesson-title"><h3>🌍 地理：经纬度</h3><span class="lesson-chip">第1课</span></div>
+      <p>纬线表示南北位置，经线表示东西位置。赤道是0°纬线，本初子午线是0°经线。</p>
+      <div class="notice">口诀：纬线横着看南北，经线竖着分东西。</div>`,
+    biology:`<div class="lesson-title"><h3>🧬 生物：细胞</h3><span class="lesson-chip">第1课</span></div>
+      <p>细胞是生物体结构和功能的基本单位。大多数细胞由细胞膜、细胞质和遗传物质组成。</p>`,
+    physics:`<div class="lesson-title"><h3>⚙️ 物理：速度</h3><span class="lesson-chip">第1课</span></div>
+      <p>速度表示物体运动的快慢。基础关系是：速度 = 路程 ÷ 时间。</p>
+      <p class="muted">例：100米用了20秒，平均速度是5米/秒。</p>`,
+    chemistry:`<div class="lesson-title"><h3>🧪 化学：元素与原子</h3><span class="lesson-chip">第1课</span></div>
+      <p>元素是具有相同核电荷数的一类原子的总称。H代表氢，O代表氧，C代表碳。</p>
+      <div class="notice">H₂O表示一个水分子由2个氢原子和1个氧原子组成。</div>`
+  };
+  p.innerHTML=lessons[subject]||'<p>课程准备中。</p>';
+  p.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function checkCourseMath(){
+  const v=+document.getElementById('courseMathAnswer').value;
+  const r=document.getElementById('courseMathResult');
+  if(v===6){r.className='notice';r.textContent='答对了！先减6得到2x=12，再除以2，x=6。🎉'}
+  else{r.className='notice error';r.textContent='再想一想：等式两边先同时减去6。'}
+}
+
 function setMood(n){
   const faces=['😞','😕','🙂','😊','🤩'];document.getElementById('moodFace').textContent=faces[n-1];
   document.getElementById('moodText').textContent=['今天有点累，慢慢来。','还可以，明天继续。','平稳的一天。','很不错的一天！','超级棒的一天！'][n-1];
