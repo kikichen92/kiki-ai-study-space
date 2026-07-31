@@ -2,179 +2,93 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f5efe6">
-<title>Kiki's Study Space</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kiki's Study Space V2</title>
 <style>
-:root{
-  --bg:#f5efe6;--paper:#fffaf3;--paper2:#f8f1e7;--ink:#433d37;--muted:#8b8278;
-  --line:#e7dbcc;--sage:#7f9475;--sage2:#e8efe4;--wood:#b79572;
-  --shadow:0 16px 38px rgba(84,68,49,.10);--radius:24px
-}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{
-  margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-  color:var(--ink);background:radial-gradient(circle at 5% 0%,#fff,transparent 30%),linear-gradient(135deg,#faf6ef,#eee2d3);
-  min-height:100vh
-}
-button,input,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-.app{display:grid;grid-template-columns:238px 1fr;min-height:100vh}
-.sidebar{position:sticky;top:0;height:100vh;padding:26px 18px;background:rgba(255,250,243,.9);backdrop-filter:blur(18px);border-right:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:12px;margin:4px 8px 28px}.logo{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:var(--sage);color:white;font-size:22px;box-shadow:0 10px 24px rgba(127,148,117,.25)}
-.brand strong{display:block}.brand small{color:var(--muted);font-size:10px;letter-spacing:.1em}
-.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;padding:13px 14px;border-radius:14px;color:var(--muted);text-align:left;display:flex;gap:11px;align-items:center;width:100%}
-.nav button.active,.nav button:hover{background:#eee6db;color:var(--ink)}
-.side-note{position:absolute;left:18px;right:18px;bottom:22px;background:#eee7dd;border-radius:17px;padding:15px;color:var(--muted);font-size:12px;line-height:1.65}
-main{padding:32px;max-width:1440px;width:100%;margin:auto}.view{display:none}.view.active{display:block}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}.top h1{font-size:30px;margin:0 0 6px}.top p{margin:0;color:var(--muted)}
-.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#ead7bd;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}.card{background:rgba(255,250,243,.96);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-.hero{grid-column:span 8;min-height:218px;position:relative;overflow:hidden}.hero:after{content:"🌿";position:absolute;right:28px;bottom:10px;font-size:96px;opacity:.15}.progress{grid-column:span 4}.tasks{grid-column:span 5}.english{grid-column:span 7}.third{grid-column:span 4}.full{grid-column:span 12}
-.eyebrow{font-size:12px;letter-spacing:.15em;color:var(--sage);text-transform:uppercase}.muted{color:var(--muted);line-height:1.75}
-h2{font-size:29px;line-height:1.25;margin:11px 0}h3{margin:0 0 15px}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:14px;padding:12px 18px;background:var(--sage);color:#fff;margin-top:12px}
-.btn.secondary{background:var(--sage2);color:#607059}.btn.wood{background:var(--wood)}
-.ring{width:116px;height:116px;border-radius:50%;background:conic-gradient(var(--sage) 0 68%,#e7dfd5 68%);display:grid;place-items:center;margin:12px auto}.ring strong{width:84px;height:84px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-size:23px}
-.task{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.task input{width:20px;height:20px;accent-color:var(--sage)}.task input:checked+label{text-decoration:line-through;color:#aaa}
-.word{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 14px;border-radius:15px;background:var(--paper2);margin-bottom:10px}.word b{display:block}.word small{color:var(--muted)}.sound{border:0;border-radius:999px;background:#e5eee1;padding:8px 11px}
-.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric{padding:14px;border-radius:16px;background:var(--paper2)}.metric strong{display:block;font-size:18px;margin-top:5px}
-.notice{padding:14px 16px;border-radius:15px;background:#edf2e9;color:#5f6f58;margin:14px 0}
-textarea,input[type=text],input[type=number],input[type=date]{width:100%;border:1px solid var(--line);border-radius:15px;background:#fffdf9;padding:13px;margin-top:8px}textarea{min-height:130px;resize:vertical}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.section-title h1{margin:0}
-.list-item{padding:14px 0;border-bottom:1px solid var(--line)}.list-item:last-child{border-bottom:0}.chip{display:inline-flex;padding:8px 11px;border-radius:999px;background:var(--sage2);margin:0 7px 8px 0;font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat{background:var(--paper2);padding:18px;border-radius:18px}.stat strong{display:block;font-size:26px;margin-top:6px}
-.toast{position:fixed;right:22px;bottom:22px;background:#433d37;color:white;border-radius:14px;padding:13px 17px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:50}.toast.show{opacity:1;transform:none}
-@media(max-width:960px){.app{grid-template-columns:84px 1fr}.brand>div:last-child,.nav span,.side-note{display:none}.brand{justify-content:center}.nav button{justify-content:center;font-size:20px}.hero,.progress,.tasks,.english,.third{grid-column:span 12}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.app{display:block}.sidebar{position:fixed;z-index:30;left:0;right:0;bottom:0;top:auto;height:auto;padding:8px;border-top:1px solid var(--line);border-right:0}.brand,.side-note{display:none}.nav{display:flex;justify-content:space-around}.nav button{padding:9px 10px}.nav button:nth-child(n+6){display:none}.nav span{display:none}main{padding:22px 15px 92px}.top h1{font-size:25px}.grid{display:block}.card{margin-bottom:16px}.hero h2{font-size:26px}.form-grid,.stats{grid-template-columns:1fr 1fr}}
+:root{--bg:#f4eee5;--paper:#fffaf3;--ink:#433d37;--muted:#8b8177;--line:#e6dacb;--green:#7f9475;--soft:#e7eee3;--shadow:0 14px 34px rgba(80,64,45,.1)}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#faf6ef,#eee1d1);color:var(--ink)}
+button,input,textarea{font:inherit}.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{padding:24px 18px;background:rgba(255,250,243,.92);border-right:1px solid var(--line);position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:11px;align-items:center;margin-bottom:26px}.logo{width:44px;height:44px;border-radius:15px;background:var(--green);display:grid;place-items:center;color:white}
+nav{display:grid;gap:7px}nav button{border:0;background:transparent;text-align:left;padding:13px;border-radius:14px;color:var(--muted)}nav button.active{background:#eee6db;color:var(--ink)}
+main{padding:30px;max-width:1350px;width:100%;margin:auto}.view{display:none}.view.active{display:block}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.top h1{margin:0 0 6px}.muted{color:var(--muted);line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:17px}.card{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:21px;box-shadow:var(--shadow)}
+.hero{grid-column:span 8}.progress{grid-column:span 4}.tasks{grid-column:span 5}.english{grid-column:span 7}.third{grid-column:span 4}
+.btn{border:0;border-radius:14px;padding:12px 17px;background:var(--green);color:white;margin-top:12px}.secondary{background:var(--soft);color:#607059}
+.task{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.task input{width:20px;height:20px;accent-color:var(--green)}.task input:checked+label{text-decoration:line-through;color:#aaa}
+.word{display:flex;justify-content:space-between;gap:10px;padding:13px;background:#f8f1e8;border-radius:15px;margin-bottom:9px}.word small{display:block;color:var(--muted)}.sound{border:0;border-radius:999px;background:#e5eee1;padding:8px 10px}
+.metric{background:#f8f1e8;padding:14px;border-radius:15px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric strong{display:block;font-size:18px}
+.section{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.section h1{margin:0}
+textarea,input[type=text],input[type=number],input[type=date]{width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;margin-top:7px}textarea{min-height:130px}
+.notice{background:#edf2e9;color:#5f6f58;padding:14px;border-radius:14px;margin:14px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:#f8f1e8;padding:17px;border-radius:17px}.stat strong{display:block;font-size:25px}
+@media(max-width:900px){.app{grid-template-columns:80px 1fr}.brand span,nav span{display:none}.hero,.progress,.tasks,.english,.third{grid-column:span 12}}
+@media(max-width:640px){.app{display:block}aside{position:fixed;z-index:20;bottom:0;left:0;right:0;top:auto;height:auto;padding:8px}aside .brand{display:none}nav{display:flex;justify-content:space-around}nav button:nth-child(n+6){display:none}main{padding:20px 14px 86px}.grid{display:block}.card{margin-bottom:15px}.stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="app">
-<aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki's Study Space</strong><small>LEARN · GROW · LIVE</small></div></div>
-  <nav class="nav">
-    <button class="active" data-view="home">🏡 <span>首页工作台</span></button>
-    <button data-view="english">🇺🇸 <span>英语学习</span></button>
-    <button data-view="reading">📖 <span>阅读笔记</span></button>
-    <button data-view="math">🧮 <span>数学练习</span></button>
-    <button data-view="baby">👶 <span>宝宝成长</span></button>
-    <button data-view="goals">🎯 <span>目标计划</span></button>
-    <button data-view="stats">📊 <span>学习统计</span></button>
-  </nav>
-  <div class="side-note">一天不用完成很多，持续前进一点点就很好。</div>
+<aside>
+<div class="brand"><div class="logo">🌿</div><span><b>Kiki's Study Space</b><br><small>Every day, a little progress.</small></span></div>
+<nav>
+<button class="active" data-v="home">🏡 <span>首页</span></button>
+<button data-v="english">🇺🇸 <span>英语</span></button>
+<button data-v="courses">🎓 <span>高中课程</span></button>
+<button data-v="reading">📖 <span>阅读</span></button>
+<button data-v="baby">👶 <span>宝宝成长</span></button>
+<button data-v="goals">🎯 <span>目标</span></button>
+<button data-v="stats">📊 <span>统计</span></button>
+</nav>
 </aside>
-
 <main>
 <section id="home" class="view active">
-  <div class="top"><div><h1>欢迎回来，Kiki ☕</h1><p id="todayText">今天也一起前进一步。</p></div><div class="avatar">K</div></div>
-  <div class="grid">
-    <article class="card hero"><div class="eyebrow">Today's Focus</div><h2>每天前进一小步，终将带来巨大的改变。</h2><p class="muted">今天安排 20 分钟英语、阅读《活着》10 页，再完成一道数学练习。忙碌的日子里，完成一点点也算进步。</p><button class="btn" onclick="openView('english')">开始今天的学习</button></article>
-    <article class="card progress"><div class="eyebrow">Weekly Progress</div><h3 style="margin-top:8px">本周学习进度</h3><div class="ring"><strong>68%</strong></div><p class="muted">已连续学习 6 天 · 本周完成 17 项</p></article>
-    <article class="card tasks"><h3>✅ 今日任务</h3>
-      <div class="task"><input data-store="task1" id="task1" type="checkbox" checked><label for="task1">复习昨天的英语单词</label></div>
-      <div class="task"><input data-store="task2" id="task2" type="checkbox"><label for="task2">学习 10 个新单词</label></div>
-      <div class="task"><input data-store="task3" id="task3" type="checkbox"><label for="task3">阅读《活着》10 页</label></div>
-      <div class="task"><input data-store="task4" id="task4" type="checkbox"><label for="task4">完成一道数学练习</label></div>
-    </article>
-    <article class="card english"><h3>🇺🇸 今日英语</h3>
-      <div class="word"><div><b>progress</b><small>/ˈprɑːɡres/ · 进步</small></div><button class="sound" onclick="speak('progress')">🔊</button></div>
-      <div class="word"><div><b>schedule</b><small>/ˈskedʒuːl/ · 日程</small></div><button class="sound" onclick="speak('schedule')">🔊</button></div>
-      <button class="btn secondary" onclick="openView('english')">查看全部单词</button>
-    </article>
-    <article class="card third"><h3>📖 《活着》</h3><p class="muted">已读 92 页<br>今日目标：10 页<br>全书进度约 46%</p><button class="btn secondary" onclick="openView('reading')">记录阅读</button></article>
-    <article class="card third"><h3>👶 宝宝成长</h3><div class="metric-grid"><div class="metric">月龄<strong>6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">辅食<strong>米糊</strong></div></div><button class="btn secondary" onclick="openView('baby')">添加记录</button></article>
-    <article class="card third"><h3>🎯 长期目标</h3><span class="chip">医疗口译</span><span class="chip">高中自学</span><span class="chip">每天英语10词</span><span class="chip">坚持阅读</span><button class="btn secondary" onclick="openView('goals')">查看目标</button></article>
-  </div>
-</section>
+<div class="top"><div><h1>欢迎回来，Kiki ☕</h1><p class="muted" id="date"></p></div><b>K</b></div>
+<div class="grid">
+<div class="card hero"><small style="color:var(--green)">TODAY'S FOCUS</small><h2>每天学习一点点，不急着追赶别人，只认真成为更好的自己。</h2><p class="muted">今天先完成20分钟英语、阅读《活着》10页，再做一道数学练习。</p><button class="btn" onclick="openV('english')">开始今天的学习</button></div>
+<div class="card progress"><h3>本周学习进度</h3><h1 style="text-align:center">68%</h1><p class="muted">连续学习6天 · 完成17项</p></div>
+<div class="card tasks"><h3>✅ 今日任务</h3>
+<div class="task"><input data-k="t1" type="checkbox" checked><label>复习昨天单词</label></div>
+<div class="task"><input data-k="t2" type="checkbox"><label>学习10个新单词</label></div>
+<div class="task"><input data-k="t3" type="checkbox"><label>阅读《活着》10页</label></div>
+<div class="task"><input data-k="t4" type="checkbox"><label>完成一道数学题</label></div></div>
+<div class="card english"><h3>🇺🇸 今日英语</h3><div class="word"><div><b>progress</b><small>/ˈprɑːɡres/ · 进步</small></div><button class="sound" onclick="say('progress')">🔊</button></div><div class="word"><div><b>schedule</b><small>/ˈskedʒuːl/ · 日程</small></div><button class="sound" onclick="say('schedule')">🔊</button></div><button class="btn secondary" onclick="openV('english')">学习10词</button></div>
+<div class="card third"><h3>📖 阅读</h3><p class="muted">《活着》已读92页<br>今日目标10页</p><button class="btn secondary" onclick="openV('reading')">记录阅读</button></div>
+<div class="card third"><h3>👶 宝宝成长</h3><div class="metrics"><div class="metric">月龄<strong>6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">辅食<strong>米糊</strong></div></div><button class="btn secondary" onclick="openV('baby')">添加记录</button></div>
+<div class="card third"><h3>🎯 我的方向</h3><p class="muted">持续学习<br>医疗口译<br>高中自学<br>坚持阅读</p><button class="btn secondary" onclick="openV('goals')">查看目标</button></div>
+</div></section>
 
-<section id="english" class="view">
-  <div class="section-title"><h1>🇺🇸 英语学习</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
-  <div class="card"><h3>今日 10 词 · American English</h3>
-    <div class="word"><div><b>progress</b><small>/ˈprɑːɡres/ · 进步</small></div><button class="sound" onclick="speak('progress')">🔊 美式发音</button></div>
-    <div class="word"><div><b>schedule</b><small>/ˈskedʒuːl/ · 日程</small></div><button class="sound" onclick="speak('schedule')">🔊 美式发音</button></div>
-    <div class="word"><div><b>available</b><small>/əˈveɪləbəl/ · 有空的</small></div><button class="sound" onclick="speak('available')">🔊 美式发音</button></div>
-    <div class="word"><div><b>appointment</b><small>/əˈpɔɪntmənt/ · 预约</small></div><button class="sound" onclick="speak('appointment')">🔊 美式发音</button></div>
-    <div class="word"><div><b>insurance</b><small>/ɪnˈʃʊrəns/ · 保险</small></div><button class="sound" onclick="speak('insurance')">🔊 美式发音</button></div>
-    <div class="word"><div><b>receipt</b><small>/rɪˈsiːt/ · 收据</small></div><button class="sound" onclick="speak('receipt')">🔊 美式发音</button></div>
-    <div class="word"><div><b>practice</b><small>/ˈpræktɪs/ · 练习</small></div><button class="sound" onclick="speak('practice')">🔊 美式发音</button></div>
-    <div class="word"><div><b>improve</b><small>/ɪmˈpruːv/ · 提高</small></div><button class="sound" onclick="speak('improve')">🔊 美式发音</button></div>
-    <div class="word"><div><b>patient</b><small>/ˈpeɪʃənt/ · 病人；耐心的</small></div><button class="sound" onclick="speak('patient')">🔊 美式发音</button></div>
-    <div class="word"><div><b>continue</b><small>/kənˈtɪnjuː/ · 继续</small></div><button class="sound" onclick="speak('continue')">🔊 美式发音</button></div>
-    <div class="notice"><b>今日一句：</b> Small steps every day lead to big changes. <button class="sound" onclick="speak('Small steps every day lead to big changes.')">🔊</button></div>
-  </div>
-</section>
+<section id="english" class="view"><div class="section"><h1>🇺🇸 英语学习</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h3>今日10词</h3>
+<div class="word"><div><b>progress</b><small>/ˈprɑːɡres/ · 进步</small></div><button class="sound" onclick="say('progress')">🔊</button></div>
+<div class="word"><div><b>schedule</b><small>/ˈskedʒuːl/ · 日程</small></div><button class="sound" onclick="say('schedule')">🔊</button></div>
+<div class="word"><div><b>available</b><small>/əˈveɪləbəl/ · 有空的</small></div><button class="sound" onclick="say('available')">🔊</button></div>
+<div class="word"><div><b>appointment</b><small>/əˈpɔɪntmənt/ · 预约</small></div><button class="sound" onclick="say('appointment')">🔊</button></div>
+<div class="word"><div><b>insurance</b><small>/ɪnˈʃʊrəns/ · 保险</small></div><button class="sound" onclick="say('insurance')">🔊</button></div>
+<div class="word"><div><b>receipt</b><small>/rɪˈsiːt/ · 收据</small></div><button class="sound" onclick="say('receipt')">🔊</button></div>
+<div class="word"><div><b>practice</b><small>/ˈpræktɪs/ · 练习</small></div><button class="sound" onclick="say('practice')">🔊</button></div>
+<div class="word"><div><b>improve</b><small>/ɪmˈpruːv/ · 提高</small></div><button class="sound" onclick="say('improve')">🔊</button></div>
+<div class="word"><div><b>patient</b><small>/ˈpeɪʃənt/ · 病人；耐心的</small></div><button class="sound" onclick="say('patient')">🔊</button></div>
+<div class="word"><div><b>continue</b><small>/kənˈtɪnjuː/ · 继续</small></div><button class="sound" onclick="say('continue')">🔊</button></div>
+<div class="notice">Small steps every day lead to big changes. <button class="sound" onclick="say('Small steps every day lead to big changes.')">🔊</button></div></div></section>
 
-<section id="reading" class="view">
-  <div class="section-title"><h1>📖 阅读笔记</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
-  <div class="card">
-    <h2>《活着》</h2><p class="muted">当前进度：92 页 · 今日目标：10 页</p>
-    <label>今天读到第几页？</label><input data-store="readingPage" type="number" value="92">
-    <label>今天的阅读感悟</label><textarea data-store="readingNote" placeholder="写下今天最打动你的一句话……"></textarea>
-    <button class="btn" onclick="saveToast('阅读笔记已保存')">保存笔记</button>
-  </div>
-</section>
+<section id="courses" class="view"><div class="section"><h1>🎓 高中课程</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h3>今日数学</h3><p style="font-size:22px">3x + 5 = 20，x 等于多少？</p><details><summary class="btn">查看答案</summary><p class="muted">3x=15，所以x=5。</p></details><div class="notice">今天只学15分钟，也算完成。</div></div></section>
 
-<section id="math" class="view">
-  <div class="section-title"><h1>🧮 数学练习</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
-  <div class="card"><h3>今日练习</h3><p style="font-size:23px">3x + 5 = 20，x 等于多少？</p><div class="notice">提示：先把 5 移到等号右边。</div><details><summary class="btn">查看答案</summary><p class="muted">3x = 15，所以 x = 5。</p></details></div>
-</section>
+<section id="reading" class="view"><div class="section"><h1>📖 阅读中心</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h2>《活着》</h2><label>今天读到第几页</label><input data-k="rp" type="number" value="92"><label>阅读感悟</label><textarea data-k="rn" placeholder="写下最打动你的一句话"></textarea><button class="btn" onclick="save('阅读笔记已保存')">保存</button></div></section>
 
-<section id="baby" class="view">
-  <div class="section-title"><h1>👶 宝宝成长</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
-  <div class="card">
-    <div class="metric-grid"><div class="metric">月龄<strong>6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">今日辅食<strong>米糊</strong></div></div>
-    <h3 style="margin-top:22px">添加今日记录</h3>
-    <div class="form-grid"><div><label>日期</label><input data-store="babyDate" type="date"></div><div><label>辅食</label><input data-store="babyFood" type="text" placeholder="例如：米糊"></div></div>
-    <label>睡眠、便便或成长变化</label><textarea data-store="babyNote" placeholder="记录宝宝今天的变化……"></textarea>
-    <button class="btn" onclick="saveToast('宝宝记录已保存')">保存记录</button>
-  </div>
-</section>
+<section id="baby" class="view"><div class="section"><h1>👶 宝宝成长</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><div class="metrics"><div class="metric">月龄<strong>6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">辅食<strong>米糊</strong></div></div><h3 style="margin-top:20px">今日记录</h3><input data-k="bf" type="text" placeholder="今天吃了什么"><textarea data-k="bn" placeholder="睡眠、便便或成长变化"></textarea><button class="btn" onclick="save('宝宝记录已保存')">保存</button></div></section>
 
-<section id="goals" class="view">
-  <div class="section-title"><h1>🎯 目标计划</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
-  <div class="card">
-    <div class="task"><input data-store="goal1" id="goal1" type="checkbox"><label for="goal1">每天学习 10 个英语单词</label></div>
-    <div class="task"><input data-store="goal2" id="goal2" type="checkbox"><label for="goal2">系统学完高中课程</label></div>
-    <div class="task"><input data-store="goal3" id="goal3" type="checkbox"><label for="goal3">学习医疗英语，准备医疗口译</label></div>
-    <div class="task"><input data-store="goal4" id="goal4" type="checkbox"><label for="goal4">坚持阅读并记录感悟</label></div>
-    <div class="task"><input data-store="goal5" id="goal5" type="checkbox"><label for="goal5">完成 Kiki's Study Space</label></div>
-  </div>
-</section>
+<section id="goals" class="view"><div class="section"><h1>🎯 目标计划</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card">
+<div class="task"><input data-k="g1" type="checkbox"><label>每天学习10个英语单词</label></div>
+<div class="task"><input data-k="g2" type="checkbox"><label>系统学习高中课程</label></div>
+<div class="task"><input data-k="g3" type="checkbox"><label>准备医疗口译</label></div>
+<div class="task"><input data-k="g4" type="checkbox"><label>坚持阅读并记录</label></div>
+<div class="task"><input data-k="g5" type="checkbox"><label>持续学习，不轻易放弃</label></div></div></section>
 
-<section id="stats" class="view">
-  <div class="section-title"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
-  <div class="stats">
-    <div class="stat">连续学习<strong>6 天</strong></div><div class="stat">本周任务<strong>17 项</strong></div><div class="stat">累计单词<strong>60 个</strong></div><div class="stat">阅读页数<strong>92 页</strong></div>
-  </div>
-  <div class="card" style="margin-top:18px"><h3>本周进度</h3><div class="notice">当前完成率 68%。保持每天一点点，进度会自动累积。</div></div>
-</section>
-</main>
-</div>
-<div id="toast" class="toast"></div>
+<section id="stats" class="view"><div class="section"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="stats"><div class="stat">连续学习<strong>6天</strong></div><div class="stat">本周任务<strong>17项</strong></div><div class="stat">累计单词<strong>60个</strong></div><div class="stat">阅读页数<strong>92页</strong></div></div></section>
+</main></div>
 <script>
-function openView(id){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function speak(text){
-  if(!('speechSynthesis' in window)){alert('请使用 Safari 打开网站后再试。');return}
-  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.86;speechSynthesis.speak(u)
-}
-function saveToast(msg){
-  document.querySelectorAll('[data-store]').forEach(el=>{
-    localStorage.setItem(el.dataset.store,el.type==='checkbox'?String(el.checked):el.value)
-  });
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  const d=new Date();document.getElementById('todayText').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';
-  document.querySelectorAll('[data-store]').forEach(el=>{
-    const s=localStorage.getItem(el.dataset.store);
-    if(s!==null){if(el.type==='checkbox')el.checked=s==='true';else el.value=s}
-    el.addEventListener('change',()=>localStorage.setItem(el.dataset.store,el.type==='checkbox'?String(el.checked):el.value))
-  })
-})
+function openV(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.v===id));scrollTo(0,0)}
+function say(t){if(!('speechSynthesis'in window)){alert('请用Safari打开');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.86;speechSynthesis.speak(u)}
+function save(m){document.querySelectorAll('[data-k]').forEach(e=>localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value));alert(m)}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';document.querySelectorAll('[data-k]').forEach(e=>{let v=localStorage.getItem(e.dataset.k);if(v!==null){e.type==='checkbox'?e.checked=v==='true':e.value=v}e.onchange=()=>localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value)})})
 </script>
-</body>
-</html>
+</body></html>
