@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#efe3d4">
-<title>Kiki's Study Space V6.1</title>
+<title>Kiki's Study Space V6.2</title>
 <style>
 :root{
   --bg:#eadfce;--paper:#fffaf2;--soft:#f6ede2;--soft2:#eee0d0;--ink:#433b35;--muted:#8e8176;
@@ -171,7 +171,7 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
         <div class="metric">语文<strong>阅读</strong></div>
         <div class="metric">理科<strong>物化生</strong></div>
       </div>
-      <p class="muted">数学、英语、语文、历史、地理、生物、物理、化学都已加回。</p>
+      <p class="muted">八个科目会根据今天的日期，自动切换当天课题和练习。</p>
       <button class="btn" onclick="openV('highschool')">进入高中课程</button>
     </div>
 
@@ -210,15 +210,19 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
 
 <section id="highschool" class="view">
   <div class="section-head"><div><h2>🎓 高中课程</h2><p class="muted">先从基础开始，每天完成一个小知识点。</p></div><button class="btn secondary" onclick="openV('home')">返回</button></div>
-  <div class="subjects-grid">
-    <div class="subject-card"><div class="emoji">🧮</div><h3>数学</h3><p>数与代数、一元一次方程、函数基础。</p><button class="btn" onclick="openLesson('math')">开始学习</button></div>
-    <div class="subject-card"><div class="emoji">🔤</div><h3>英语</h3><p>高中词汇、语法、阅读理解和写作。</p><button class="btn" onclick="openLesson('englishCourse')">开始学习</button></div>
-    <div class="subject-card"><div class="emoji">📖</div><h3>语文</h3><p>现代文阅读、中心思想、古诗文基础。</p><button class="btn" onclick="openLesson('chinese')">开始学习</button></div>
-    <div class="subject-card"><div class="emoji">📜</div><h3>历史</h3><p>中国古代史、近代史和世界史时间线。</p><button class="btn" onclick="openLesson('history')">开始学习</button></div>
-    <div class="subject-card"><div class="emoji">🌍</div><h3>地理</h3><p>地图、经纬度、气候和人口城市。</p><button class="btn" onclick="openLesson('geography')">开始学习</button></div>
-    <div class="subject-card"><div class="emoji">🧬</div><h3>生物</h3><p>细胞、遗传、人体系统与生态。</p><button class="btn" onclick="openLesson('biology')">开始学习</button></div>
-    <div class="subject-card"><div class="emoji">⚙️</div><h3>物理</h3><p>运动、力、能量、电学和实验基础。</p><button class="btn" onclick="openLesson('physics')">开始学习</button></div>
-    <div class="subject-card"><div class="emoji">🧪</div><h3>化学</h3><p>元素、原子、化学式和常见反应。</p><button class="btn" onclick="openLesson('chemistry')">开始学习</button></div>
+  <div class="card" style="margin-bottom:14px">
+<div class="lesson-title"><h3>📅 今日自动课程</h3><span class="lesson-chip" id="dailyCourseDate"></span></div>
+<p class="muted">每天打开时自动换课，无需联网，也不会产生费用。</p>
+</div>
+<div class="subjects-grid">
+    <div class="subject-card"><div class="emoji">🧮</div><h3>数学</h3><p id="desc-math">数与代数、一元一次方程、函数基础。</p><button class="btn" onclick="openLesson('math')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🔤</div><h3>英语</h3><p id="desc-englishCourse">高中词汇、语法、阅读理解和写作。</p><button class="btn" onclick="openLesson('englishCourse')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">📖</div><h3>语文</h3><p id="desc-chinese">现代文阅读、中心思想、古诗文基础。</p><button class="btn" onclick="openLesson('chinese')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">📜</div><h3>历史</h3><p id="desc-history">中国古代史、近代史和世界史时间线。</p><button class="btn" onclick="openLesson('history')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🌍</div><h3>地理</h3><p id="desc-geography">地图、经纬度、气候和人口城市。</p><button class="btn" onclick="openLesson('geography')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🧬</div><h3>生物</h3><p id="desc-biology">细胞、遗传、人体系统与生态。</p><button class="btn" onclick="openLesson('biology')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">⚙️</div><h3>物理</h3><p id="desc-physics">运动、力、能量、电学和实验基础。</p><button class="btn" onclick="openLesson('physics')">开始学习</button></div>
+    <div class="subject-card"><div class="emoji">🧪</div><h3>化学</h3><p id="desc-chemistry">元素、原子、化学式和常见反应。</p><button class="btn" onclick="openLesson('chemistry')">开始学习</button></div>
   </div>
   <div class="card lesson-box" id="lessonPanel">
     <div class="lesson-title"><h3>今日建议</h3><span class="lesson-chip">基础阶段</span></div>
@@ -311,44 +315,83 @@ function completion(){
   return Math.round(done/all.length*100);
 }
 
-function openLesson(subject){
-  const p=document.getElementById('lessonPanel');
-  const lessons={
-    math:`<div class="lesson-title"><h3>🧮 数学：一元一次方程</h3><span class="lesson-chip">第1课</span></div>
-      <p>等式两边做相同的运算，等式仍然成立。</p>
-      <p style="font-size:22px"><b>2x + 6 = 18</b></p>
-      <input id="courseMathAnswer" type="number" placeholder="x 等于多少？">
-      <button class="btn" onclick="checkCourseMath()">检查答案</button><div id="courseMathResult"></div>`,
-    englishCourse:`<div class="lesson-title"><h3>🔤 英语：高中基础词汇</h3><span class="lesson-chip">第1课</span></div>
-      <span class="lesson-chip">education 教育</span><span class="lesson-chip">environment 环境</span><span class="lesson-chip">experience 经历</span>
-      <p class="muted">例句：Education can change a person's future. 教育可以改变一个人的未来。</p>
-      <button class="btn" onclick="say('Education can change a person\\'s future.')">播放例句</button>`,
-    chinese:`<div class="lesson-title"><h3>📖 语文：中心思想</h3><span class="lesson-chip">第1课</span></div>
-      <p>概括中心思想时，可以按“文章写了什么 + 表达了什么感情或道理”来回答。</p>
-      <div class="notice">例：文章通过福贵一生的经历，表现了人在苦难中依然顽强活着的力量。</div>`,
-    history:`<div class="lesson-title"><h3>📜 历史：中国早期朝代</h3><span class="lesson-chip">第1课</span></div>
-      <p style="font-size:21px"><b>夏 → 商 → 周 → 秦 → 汉</b></p>
-      <p class="muted">先记住顺序，再慢慢补充每个朝代的重要人物和事件。</p>`,
-    geography:`<div class="lesson-title"><h3>🌍 地理：经纬度</h3><span class="lesson-chip">第1课</span></div>
-      <p>纬线表示南北位置，经线表示东西位置。赤道是0°纬线，本初子午线是0°经线。</p>
-      <div class="notice">口诀：纬线横着看南北，经线竖着分东西。</div>`,
-    biology:`<div class="lesson-title"><h3>🧬 生物：细胞</h3><span class="lesson-chip">第1课</span></div>
-      <p>细胞是生物体结构和功能的基本单位。大多数细胞由细胞膜、细胞质和遗传物质组成。</p>`,
-    physics:`<div class="lesson-title"><h3>⚙️ 物理：速度</h3><span class="lesson-chip">第1课</span></div>
-      <p>速度表示物体运动的快慢。基础关系是：速度 = 路程 ÷ 时间。</p>
-      <p class="muted">例：100米用了20秒，平均速度是5米/秒。</p>`,
-    chemistry:`<div class="lesson-title"><h3>🧪 化学：元素与原子</h3><span class="lesson-chip">第1课</span></div>
-      <p>元素是具有相同核电荷数的一类原子的总称。H代表氢，O代表氧，C代表碳。</p>
-      <div class="notice">H₂O表示一个水分子由2个氢原子和1个氧原子组成。</div>`
-  };
-  p.innerHTML=lessons[subject]||'<p>课程准备中。</p>';
-  p.scrollIntoView({behavior:'smooth',block:'start'});
+
+const dailyCourses={
+math:[
+['一元一次方程','2x + 6 = 18，x等于多少？','6'],
+['正负数','-3 + 7 等于多少？','4'],
+['一次函数','y=2x+1，x=3时，y等于多少？','7'],
+['百分数','25%写成小数是多少？','0.25'],
+['分数加法','1/3 + 1/6 等于多少？','1/2']],
+englishCourse:[
+['日常生活词汇','wake up 起床；prepare 准备；finish 完成',''],
+['医疗英语','appointment 预约；symptom 症状；treatment 治疗',''],
+['一般过去时','I studied English yesterday.',''],
+['阅读技巧','先看题目，再在文章中找关键词。',''],
+['英文句子','主语 + 动词 + 其他内容。','']],
+chinese:[
+['中心思想','文章写了什么 + 表达了什么感情或道理。',''],
+['人物描写','动作、语言、神态和心理描写。',''],
+['修辞手法','比喻、拟人和排比。',''],
+['段落作用','开头引出下文，结尾点题或升华。',''],
+['古诗基础','先找景物，再判断诗人的感情。','']],
+history:[
+['夏商周','夏 → 商 → 周',''],
+['秦统一','秦统一文字、货币和度量衡。',''],
+['汉朝','丝绸之路促进了中外交流。',''],
+['唐朝','唐朝经济文化繁荣，对外交流活跃。',''],
+['近代中国','1840年鸦片战争是中国近代史的重要开端。','']],
+geography:[
+['经纬度','纬线分南北，经线分东西。',''],
+['气候类型','气候受纬度、海陆位置和地形影响。',''],
+['地图比例尺','比例尺越大，内容越详细。',''],
+['人口与城市','平原、沿海地区人口通常更集中。',''],
+['地形','山地、平原、高原和盆地。','']],
+biology:[
+['细胞','细胞是生命活动的基本单位。',''],
+['消化系统','小肠是消化和吸收的重要场所。',''],
+['呼吸系统','肺泡是气体交换的重要结构。',''],
+['遗传','基因控制生物的性状。',''],
+['生态系统','包括生物部分和非生物环境。','']],
+physics:[
+['速度','速度 = 路程 ÷ 时间。',''],
+['牛顿第一定律','没有外力时保持静止或匀速直线运动。',''],
+['重力','重力方向总是竖直向下。',''],
+['功和能','力使物体沿力方向移动时，力做功。',''],
+['电路基础','闭合电路中才可能有持续电流。','']],
+chemistry:[
+['元素与原子','H代表氢，O代表氧，C代表碳。',''],
+['化学式','H₂O含2个氢原子和1个氧原子。',''],
+['物理与化学变化','冰融化是物理变化，铁生锈是化学变化。',''],
+['酸碱基础','柠檬汁偏酸性，肥皂水通常偏碱性。',''],
+['质量守恒','化学反应前后物质总质量不变。','']]
+};
+function localDayNumber(){
+ const d=new Date();
+ return Math.floor(new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime()/86400000);
 }
-function checkCourseMath(){
-  const v=+document.getElementById('courseMathAnswer').value;
-  const r=document.getElementById('courseMathResult');
-  if(v===6){r.className='notice';r.textContent='答对了！先减6得到2x=12，再除以2，x=6。🎉'}
-  else{r.className='notice error';r.textContent='再想一想：等式两边先同时减去6。'}
+function dailyIndex(subject){return (localDayNumber()+Object.keys(dailyCourses).indexOf(subject)*2)%dailyCourses[subject].length}
+function updateDailyDescriptions(){
+ Object.keys(dailyCourses).forEach(s=>{
+   const item=dailyCourses[s][dailyIndex(s)],el=document.getElementById('desc-'+s);
+   if(el)el.textContent='今日：'+item[0]+'｜'+item[1];
+ });
+ const d=document.getElementById('dailyCourseDate');
+ if(d)d.textContent=new Date().toLocaleDateString('zh-CN',{month:'long',day:'numeric',weekday:'short'});
+}
+function openLesson(subject){
+ const item=dailyCourses[subject][dailyIndex(subject)];
+ let exercise='';
+ if(item[2]) exercise=`<input id="dailyAnswer" type="text" placeholder="输入答案"><button class="btn" onclick="checkDailyAnswer('${item[2]}')">检查答案</button><div id="dailyResult"></div>`;
+ if(subject==='englishCourse') exercise+=`<button class="btn secondary" onclick="say('${item[1].replaceAll("'","")}')">播放内容</button>`;
+ document.getElementById('lessonPanel').innerHTML=`<div class="lesson-title"><h3>${item[0]}</h3><span class="lesson-chip">今日课程</span></div><div class="notice">${item[1]}</div>${exercise}<p class="muted">明天打开时，这个科目会自动换课。</p>`;
+ document.getElementById('lessonPanel').scrollIntoView({behavior:'smooth'});
+}
+function checkDailyAnswer(answer){
+ const v=document.getElementById('dailyAnswer').value.trim().toLowerCase();
+ const r=document.getElementById('dailyResult');
+ if(v===String(answer).toLowerCase()){r.className='notice';r.textContent='回答正确！🎉'}
+ else{r.className='notice error';r.textContent='再想一想，然后重新回答。'}
 }
 
 function setMood(n){
@@ -397,7 +440,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     e.onchange=()=>{localStorage.setItem('v6-'+e.dataset.k,e.checked);refresh()}
   });
   const mood=+(localStorage.getItem('v6-mood')||3);setMood(mood);
-  renderWords();renderBaby();refresh();
+  renderWords();renderBaby();updateDailyDescriptions();refresh();
 });
 </script>
 </body>
