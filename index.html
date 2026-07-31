@@ -4,101 +4,346 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f4eee5">
-<title>Kiki's Study Space V2.1.1</title>
+<title>Kiki's Study Space V4</title>
 <style>
-:root{--bg:#f4eee5;--paper:#fffaf3;--paper2:#f8f1e8;--ink:#433d37;--muted:#8b8177;--line:#e6dacb;--green:#7f9475;--green2:#e7eee3;--wood:#b18e6c;--shadow:0 14px 34px rgba(80,64,45,.1)}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#faf6ef,#eee1d1);color:var(--ink)}
-button,input,textarea{font:inherit}.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
-aside{padding:24px 18px;background:rgba(255,250,243,.93);border-right:1px solid var(--line);position:sticky;top:0;height:100vh}
-.brand{display:flex;gap:11px;align-items:center;margin-bottom:26px}.logo{width:44px;height:44px;border-radius:15px;background:var(--green);display:grid;place-items:center;color:white}
-nav{display:grid;gap:7px}nav button{border:0;background:transparent;text-align:left;padding:13px;border-radius:14px;color:var(--muted)}nav button.active{background:#eee6db;color:var(--ink)}
-main{padding:30px;max-width:1350px;width:100%;margin:auto}.view{display:none}.view.active{display:block}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.top h1{margin:0 0 6px}.muted{color:var(--muted);line-height:1.7}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:17px}.card{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:21px;box-shadow:var(--shadow)}
-.hero{grid-column:span 8}.progress{grid-column:span 4}.tasks{grid-column:span 5}.english{grid-column:span 7}.third{grid-column:span 4}
-.btn{border:0;border-radius:14px;padding:12px 17px;background:var(--green);color:white;margin-top:12px}.secondary{background:var(--green2);color:#607059}.wood{background:var(--wood)}
-.task{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.task input{width:20px;height:20px;accent-color:var(--green)}.task input:checked+label{text-decoration:line-through;color:#aaa}
-.word{display:flex;justify-content:space-between;gap:10px;padding:13px;background:var(--paper2);border-radius:15px;margin-bottom:9px}.word small{display:block;color:var(--muted)}.actions{display:flex;gap:7px;align-items:center}.sound,.mini{border:0;border-radius:999px;background:#e5eee1;padding:8px 10px}.mini.active{background:var(--green);color:#fff}
-.metric{background:var(--paper2);padding:14px;border-radius:15px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric strong{display:block;font-size:18px}
-.section{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.section h1{margin:0}
-textarea,input[type=text],input[type=number],input[type=date]{width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;margin-top:7px}textarea{min-height:130px}
-.notice{background:#edf2e9;color:#5f6f58;padding:14px;border-radius:14px;margin:14px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:var(--paper2);padding:17px;border-radius:17px}.stat strong{display:block;font-size:25px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{border:0;background:#eee7dd;padding:9px 12px;border-radius:999px}.tab.active{background:var(--green);color:#fff}
-.badge{display:inline-flex;padding:7px 10px;border-radius:999px;background:var(--green2);margin-right:6px}
-@media(max-width:900px){.app{grid-template-columns:80px 1fr}.brand span,nav span{display:none}.hero,.progress,.tasks,.english,.third{grid-column:span 12}}
-@media(max-width:640px){.app{display:block}aside{position:fixed;z-index:20;bottom:0;left:0;right:0;top:auto;height:auto;padding:8px}aside .brand{display:none}nav{display:flex;justify-content:space-around}nav button:nth-child(n+6){display:none}main{padding:20px 14px 86px}.grid{display:block}.card{margin-bottom:15px}.stats{grid-template-columns:1fr 1fr}.actions{gap:4px}}
+:root{
+  --bg:#f4eee5;--paper:#fffaf4;--soft:#f8f1e8;--ink:#433d37;--muted:#8b8177;
+  --line:#e6dacb;--green:#7f9475;--green-dark:#5f7356;--green2:#e7eee3;
+  --wood:#af8c69;--gold:#d7b47d;--danger:#b96c63;--shadow:0 16px 38px rgba(80,64,45,.11)
+}
+[data-theme=dark]{
+  --bg:#262822;--paper:#34362f;--soft:#3e4038;--ink:#f4efe7;--muted:#bbb3a8;
+  --line:#4a4d44;--green:#96aa8a;--green-dark:#dfe9da;--green2:#444b40;
+  --wood:#a98b6e;--gold:#c5a876;--shadow:0 16px 38px rgba(0,0,0,.25)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:radial-gradient(circle at 4% 0%,color-mix(in srgb,var(--paper) 96%,transparent),transparent 28%),linear-gradient(135deg,var(--paper),var(--bg))
+}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.app{display:grid;grid-template-columns:242px 1fr;min-height:100vh}
+aside{
+  position:sticky;top:0;height:100vh;padding:25px 18px;background:color-mix(in srgb,var(--paper) 95%,transparent);
+  border-right:1px solid var(--line);backdrop-filter:blur(18px)
+}
+.brand{display:flex;gap:11px;align-items:center;margin-bottom:26px}
+.logo{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#92a687,#708366);color:white;box-shadow:0 10px 24px rgba(127,148,117,.24)}
+.brand strong{display:block}.brand small{font-size:10px;color:var(--muted);letter-spacing:.1em}
+nav{display:grid;gap:7px}
+nav button{width:100%;border:0;background:transparent;text-align:left;padding:13px 14px;border-radius:14px;color:var(--muted)}
+nav button.active,nav button:hover{background:var(--green2);color:var(--ink)}
+.side-bottom{position:absolute;left:18px;right:18px;bottom:20px;display:grid;gap:8px}
+.side-bottom button{border:0;padding:11px;border-radius:14px;background:var(--soft)}
+main{padding:30px;max-width:1450px;width:100%;margin:auto}
+.view{display:none;animation:fade .25s ease}.view.active{display:block}
+@keyframes fade{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+.top,.section-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
+.top h1,.section-head h1{margin:0 0 5px}.muted{color:var(--muted);line-height:1.72}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+.card{background:color-mix(in srgb,var(--paper) 97%,transparent);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+.hero{grid-column:span 8;min-height:225px;position:relative;overflow:hidden}
+.hero:after{content:"🌿";position:absolute;right:24px;bottom:0;font-size:105px;opacity:.13}
+.progress{grid-column:span 4}.tasks{grid-column:span 5}.english-card{grid-column:span 7}.third{grid-column:span 4}.full{grid-column:span 12}
+.btn{border:0;border-radius:14px;padding:12px 17px;background:var(--green);color:#fff;margin-top:12px}
+.btn.secondary{background:var(--green2);color:var(--green-dark)}.btn.wood{background:var(--wood)}.btn.danger{background:var(--danger)}
+.task{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.task input{width:20px;height:20px;accent-color:var(--green)}.task input:checked+label{text-decoration:line-through;color:var(--muted)}
+.word{display:flex;justify-content:space-between;gap:9px;padding:13px;background:var(--soft);border-radius:15px;margin-bottom:9px}.word small{display:block;color:var(--muted)}
+.actions{display:flex;gap:5px;align-items:center}.round{border:0;border-radius:999px;background:var(--green2);padding:8px}.round.active{background:var(--green);color:#fff}
+.notice{background:var(--green2);color:var(--green-dark);padding:14px;border-radius:14px;margin:14px 0}.error{color:var(--danger);background:color-mix(in srgb,var(--danger) 12%,var(--paper))}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--paper);margin-top:7px}
+textarea{min-height:120px;resize:vertical}
+.metrics,.stats,.courses{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric,.stat,.course{background:var(--soft);padding:15px;border-radius:16px}.metric strong,.stat strong{display:block;font-size:23px;margin-top:4px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{border:0;background:var(--soft);padding:9px 12px;border-radius:999px}.tab.active{background:var(--green);color:#fff}
+.quiz{width:100%;text-align:left;border:1px solid var(--line);background:var(--soft);padding:12px;border-radius:14px;margin:8px 0}
+.bar{height:10px;background:var(--soft);border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:var(--green);width:0}
+.timeline{border-left:3px solid var(--green2);padding-left:18px}.event{padding-bottom:17px}.event b{display:block;margin-bottom:3px}
+.timer{font-size:42px;font-weight:700;text-align:center;letter-spacing:.04em;margin:14px 0}
+.timer-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.streak{display:flex;gap:8px;flex-wrap:wrap}.day{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--soft)}.day.done{background:var(--green);color:#fff}
+.pill{display:inline-flex;padding:7px 10px;border-radius:999px;background:var(--green2);margin:0 6px 6px 0}
+.archive-item{padding:13px 0;border-bottom:1px solid var(--line)}.archive-item:last-child{border-bottom:0}
+.ai-box{display:grid;gap:12px}.ai-message{padding:14px;border-radius:16px;background:var(--soft)}.ai-message.teacher{border-left:4px solid var(--green)}
+.subject-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.subject{padding:17px;border-radius:17px;background:var(--soft)}.subject h3{margin-top:0}
+.file-row{display:flex;gap:8px;flex-wrap:wrap}
+.small{font-size:13px}
+@media(max-width:980px){.app{grid-template-columns:84px 1fr}.brand span,nav span,.side-bottom{display:none}.hero,.progress,.tasks,.english-card,.third{grid-column:span 12}.subject-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){
+  .app{display:block}aside{position:fixed;z-index:30;left:0;right:0;bottom:0;top:auto;height:auto;padding:8px;border-top:1px solid var(--line)}
+  aside .brand{display:none}nav{display:flex;justify-content:space-around}nav button{padding:9px 10px}nav button:nth-child(n+6){display:none}
+  main{padding:20px 14px 90px}.grid{display:block}.card{margin-bottom:16px}.stats,.metrics,.courses,.subject-grid{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
 <div class="app">
 <aside>
-<div class="brand"><div class="logo">🌿</div><span><b>Kiki's Study Space</b><br><small>V2.1.1 · Every day, a little progress.</small></span></div>
-<nav>
-<button class="active" data-v="home" onclick="openV('home')">🏡 <span>首页</span></button>
-<button data-v="english" onclick="openV('english')">🇺🇸 <span>英语</span></button>
-<button data-v="courses" onclick="openV('courses')">🎓 <span>课程</span></button>
-<button data-v="reading" onclick="openV('reading')">📖 <span>阅读</span></button>
-<button data-v="baby" onclick="openV('baby')">👶 <span>宝宝</span></button>
-<button data-v="goals" onclick="openV('goals')">🎯 <span>目标</span></button>
-<button data-v="stats" onclick="openV('stats')">📊 <span>统计</span></button>
-</nav>
+  <div class="brand"><div class="logo">🌿</div><span><strong>Kiki's Study Space</strong><small>V4 · LEARN · GROW · LIVE</small></span></div>
+  <nav>
+    <button class="active" data-v="home" onclick="openV('home')">🏡 <span>首页工作台</span></button>
+    <button data-v="english" onclick="openV('english')">🇺🇸 <span>英语学习</span></button>
+    <button data-v="courses" onclick="openV('courses')">🎓 <span>高中课程</span></button>
+    <button data-v="teacher" onclick="openV('teacher')">🤖 <span>AI学习老师</span></button>
+    <button data-v="reading" onclick="openV('reading')">📖 <span>阅读中心</span></button>
+    <button data-v="baby" onclick="openV('baby')">👶 <span>宝宝成长</span></button>
+    <button data-v="archive" onclick="openV('archive')">🗂️ <span>学习档案</span></button>
+    <button data-v="stats" onclick="openV('stats')">📊 <span>学习统计</span></button>
+  </nav>
+  <div class="side-bottom">
+    <button onclick="toggleTheme()">🌙 深色模式</button>
+    <button onclick="exportData()">⬇️ 导出数据</button>
+  </div>
 </aside>
+
 <main>
 <section id="home" class="view active">
-<div class="top"><div><h1>欢迎回来，Kiki ☕</h1><p class="muted" id="date"></p></div><b>V2.1</b></div>
-<div class="grid">
-<div class="card hero"><small style="color:var(--green)">TODAY'S FOCUS</small><h2>每天学习一点点，不急着追赶别人，只认真成为更好的自己。</h2><p class="muted">今天先完成20分钟英语、阅读《活着》10页，再做一道数学练习。</p><button class="btn" onclick="openV('english')">开始今天的学习</button></div>
-<div class="card progress"><h3>本周学习进度</h3><h1 style="text-align:center" id="weeklyPercent">68%</h1><p class="muted">连续学习6天 · 完成17项</p></div>
-<div class="card tasks"><h3>✅ 今日任务</h3>
-<div class="task"><input data-k="t1" type="checkbox" checked><label>复习昨天单词</label></div>
-<div class="task"><input data-k="t2" type="checkbox"><label>学习10个新单词</label></div>
-<div class="task"><input data-k="t3" type="checkbox"><label>阅读《活着》10页</label></div>
-<div class="task"><input data-k="t4" type="checkbox"><label>完成一道数学题</label></div></div>
-<div class="card english"><h3>🇺🇸 今日英语</h3><div id="homeWords"></div><button class="btn secondary" onclick="openV('english')">学习今日10词</button></div>
-<div class="card third"><h3>📖 阅读</h3><p class="muted">《活着》已读 <b id="homeReadingPage">92</b> 页<br>今日目标10页</p><button class="btn secondary" onclick="openV('reading')">记录阅读</button></div>
-<div class="card third"><h3>👶 宝宝成长</h3><div class="metrics"><div class="metric">月龄<strong id="babyAge">6个月</strong></div><div class="metric">体重<strong>18.8 lb</strong></div><div class="metric">身高<strong>67 cm</strong></div><div class="metric">辅食<strong id="homeBabyFood">米糊</strong></div></div><button class="btn secondary" onclick="openV('baby')">添加记录</button></div>
-<div class="card third"><h3>🎯 我的方向</h3><span class="badge">持续学习</span><span class="badge">医疗口译</span><span class="badge">高中自学</span><span class="badge">坚持阅读</span><p class="muted">学历是梦想，学习是一辈子的习惯。</p></div>
-</div></section>
+  <div class="top"><div><h1>欢迎回来，Kiki ☕</h1><p class="muted" id="date"></p></div><b>V4</b></div>
+  <div class="grid">
+    <article class="card hero">
+      <small style="color:var(--green)">TODAY'S FOCUS</small>
+      <h2>今天不需要学很多，只需要真正完成一点点。</h2>
+      <p class="muted">英语10词、数学1题、阅读10页。每完成一项，都会记录到你的学习档案里。</p>
+      <button class="btn" onclick="openV('english')">开始今天的学习</button>
+    </article>
+    <article class="card progress"><h3>今日完成度</h3><h1 style="text-align:center" id="percent">0%</h1><div class="bar"><span id="bar"></span></div><p class="muted small">根据今日任务自动统计</p></article>
+    <article class="card tasks"><h3>✅ 今日任务</h3>
+      <div class="task"><input data-k="t1" class="daily" type="checkbox"><label>复习昨天单词</label></div>
+      <div class="task"><input data-k="t2" class="daily" type="checkbox"><label>完成英语测验</label></div>
+      <div class="task"><input data-k="t3" class="daily" type="checkbox"><label>阅读《活着》10页</label></div>
+      <div class="task"><input data-k="t4" class="daily" type="checkbox"><label>完成一道数学题</label></div>
+    </article>
+    <article class="card english-card"><h3>🇺🇸 今日英语</h3><div id="homeWords"></div><button class="btn secondary" onclick="openV('english')">开始英语学习</button></article>
+    <article class="card third"><h3>⏱️ 专注计时</h3><div class="timer" id="homeTimer">00:00</div><div class="timer-controls"><button class="btn" onclick="startTimer()">开始</button><button class="btn secondary" onclick="pauseTimer()">暂停</button><button class="btn secondary" onclick="resetTimer()">重置</button></div></article>
+    <article class="card third"><h3>🔥 连续学习</h3><div class="streak" id="streakDays"></div><p class="muted">连续天数：<b id="streakCount">0</b> 天</p><button class="btn secondary" onclick="checkIn()">今日打卡</button></article>
+    <article class="card third"><h3>📚 学习档案</h3><p class="muted">学习记录：<b id="archiveCountHome">0</b> 条<br>累计专注：<b id="focusTotalHome">0</b> 分钟<br>错题：<b id="wrongHome">0</b> 道</p><button class="btn secondary" onclick="openV('archive')">查看档案</button></article>
+  </div>
+</section>
 
 <section id="english" class="view">
-<div class="section"><h1>🇺🇸 英语学习</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
-<div class="card">
-<div class="tabs"><button class="tab active" onclick="filterWords('all',this)">今日10词</button><button class="tab" onclick="filterWords('fav',this)">已收藏</button><button class="tab" onclick="filterWords('mastered',this)">已掌握</button></div>
-<div id="wordList"></div>
-<div class="notice">今日一句：Small steps every day lead to big changes. <button class="sound" onclick="say('Small steps every day lead to big changes.')">🔊</button></div>
-</div></section>
+  <div class="section-head"><h1>🇺🇸 英语学习</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="card">
+    <div class="tabs"><button class="tab active" onclick="showEnglish('words',this)">今日10词</button><button class="tab" onclick="showEnglish('quiz',this)">小测验</button><button class="tab" onclick="showEnglish('fav',this)">收藏</button><button class="tab" onclick="showEnglish('master',this)">已掌握</button></div>
+    <div id="englishPanel"></div>
+  </div>
+</section>
 
-<section id="courses" class="view"><div class="section"><h1>🎓 高中课程</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h3>今日数学</h3><p style="font-size:22px">3x + 5 = 20，x 等于多少？</p><input id="mathAnswer" type="number" placeholder="输入答案"><button class="btn" onclick="checkMath()">检查答案</button><div id="mathResult" class="notice" style="display:none"></div></div></section>
+<section id="courses" class="view">
+  <div class="section-head"><h1>🎓 高中课程</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="subject-grid">
+    <div class="subject"><h3>🧮 数学</h3><p class="muted">代数 · 方程</p><button class="btn" onclick="course('math')">开始练习</button></div>
+    <div class="subject"><h3>🇺🇸 英语</h3><p class="muted">词汇 · 语法</p><button class="btn secondary" onclick="openV('english')">开始学习</button></div>
+    <div class="subject"><h3>📖 语文</h3><p class="muted">现代文 · 古诗文</p><button class="btn secondary" onclick="course('chinese')">查看课程</button></div>
+    <div class="subject"><h3>📜 历史</h3><p class="muted">中国古代史</p><button class="btn secondary" onclick="course('history')">查看课程</button></div>
+    <div class="subject"><h3>🧬 生物</h3><p class="muted">细胞基础</p><button class="btn secondary" onclick="course('biology')">查看课程</button></div>
+    <div class="subject"><h3>🧪 化学</h3><p class="muted">物质与元素</p><button class="btn secondary" onclick="course('chemistry')">查看课程</button></div>
+  </div>
+  <div class="card" style="margin-top:16px" id="coursePanel"></div>
+</section>
 
-<section id="reading" class="view"><div class="section"><h1>📖 阅读中心</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><h2>《活着》</h2><label>今天读到第几页</label><input data-k="rp" id="readingPage" type="number" value="92"><label>今天阅读了多少分钟</label><input data-k="rt" type="number" placeholder="例如：20"><label>阅读感悟</label><textarea data-k="rn" placeholder="写下最打动你的一句话"></textarea><button class="btn" onclick="save('阅读笔记已保存')">保存</button></div></section>
+<section id="teacher" class="view">
+  <div class="section-head"><h1>🤖 AI 学习老师</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="card ai-box">
+    <div class="ai-message teacher"><b>Kiki老师：</b>现在这个版本可以讲解内置题目和常见学习问题。真正自由联网回答，需要以后连接AI接口。</div>
+    <select id="teacherSubject"><option value="math">数学</option><option value="english">英语</option><option value="reading">阅读</option></select>
+    <textarea id="teacherQuestion" placeholder="例如：3x + 5 = 20 怎么算？"></textarea>
+    <button class="btn" onclick="askTeacher()">请老师讲解</button>
+    <div id="teacherAnswer"></div>
+  </div>
+</section>
 
-<section id="baby" class="view"><div class="section"><h1>👶 宝宝成长</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card"><label>宝宝出生日期</label><input data-k="birth" id="birth" type="date" value="2026-01-25"><div class="notice">当前月龄：<b id="babyAgeDetail"></b></div><label>今天辅食</label><input data-k="bf" id="babyFood" type="text" placeholder="例如：米糊"><label>今天体重（lb）</label><input data-k="bw" type="number" step="0.1" placeholder="例如：18.8"><label>睡眠、便便或成长变化</label><textarea data-k="bn" placeholder="记录宝宝今天的变化"></textarea><button class="btn" onclick="save('宝宝记录已保存')">保存</button></div></section>
+<section id="reading" class="view">
+  <div class="section-head"><h1>📖 阅读中心</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="card"><h2>《活着》</h2><label>今天读到第几页</label><input id="readingPage" type="number" value="92"><label>今天阅读多少分钟</label><input id="readingMins" type="number" placeholder="例如：20"><label>阅读感悟</label><textarea id="readingNote" placeholder="写下最打动你的一句话"></textarea><button class="btn" onclick="saveReading()">保存阅读记录</button></div>
+  <div class="card" style="margin-top:16px"><h3>最近记录</h3><div id="readingHistory" class="timeline"></div></div>
+</section>
 
-<section id="goals" class="view"><div class="section"><h1>🎯 目标计划</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="card">
-<div class="task"><input data-k="g1" type="checkbox"><label>每天学习10个英语单词</label></div>
-<div class="task"><input data-k="g2" type="checkbox"><label>系统学习高中课程</label></div>
-<div class="task"><input data-k="g3" type="checkbox"><label>准备医疗口译</label></div>
-<div class="task"><input data-k="g4" type="checkbox"><label>坚持阅读并记录</label></div>
-<div class="task"><input data-k="g5" type="checkbox"><label>持续学习，不轻易放弃</label></div></div></section>
+<section id="baby" class="view">
+  <div class="section-head"><h1>👶 宝宝成长</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="card"><label>宝宝出生日期</label><input id="birth" type="date" value="2026-01-25"><label>今天辅食</label><input id="babyFood" type="text" placeholder="例如：米糊"><label>今天体重（lb）</label><input id="babyWeight" type="number" step=".1"><label>成长记录</label><textarea id="babyNote" placeholder="睡眠、便便、翻身、发音等变化"></textarea><button class="btn" onclick="saveBaby()">保存成长记录</button></div>
+  <div class="card" style="margin-top:16px"><h3>成长时间线</h3><div id="babyHistory" class="timeline"></div></div>
+</section>
 
-<section id="stats" class="view"><div class="section"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openV('home')">返回</button></div><div class="stats"><div class="stat">连续学习<strong>6天</strong></div><div class="stat">本周任务<strong>17项</strong></div><div class="stat">已收藏单词<strong id="favCount">0</strong></div><div class="stat">已掌握单词<strong id="masteredCount">0</strong></div></div></section>
-</main></div>
+<section id="archive" class="view">
+  <div class="section-head"><h1>🗂️ 学习档案</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="stats">
+    <div class="stat">学习记录<strong id="archiveCount">0</strong></div>
+    <div class="stat">专注时间<strong id="focusTotal">0分钟</strong></div>
+    <div class="stat">连续学习<strong id="archiveStreak">0天</strong></div>
+    <div class="stat">错题数量<strong id="archiveWrong">0</strong></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>最近学习记录</h3><div id="archiveList"></div></div>
+</section>
+
+<section id="stats" class="view">
+  <div class="section-head"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openV('home')">返回</button></div>
+  <div class="stats">
+    <div class="stat">今日完成<strong id="statPercent">0%</strong></div>
+    <div class="stat">收藏单词<strong id="favCount">0</strong></div>
+    <div class="stat">已掌握<strong id="masterCount">0</strong></div>
+    <div class="stat">错题<strong id="wrongCount">0</strong></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>错题本</h3><div id="wrongBook"></div></div>
+  <div class="card" style="margin-top:16px"><h3>数据管理</h3><p class="muted">数据保存在当前 Safari 浏览器中。你可以导出备份，或导入以前的备份。</p><div class="file-row"><button class="btn secondary" onclick="exportData()">导出数据</button><label class="btn secondary" style="display:inline-flex">导入数据<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label></div></div>
+</section>
+</main>
+</div>
+
 <script>
 const words=[
 ['progress','/ˈprɑːɡres/','进步'],['schedule','/ˈskedʒuːl/','日程'],['available','/əˈveɪləbəl/','有空的'],['appointment','/əˈpɔɪntmənt/','预约'],['insurance','/ɪnˈʃʊrəns/','保险'],['receipt','/rɪˈsiːt/','收据'],['practice','/ˈpræktɪs/','练习'],['improve','/ɪmˈpruːv/','提高'],['patient','/ˈpeɪʃənt/','病人；耐心的'],['continue','/kənˈtɪnjuː/','继续']
 ];
-function openV(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.v===id));scrollTo(0,0)}
-function say(t){if(!('speechSynthesis'in window)){alert('请用Safari打开');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.86;speechSynthesis.speak(u)}
-function statusKey(type,w){return 'word-'+type+'-'+w}
-function toggleStatus(type,w,btn){let k=statusKey(type,w),v=localStorage.getItem(k)==='1';localStorage.setItem(k,v?'0':'1');btn.classList.toggle('active',!v);updateCounts()}
-function wordHtml(w){let fav=localStorage.getItem(statusKey('fav',w[0]))==='1',mas=localStorage.getItem(statusKey('mastered',w[0]))==='1';return `<div class="word"><div><b>${w[0]}</b><small>${w[1]} · ${w[2]}</small></div><div class="actions"><button class="sound" onclick="say('${w[0]}')">🔊</button><button class="mini ${fav?'active':''}" onclick="toggleStatus('fav','${w[0]}',this)">☆</button><button class="mini ${mas?'active':''}" onclick="toggleStatus('mastered','${w[0]}',this)">✓</button></div></div>`}
-function renderWords(filter='all'){document.getElementById('wordList').innerHTML=words.filter(w=>filter==='all'||localStorage.getItem(statusKey(filter,w[0]))==='1').map(wordHtml).join('')||'<p class="muted">这里还没有单词。</p>';document.getElementById('homeWords').innerHTML=words.slice(0,2).map(wordHtml).join('')}
-function filterWords(f,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderWords(f)}
-function updateCounts(){let f=words.filter(w=>localStorage.getItem(statusKey('fav',w[0]))==='1').length,m=words.filter(w=>localStorage.getItem(statusKey('mastered',w[0]))==='1').length;document.getElementById('favCount').textContent=f;document.getElementById('masteredCount').textContent=m}
-function checkMath(){let v=document.getElementById('mathAnswer').value,r=document.getElementById('mathResult');r.style.display='block';r.textContent=Number(v)===5?'答对了！x = 5 🎉':'再想一下：先把5移到右边。'}
-function ageText(dateStr){if(!dateStr)return'未设置';let b=new Date(dateStr),n=new Date(),months=(n.getFullYear()-b.getFullYear())*12+n.getMonth()-b.getMonth();if(n.getDate()<b.getDate())months--;let d=Math.max(0,Math.floor((n-b)/86400000-months*30.44));return months+'个月左右'}
-function refreshHome(){let p=localStorage.getItem('rp')||92;document.getElementById('homeReadingPage').textContent=p;let food=localStorage.getItem('bf')||'米糊';document.getElementById('homeBabyFood').textContent=food;let birth=localStorage.getItem('birth')||'2026-01-25';let a=ageText(birth);document.getElementById('babyAge').textContent=a;document.getElementById('babyAgeDetail').textContent=a}
-function save(m){document.querySelectorAll('[data-k]').forEach(e=>localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value));refreshHome();alert(m)}
-document.addEventListener('DOMContentLoaded',()=>{document.getElementById('date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';document.querySelectorAll('[data-k]').forEach(e=>{let v=localStorage.getItem(e.dataset.k);if(v!==null){e.type==='checkbox'?e.checked=v==='true':e.value=v}e.onchange=()=>{localStorage.setItem(e.dataset.k,e.type==='checkbox'?e.checked:e.value);refreshHome()}});renderWords();updateCounts();refreshHome()})
+let timerSeconds=+(localStorage.getItem('v4-timer-seconds')||0),timerHandle=null;
+
+function openV(id){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.v===id));
+  window.scrollTo(0,0);refresh();
+}
+function say(t){
+  if(!('speechSynthesis'in window)){alert('请使用 Safari 打开');return}
+  speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.86;speechSynthesis.speak(u);
+}
+const wk=(t,w)=>'v4-'+t+'-'+w;
+function toggleWord(t,w,b){
+  const on=localStorage.getItem(wk(t,w))==='1';
+  localStorage.setItem(wk(t,w),on?'0':'1');
+  b.classList.toggle('active',!on);refresh();
+}
+function wordHtml(w){
+  const f=localStorage.getItem(wk('fav',w[0]))==='1',m=localStorage.getItem(wk('master',w[0]))==='1';
+  return `<div class="word"><div><b>${w[0]}</b><small>${w[1]} · ${w[2]}</small></div><div class="actions"><button class="round" onclick="say('${w[0]}')">🔊</button><button class="round ${f?'active':''}" onclick="toggleWord('fav','${w[0]}',this)">☆</button><button class="round ${m?'active':''}" onclick="toggleWord('master','${w[0]}',this)">✓</button></div></div>`;
+}
+function showEnglish(type,btn){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+  const p=document.getElementById('englishPanel');
+  if(type==='words')p.innerHTML=words.map(wordHtml).join('')+'<div class="notice">Small steps every day lead to big changes. <button class="round" onclick="say(\'Small steps every day lead to big changes.\')">🔊</button></div>';
+  if(type==='fav')p.innerHTML=words.filter(w=>localStorage.getItem(wk('fav',w[0]))==='1').map(wordHtml).join('')||'<p class="muted">还没有收藏。</p>';
+  if(type==='master')p.innerHTML=words.filter(w=>localStorage.getItem(wk('master',w[0]))==='1').map(wordHtml).join('')||'<p class="muted">还没有已掌握单词。</p>';
+  if(type==='quiz')p.innerHTML='<h3>appointment 的中文意思是什么？</h3><button class="quiz" onclick="quiz(0)">保险</button><button class="quiz" onclick="quiz(1)">预约</button><button class="quiz" onclick="quiz(2)">收据</button><div id="quizResult"></div>';
+}
+function quiz(i){
+  const r=document.getElementById('quizResult');
+  if(i===1){r.className='notice';r.textContent='回答正确！🎉';setTask('t2',true);addArchive('英语','完成英语小测验')}
+  else{r.className='notice error';r.textContent='不对，appointment 是“预约”。'}
+  refresh();
+}
+function course(t){
+  const p=document.getElementById('coursePanel');
+  if(t==='math')p.innerHTML='<h3>数学练习</h3><p style="font-size:22px">3x + 5 = 20，x 等于多少？</p><input id="mathAnswer" type="number" placeholder="输入答案"><button class="btn" onclick="checkMath()">检查答案</button><div id="mathResult"></div>';
+  if(t==='chinese')p.innerHTML='<h3>语文入门</h3><div class="notice">今天学习：文章的中心思想，就是作者最想表达的主要意思。阅读时可以先找反复出现的人、事和情感。</div>';
+  if(t==='history')p.innerHTML='<h3>历史入门</h3><div class="notice">朝代是一个统治家族或政权存在的历史时期。先从夏、商、周建立时间顺序。</div>';
+  if(t==='biology')p.innerHTML='<h3>生物入门</h3><div class="notice">细胞是生物体结构和功能的基本单位。</div>';
+  if(t==='chemistry')p.innerHTML='<h3>化学入门</h3><div class="notice">元素是组成物质的基本种类，例如氧、氢、碳都是元素。</div>';
+}
+function checkMath(){
+  const v=Number(document.getElementById('mathAnswer').value),r=document.getElementById('mathResult');
+  if(v===5){r.className='notice';r.textContent='答对了！两边减5得到3x=15，再除以3，x=5。';setTask('t4',true);addArchive('数学','完成一元一次方程练习')}
+  else{r.className='notice error';r.textContent='提示：先把5移到右边。';addWrong('3x + 5 = 20','x = 5')}
+  refresh();
+}
+function askTeacher(){
+  const subject=document.getElementById('teacherSubject').value,q=document.getElementById('teacherQuestion').value.trim().toLowerCase(),a=document.getElementById('teacherAnswer');
+  let text='';
+  if(subject==='math'&&(q.includes('3x')||q.includes('方程')))text='第一步：等式两边同时减去5，得到3x=15。第二步：两边同时除以3，所以x=5。';
+  else if(subject==='english'&&q.includes('appointment'))text='appointment /əˈpɔɪntmənt/ 的意思是“预约”。例句：I have a doctor’s appointment tomorrow.';
+  else if(subject==='english'&&q.includes('schedule'))text='schedule /ˈskedʒuːl/ 的意思是“日程、安排”。例句：My schedule is busy today.';
+  else if(subject==='reading')text='阅读时可以先回答三个问题：发生了什么？人物有什么感受？作者想表达什么？';
+  else text='这个静态版老师目前只能讲解内置内容。你可以试着问“3x + 5 = 20 怎么算”“appointment是什么意思”或“阅读怎么找中心思想”。';
+  a.innerHTML='<div class="ai-message teacher"><b>Kiki老师：</b>'+text+'</div>';
+  addArchive('AI老师',q||'学习提问');
+}
+function addWrong(q,a){
+  let arr=JSON.parse(localStorage.getItem('v4-wrong')||'[]');
+  if(!arr.some(x=>x.q===q))arr.push({q,a,date:new Date().toLocaleDateString('zh-CN')});
+  localStorage.setItem('v4-wrong',JSON.stringify(arr));
+}
+function setTask(key,val){
+  const el=document.querySelector(`[data-k="${key}"]`);if(el)el.checked=val;localStorage.setItem('v4-'+key,String(val));
+}
+function saveReading(){
+  const page=+document.getElementById('readingPage').value,mins=+document.getElementById('readingMins').value,note=document.getElementById('readingNote').value;
+  localStorage.setItem('v4-page',page);localStorage.setItem('v4-reading-total',+(localStorage.getItem('v4-reading-total')||0)+mins);
+  let arr=JSON.parse(localStorage.getItem('v4-reading')||'[]');arr.unshift({date:new Date().toLocaleDateString('zh-CN'),page,mins,note});localStorage.setItem('v4-reading',JSON.stringify(arr.slice(0,10)));
+  setTask('t3',true);addArchive('阅读',`《活着》读到第${page}页，阅读${mins}分钟`);renderReading();refresh();alert('阅读记录已保存');
+}
+function saveBaby(){
+  const food=document.getElementById('babyFood').value||'未填写',weight=document.getElementById('babyWeight').value||'未填写',note=document.getElementById('babyNote').value;
+  localStorage.setItem('v4-food',food);localStorage.setItem('v4-weight',weight);
+  let arr=JSON.parse(localStorage.getItem('v4-baby')||'[]');arr.unshift({date:new Date().toLocaleDateString('zh-CN'),food,weight,note});localStorage.setItem('v4-baby',JSON.stringify(arr.slice(0,12)));
+  renderBaby();refresh();alert('宝宝成长记录已保存');
+}
+function renderReading(){
+  const arr=JSON.parse(localStorage.getItem('v4-reading')||'[]');
+  document.getElementById('readingHistory').innerHTML=arr.map(x=>`<div class="event"><b>${x.date}</b><div class="muted">第${x.page}页 · ${x.mins}分钟</div><div>${x.note||''}</div></div>`).join('')||'<p class="muted">还没有记录。</p>';
+}
+function renderBaby(){
+  const arr=JSON.parse(localStorage.getItem('v4-baby')||'[]');
+  document.getElementById('babyHistory').innerHTML=arr.map(x=>`<div class="event"><b>${x.date}</b><div class="muted">辅食：${x.food} · ${x.weight} lb</div><div>${x.note||''}</div></div>`).join('')||'<p class="muted">还没有记录。</p>';
+}
+function addArchive(type,text){
+  let arr=JSON.parse(localStorage.getItem('v4-archive')||'[]');
+  arr.unshift({type,text,date:new Date().toLocaleString('zh-CN')});localStorage.setItem('v4-archive',JSON.stringify(arr.slice(0,50)));
+}
+function renderArchive(){
+  const arr=JSON.parse(localStorage.getItem('v4-archive')||'[]');
+  document.getElementById('archiveList').innerHTML=arr.map(x=>`<div class="archive-item"><b>${x.type}</b><div>${x.text}</div><small class="muted">${x.date}</small></div>`).join('')||'<p class="muted">还没有学习记录。</p>';
+}
+function formatTime(sec){const m=Math.floor(sec/60).toString().padStart(2,'0'),s=(sec%60).toString().padStart(2,'0');return `${m}:${s}`}
+function updateTimer(){document.getElementById('homeTimer').textContent=formatTime(timerSeconds);localStorage.setItem('v4-timer-seconds',timerSeconds)}
+function startTimer(){if(timerHandle)return;timerHandle=setInterval(()=>{timerSeconds++;updateTimer()},1000)}
+function pauseTimer(){
+  if(timerHandle){clearInterval(timerHandle);timerHandle=null}
+  const mins=Math.floor(timerSeconds/60);
+  if(mins>0){localStorage.setItem('v4-focus-total',+(localStorage.getItem('v4-focus-total')||0)+mins);addArchive('专注学习',`专注${mins}分钟`);timerSeconds=0;updateTimer();refresh()}
+}
+function resetTimer(){if(timerHandle){clearInterval(timerHandle);timerHandle=null}timerSeconds=0;updateTimer()}
+function checkIn(){
+  const today=new Date().toISOString().slice(0,10);let arr=JSON.parse(localStorage.getItem('v4-checkins')||'[]');
+  if(!arr.includes(today)){arr.push(today);localStorage.setItem('v4-checkins',JSON.stringify(arr));addArchive('学习打卡','完成今日学习打卡')}
+  refresh();
+}
+function streakCount(){
+  const arr=new Set(JSON.parse(localStorage.getItem('v4-checkins')||'[]'));let count=0,d=new Date();
+  while(arr.has(d.toISOString().slice(0,10))){count++;d.setDate(d.getDate()-1)}
+  return count;
+}
+function renderStreak(){
+  const arr=new Set(JSON.parse(localStorage.getItem('v4-checkins')||'[]')),box=document.getElementById('streakDays');box.innerHTML='';
+  for(let i=6;i>=0;i--){let d=new Date();d.setDate(d.getDate()-i);let key=d.toISOString().slice(0,10),el=document.createElement('div');el.className='day '+(arr.has(key)?'done':'');el.textContent=d.getDate();box.appendChild(el)}
+}
+function dailyPercent(){const ds=[...document.querySelectorAll('.daily')];return Math.round(ds.filter(x=>x.checked).length/ds.length*100)}
+function age(){
+  const b=new Date(document.getElementById('birth').value||'2026-01-25'),n=new Date();let m=(n.getFullYear()-b.getFullYear())*12+n.getMonth()-b.getMonth();if(n.getDate()<b.getDate())m--;return Math.max(0,m)+'个月';
+}
+function refresh(){
+  const p=dailyPercent();document.getElementById('percent').textContent=p+'%';document.getElementById('bar').style.width=p+'%';document.getElementById('statPercent').textContent=p+'%';
+  const fav=words.filter(w=>localStorage.getItem(wk('fav',w[0]))==='1').length,master=words.filter(w=>localStorage.getItem(wk('master',w[0]))==='1').length,wrong=JSON.parse(localStorage.getItem('v4-wrong')||'[]'),archive=JSON.parse(localStorage.getItem('v4-archive')||'[]');
+  document.getElementById('favCount').textContent=fav;document.getElementById('masterCount').textContent=master;document.getElementById('wrongCount').textContent=wrong.length;
+  document.getElementById('wrongHome').textContent=wrong.length;document.getElementById('archiveCountHome').textContent=archive.length;document.getElementById('focusTotalHome').textContent=localStorage.getItem('v4-focus-total')||0;
+  document.getElementById('archiveCount').textContent=archive.length;document.getElementById('focusTotal').textContent=(localStorage.getItem('v4-focus-total')||0)+'分钟';document.getElementById('archiveWrong').textContent=wrong.length;
+  const streak=streakCount();document.getElementById('streakCount').textContent=streak;document.getElementById('archiveStreak').textContent=streak+'天';
+  document.getElementById('homeWords').innerHTML=words.slice(0,2).map(wordHtml).join('');
+  document.getElementById('wrongBook').innerHTML=wrong.map(x=>`<div class="notice error"><b>${x.q}</b><br>正确答案：${x.a}<br><small>${x.date}</small></div>`).join('')||'<p class="muted">还没有错题。</p>';
+  renderStreak();renderArchive();updateTimer();
+}
+function toggleTheme(){const d=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=d?'':'dark';localStorage.setItem('v4-theme',d?'light':'dark')}
+function exportData(){
+  const data={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('v4-'))data[k]=localStorage.getItem(k)}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kiki-study-space-v4-backup.json';a.click();URL.revokeObjectURL(a.href);
+}
+function importData(event){
+  const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);Object.entries(data).forEach(([k,v])=>localStorage.setItem(k,v));alert('数据导入成功');location.reload()}catch(e){alert('文件格式不正确')}};reader.readAsText(file);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';
+  if(localStorage.getItem('v4-theme')==='dark')document.documentElement.dataset.theme='dark';
+  document.querySelectorAll('[data-k]').forEach(e=>{const v=localStorage.getItem('v4-'+e.dataset.k);if(v!==null)e.checked=v==='true';e.onchange=()=>{localStorage.setItem('v4-'+e.dataset.k,e.checked);refresh()}});
+  showEnglish('words',document.querySelector('.tab'));course('math');renderReading();renderBaby();refresh();
+});
 </script>
-</body></html>
+</body>
+</html>
