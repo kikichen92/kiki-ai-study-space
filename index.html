@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#efe3d4">
-<title>Kiki's Study Space V6.2</title>
+<title>Kiki's Study Space V7 — AI Learning Edition</title>
 <style>
 :root{
   --bg:#eadfce;--paper:#fffaf2;--soft:#f6ede2;--soft2:#eee0d0;--ink:#433b35;--muted:#8e8176;
@@ -70,6 +70,23 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
 @media(max-width:900px){.subjects-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.subjects-grid{grid-template-columns:1fr}}
 
+
+.ai-grid{display:grid;grid-template-columns:320px 1fr;gap:14px}
+.ai-controls{display:grid;gap:12px}
+.ai-chat{min-height:420px;max-height:620px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px}
+.ai-bubble{max-width:88%;padding:13px 15px;border-radius:16px;line-height:1.7;white-space:pre-wrap}
+.ai-bubble.user{align-self:flex-end;background:#dfead9}
+.ai-bubble.ai{align-self:flex-start;background:var(--soft);border-left:4px solid var(--green)}
+.ai-bubble.system{align-self:center;background:#f7edd5;color:var(--muted);font-size:13px}
+.ai-status{font-size:13px;color:var(--muted)}
+.ai-quick{display:flex;gap:7px;flex-wrap:wrap}
+.ai-quick button{border:0;background:var(--soft2);border-radius:999px;padding:8px 11px}
+.ai-code-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+.ai-code-row .btn{margin-top:7px}
+.ai-home{grid-column:span 4}
+.ai-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#e2ecde;color:#526c4d;font-size:13px}
+@media(max-width:850px){.ai-grid{grid-template-columns:1fr}.ai-chat{min-height:330px}}
+
 @media(max-width:980px){
   .app{grid-template-columns:82px 1fr}.brand h1,.brand p,nav span,.side-note{display:none}
   .tasks,.plan,.ring-card,.words,.reading,.goals,.math,.mood,.baby{grid-column:span 12}
@@ -88,6 +105,7 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
   <div class="brand"><h1>Kiki's ♡</h1><p>Study Space</p><small>✦ 成为更好的自己 ✦</small></div>
   <nav>
     <button class="active" data-v="home" onclick="openV('home')">🏠 <span>首页工作台</span></button>
+    <button data-v="ai" onclick="openV('ai')">🤖 <span>AI 学习老师</span></button>
     <button data-v="highschool" onclick="openV('highschool')">🎓 <span>高中课程</span></button>
     <button data-v="english" onclick="openV('english')">🔤 <span>英语学习</span></button>
     <button data-v="reading" onclick="openV('reading')">📖 <span>阅读笔记</span></button>
@@ -163,6 +181,13 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
     </div>
 
 
+    <div class="card ai-home">
+      <div class="ai-badge">✨ V7 真正 AI</div>
+      <h3 style="margin-top:12px">AI 学习老师 🤖</h3>
+      <p class="muted">可以自由提问、生成今日课程、自动出题并讲解错题。</p>
+      <button class="btn" onclick="openV('ai')">进入 AI 学习</button>
+    </div>
+
     <div class="card math">
       <h3>高中课程 🎓</h3>
       <div class="metric-grid">
@@ -207,6 +232,66 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
   </div>
 </section>
 
+
+
+<section id="ai" class="view">
+  <div class="section-head">
+    <div><h2>🤖 AI Learning Edition</h2><p class="muted">真正连接 OpenAI 的私人学习老师。</p></div>
+    <button class="btn secondary" onclick="openV('home')">返回</button>
+  </div>
+
+  <div class="ai-grid">
+    <div class="card ai-controls">
+      <div>
+        <label><b>学习模式</b></label>
+        <select id="aiMode" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-top:7px">
+          <option value="teacher">自由问答</option>
+          <option value="lesson">生成今日课程</option>
+          <option value="quiz">自动出题与批改</option>
+        </select>
+      </div>
+      <div>
+        <label><b>科目</b></label>
+        <select id="aiSubject" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-top:7px">
+          <option>数学</option><option>英语</option><option>语文</option><option>历史</option>
+          <option>地理</option><option>生物</option><option>物理</option><option>化学</option>
+        </select>
+      </div>
+      <div>
+        <label><b>你的基础</b></label>
+        <select id="aiLevel" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-top:7px">
+          <option value="beginner">基础较弱，从初中衔接讲起</option>
+          <option value="highschool">高中基础</option>
+          <option value="challenge">提高难度</option>
+        </select>
+      </div>
+      <div class="ai-code-row">
+        <div><label><b>私人访问密码</b></label><input id="accessCode" type="password" placeholder="只保存在这台设备"></div>
+        <button class="btn secondary" onclick="saveAccessCode()">保存</button>
+      </div>
+      <div class="notice">
+        <b>费用保护</b><br>
+        本页面默认每天最多提问 15 次、生成课程 1 次；每次回答限制长度。余额用完后 API 会停止。
+      </div>
+      <div class="ai-status" id="aiUsage"></div>
+      <button class="btn secondary" onclick="clearAIChat()">清空对话</button>
+    </div>
+
+    <div class="card">
+      <div class="ai-chat" id="aiChat">
+        <div class="ai-bubble ai">你好 Kiki，我是 V7 AI 学习老师。你可以问高中八科问题，也可以让我生成今天的课程。</div>
+      </div>
+      <div class="ai-quick">
+        <button onclick="quickAI('请用非常简单的方式给我讲今天最适合学习的知识点。')">今日知识点</button>
+        <button onclick="quickAI('请出一道适合我基础的题，不要马上告诉我答案。')">出一道题</button>
+        <button onclick="quickAI('我没听懂，请分步骤重新讲。')">重新讲解</button>
+      </div>
+      <textarea id="aiInput" placeholder="例如：为什么移项要变号？"></textarea>
+      <button class="btn" id="aiSend" onclick="sendAI()">发送给 AI 老师</button>
+      <div class="ai-status" id="aiStatus"></div>
+    </div>
+  </div>
+</section>
 
 <section id="highschool" class="view">
   <div class="section-head"><div><h2>🎓 高中课程</h2><p class="muted">先从基础开始，每天完成一个小知识点。</p></div><button class="btn secondary" onclick="openV('home')">返回</button></div>
@@ -278,7 +363,7 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
 </main>
 
 <div class="bottom-dock">
-  <button class="dock-btn" onclick="openV('highschool')">🎓<br>高中课程</button>
+  <button class="dock-btn" onclick="openV('ai')">🤖<br>AI老师</button>
   <button class="dock-btn" onclick="openV('english')">Aa<br>单词本</button>
   <button class="dock-btn" onclick="openV('baby')">📒<br>成长本</button>
   <button class="dock-btn" onclick="openV('math')">✕<br>错题本</button>
@@ -433,6 +518,68 @@ function refresh(){
   document.getElementById('babyFoodHome').textContent=localStorage.getItem('v6-baby-food')||'米糊';
   document.getElementById('babyRecordCount').textContent=JSON.parse(localStorage.getItem('v6-baby-records')||'[]').length+'条';
 }
+
+const AI_DAILY_QUESTION_LIMIT=15;
+const AI_DAILY_LESSON_LIMIT=1;
+function aiDayKey(){const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`}
+function aiUsageData(){
+  const day=aiDayKey(), saved=JSON.parse(localStorage.getItem('v7-ai-usage')||'{}');
+  if(saved.day!==day)return {day,questions:0,lessons:0};
+  return saved;
+}
+function saveAIUsage(u){localStorage.setItem('v7-ai-usage',JSON.stringify(u));renderAIUsage()}
+function renderAIUsage(){
+  const u=aiUsageData(), el=document.getElementById('aiUsage');
+  if(el)el.textContent=`今日问答 ${u.questions}/${AI_DAILY_QUESTION_LIMIT} 次 · AI课程 ${u.lessons}/${AI_DAILY_LESSON_LIMIT} 次`;
+}
+function saveAccessCode(){
+  const code=document.getElementById('accessCode').value.trim();
+  if(!code){alert('请输入你稍后在 Vercel 设置的私人密码');return}
+  localStorage.setItem('v7-access-code',code);alert('已保存在这台设备');
+}
+function addAIBubble(text,type='ai'){
+  const chat=document.getElementById('aiChat'), div=document.createElement('div');
+  div.className='ai-bubble '+type;div.textContent=text;chat.appendChild(div);chat.scrollTop=chat.scrollHeight;
+}
+function quickAI(text){document.getElementById('aiInput').value=text}
+function clearAIChat(){
+  document.getElementById('aiChat').innerHTML='<div class="ai-bubble ai">对话已清空。我们重新开始学习吧。</div>';
+}
+async function sendAI(){
+  const input=document.getElementById('aiInput'), message=input.value.trim();
+  const mode=document.getElementById('aiMode').value;
+  const subject=document.getElementById('aiSubject').value;
+  const level=document.getElementById('aiLevel').value;
+  const accessCode=(document.getElementById('accessCode').value||localStorage.getItem('v7-access-code')||'').trim();
+  const status=document.getElementById('aiStatus'), button=document.getElementById('aiSend');
+  if(!accessCode){alert('请先填写并保存私人访问密码');return}
+  if(!message && mode!=='lesson'){alert('请先输入问题');return}
+  const u=aiUsageData();
+  if(mode==='lesson'&&u.lessons>=AI_DAILY_LESSON_LIMIT){alert('今天已经生成过一节 AI 课程了，明天再生成新的课程。');return}
+  if(mode!=='lesson'&&u.questions>=AI_DAILY_QUESTION_LIMIT){alert('今天的 AI 问答次数已用完。');return}
+  const finalMessage=message||(subject+'：请生成今天的一节课程');
+  addAIBubble(finalMessage,'user');input.value='';button.disabled=true;status.textContent='AI老师正在思考…';
+  try{
+    const response=await fetch('/api/ai',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Kiki-Access':accessCode},
+      body:JSON.stringify({mode,subject,level,message:finalMessage})
+    });
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||`请求失败（${response.status}）`);
+    addAIBubble(data.text||'AI没有返回文字，请再试一次。','ai');
+    if(mode==='lesson')u.lessons++;else u.questions++;
+    saveAIUsage(u);
+    const history=JSON.parse(localStorage.getItem('v7-ai-history')||'[]');
+    history.unshift({date:new Date().toLocaleString('zh-CN'),mode,subject,q:finalMessage,a:data.text});
+    localStorage.setItem('v7-ai-history',JSON.stringify(history.slice(0,30)));
+  }catch(err){
+    addAIBubble('连接失败：'+err.message,'system');
+  }finally{
+    button.disabled=false;status.textContent='';
+  }
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('todayDate').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',weekday:'long'});
   document.querySelectorAll('[data-k]').forEach(e=>{
@@ -440,7 +587,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     e.onchange=()=>{localStorage.setItem('v6-'+e.dataset.k,e.checked);refresh()}
   });
   const mood=+(localStorage.getItem('v6-mood')||3);setMood(mood);
-  renderWords();renderBaby();updateDailyDescriptions();refresh();
+  renderWords();renderBaby();updateDailyDescriptions();renderAIUsage();document.getElementById('accessCode').value=localStorage.getItem('v7-access-code')||'';refresh();
 });
 </script>
 </body>
