@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f4eee5">
-<title>Kiki's Study Space V2.1</title>
+<title>Kiki's Study Space V2.1.1</title>
 <style>
 :root{--bg:#f4eee5;--paper:#fffaf3;--paper2:#f8f1e8;--ink:#433d37;--muted:#8b8177;--line:#e6dacb;--green:#7f9475;--green2:#e7eee3;--wood:#b18e6c;--shadow:0 14px 34px rgba(80,64,45,.1)}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#faf6ef,#eee1d1);color:var(--ink)}
@@ -32,15 +32,15 @@ textarea,input[type=text],input[type=number],input[type=date]{width:100%;padding
 <body>
 <div class="app">
 <aside>
-<div class="brand"><div class="logo">🌿</div><span><b>Kiki's Study Space</b><br><small>V2.1 · Every day, a little progress.</small></span></div>
+<div class="brand"><div class="logo">🌿</div><span><b>Kiki's Study Space</b><br><small>V2.1.1 · Every day, a little progress.</small></span></div>
 <nav>
-<button class="active" data-v="home">🏡 <span>首页</span></button>
-<button data-v="english">🇺🇸 <span>英语</span></button>
-<button data-v="courses">🎓 <span>课程</span></button>
-<button data-v="reading">📖 <span>阅读</span></button>
-<button data-v="baby">👶 <span>宝宝</span></button>
-<button data-v="goals">🎯 <span>目标</span></button>
-<button data-v="stats">📊 <span>统计</span></button>
+<button class="active" data-v="home" onclick="openV('home')">🏡 <span>首页</span></button>
+<button data-v="english" onclick="openV('english')">🇺🇸 <span>英语</span></button>
+<button data-v="courses" onclick="openV('courses')">🎓 <span>课程</span></button>
+<button data-v="reading" onclick="openV('reading')">📖 <span>阅读</span></button>
+<button data-v="baby" onclick="openV('baby')">👶 <span>宝宝</span></button>
+<button data-v="goals" onclick="openV('goals')">🎯 <span>目标</span></button>
+<button data-v="stats" onclick="openV('stats')">📊 <span>统计</span></button>
 </nav>
 </aside>
 <main>
