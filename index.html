@@ -85,6 +85,16 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
 .ai-code-row .btn{margin-top:7px}
 .ai-home{grid-column:span 4}
 .ai-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#e2ecde;color:#526c4d;font-size:13px}
+
+.v71-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px}.vocab-card{padding:13px;border-radius:15px;background:var(--soft);margin-bottom:9px}
+.vocab-top{display:flex;justify-content:space-between;gap:8px}.vocab-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.vocab-actions button,.quick-actions button{border:0;border-radius:999px;padding:7px 10px;background:var(--soft2)}
+.vocab-actions button.on{background:var(--green);color:#fff}.filter-row,.quick-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.filter-row button{border:0;border-radius:999px;padding:8px 11px;background:var(--soft2)}.filter-row button.active{background:var(--green);color:#fff}
+.lesson-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}.lesson-step{padding:8px;border-radius:11px;background:var(--soft);text-align:center;font-size:12px}
+.lesson-step.active{background:var(--green);color:#fff}.mastery{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.mastery button{width:26px;height:26px;border:0;border-radius:50%;background:var(--soft2)}.mastery button.on{background:var(--green)}
+@media(max-width:800px){.v71-grid{grid-template-columns:1fr}.lesson-steps{grid-template-columns:repeat(3,1fr)}}
+
 @media(max-width:850px){.ai-grid{grid-template-columns:1fr}.ai-chat{min-height:330px}}
 
 @media(max-width:980px){
@@ -106,6 +116,7 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
   <nav>
     <button class="active" data-v="home" onclick="openV('home')">🏠 <span>首页工作台</span></button>
     <button data-v="ai" onclick="openV('ai')">🤖 <span>AI 学习老师</span></button>
+    <button data-v="englishLab" onclick="openV('englishLab')">🇺🇸 <span>英语学院 V2</span></button>
     <button data-v="highschool" onclick="openV('highschool')">🎓 <span>高中课程</span></button>
     <button data-v="english" onclick="openV('english')">🔤 <span>英语学习</span></button>
     <button data-v="reading" onclick="openV('reading')">📖 <span>阅读笔记</span></button>
@@ -182,9 +193,9 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
 
 
     <div class="card ai-home">
-      <div class="ai-badge">✨ V7 真正 AI</div>
+      <div class="ai-badge">✨ V7.1 AI 学习闭环</div>
       <h3 style="margin-top:12px">AI 学习老师 🤖</h3>
-      <p class="muted">可以自由提问、生成今日课程、自动出题并讲解错题。</p>
+      <p class="muted">AI讲课、举例、出题、批改、总结，并保存本机学习记录。</p>
       <button class="btn" onclick="openV('ai')">进入 AI 学习</button>
     </div>
 
@@ -240,7 +251,12 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
     <button class="btn secondary" onclick="openV('home')">返回</button>
   </div>
 
-  <div class="ai-grid">
+  
+<div class="card" style="margin-bottom:14px"><h3>🎓 AI 高中课程闭环</h3>
+<div class="lesson-steps" id="vSteps"><div class="lesson-step active">讲课</div><div class="lesson-step">举例</div><div class="lesson-step">练习</div><div class="lesson-step">批改</div><div class="lesson-step">总结</div></div>
+<div class="quick-actions"><button onclick="vQuick('请讲得再简单一点。',1)">再简单一点</button><button onclick="vQuick('请举一个生活例子。',1)">生活例子</button><button onclick="vQuick('请出一道类似题，先不要给答案。',2)">类似题</button><button onclick="vQuick('请总结3个重点。',4)">总结重点</button></div>
+<div class="mastery"><span>掌握程度：</span><button onclick="vMastery(1)">1</button><button onclick="vMastery(2)">2</button><button onclick="vMastery(3)">3</button><button onclick="vMastery(4)">4</button><button onclick="vMastery(5)">5</button><button class="btn" onclick="vFinishCourse()">保存本节课</button></div></div>
+<div class="ai-grid">
     <div class="card ai-controls">
       <div>
         <label><b>学习模式</b></label>
@@ -279,7 +295,7 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
 
     <div class="card">
       <div class="ai-chat" id="aiChat">
-        <div class="ai-bubble ai">你好 Kiki，我是 V7 AI 学习老师。你可以问高中八科问题，也可以让我生成今天的课程。</div>
+        <div class="ai-bubble ai">你好 Kiki，我是 V7.1 学习老师。你可以问高中八科问题，也可以让我生成今天的课程。</div>
       </div>
       <div class="ai-quick">
         <button onclick="quickAI('请用非常简单的方式给我讲今天最适合学习的知识点。')">今日知识点</button>
@@ -293,6 +309,16 @@ input[type=text],input[type=number],textarea{width:100%;padding:12px;border:1px 
   </div>
 </section>
 
+
+<section id="englishLab" class="view">
+<div class="section-head"><div><h2>🇺🇸 英语学院 V2</h2><p class="muted">高中英语、医疗英语、日常英语，每天自动 10 个。</p></div><button class="btn secondary" onclick="openV('home')">返回</button></div>
+<div class="v71-grid">
+<div class="card"><div class="filter-row">
+<button class="active" onclick="setVFilter('today',this)">今日新词</button><button onclick="setVFilter('review',this)">需要复习</button><button onclick="setVFilter('mastered',this)">已掌握</button><button onclick="setVFilter('favorite',this)">收藏</button>
+</div><div id="v71Words"></div></div>
+<div class="card"><h3>今日进度</h3><div class="metric-grid"><div class="metric">新词<strong>10</strong></div><div class="metric">已掌握<strong id="vMaster">0</strong></div><div class="metric">模糊<strong id="vFuzzy">0</strong></div><div class="metric">不认识<strong id="vUnknown">0</strong></div></div>
+<div class="notice">不会的词标记为“模糊”或“不认识”，以后优先复习。</div><button class="btn" onclick="startVQuiz()">开始 5 题小测验</button><div id="vQuiz"></div></div>
+</div></section>
 <section id="highschool" class="view">
   <div class="section-head"><div><h2>🎓 高中课程</h2><p class="muted">先从基础开始，每天完成一个小知识点。</p></div><button class="btn secondary" onclick="openV('home')">返回</button></div>
   <div class="card" style="margin-bottom:14px">
@@ -519,6 +545,27 @@ function refresh(){
   document.getElementById('babyRecordCount').textContent=JSON.parse(localStorage.getItem('v6-baby-records')||'[]').length+'条';
 }
 
+const V71BANK=[["analyze","/ˈænəlaɪz/","分析","高中","We need to analyze the problem."],["approach","/əˈproʊtʃ/","方法","高中","Try a different approach."],["argument","/ˈɑːrɡjəmənt/","论点","高中","Support your argument with evidence."],["benefit","/ˈbenɪfɪt/","益处","高中","Reading has many benefits."],["compare","/kəmˈper/","比较","高中","Compare the two ideas."],["conclusion","/kənˈkluːʒən/","结论","高中","Draw a conclusion."],["consider","/kənˈsɪdər/","考虑","高中","Consider every answer."],["contrast","/ˈkɑːntræst/","对比","高中","Contrast the two stories."],["develop","/dɪˈveləp/","发展","高中","Develop your skills."],["education","/ˌedʒuˈkeɪʃən/","教育","高中","Education can change a future."],["effect","/ɪˈfekt/","影响","高中","Sleep affects memory."],["environment","/ɪnˈvaɪrənmənt/","环境","高中","A quiet environment helps."],["evidence","/ˈevɪdəns/","证据","高中","Use evidence."],["experience","/ɪkˈspɪriəns/","经验","高中","Experience is a teacher."],["explain","/ɪkˈspleɪn/","解释","高中","Explain your answer."],["factor","/ˈfæktər/","因素","高中","Time is a factor."],["focus","/ˈfoʊkəs/","专注","高中","Focus on one task."],["function","/ˈfʌŋkʃən/","函数","高中","A function has inputs and outputs."],["identify","/aɪˈdentɪfaɪ/","识别","高中","Identify the main idea."],["increase","/ɪnˈkriːs/","增加","高中","Practice increases confidence."],["interpret","/ɪnˈtɜːrprət/","理解","高中","Interpret the graph."],["method","/ˈmeθəd/","方法","高中","This method is simple."],["process","/ˈprɑːses/","过程","高中","Learning is a process."],["provide","/prəˈvaɪd/","提供","高中","Provide an example."],["research","/rɪˈsɜːrtʃ/","研究","高中","Research the topic."],["result","/rɪˈzʌlt/","结果","高中","Check the result."],["solution","/səˈluːʃən/","解答","高中","Find the solution."],["specific","/spəˈsɪfɪk/","具体的","高中","Give a specific example."],["structure","/ˈstrʌktʃər/","结构","高中","Study the structure."],["summarize","/ˈsʌməraɪz/","总结","高中","Summarize the passage."],["allergy","/ˈælərdʒi/","过敏","医疗","Do you have allergies?"],["appointment","/əˈpɔɪntmənt/","预约","医疗","I have an appointment."],["blood pressure","/ˈblʌd preʃər/","血压","医疗","Check blood pressure."],["breathing","/ˈbriːðɪŋ/","呼吸","医疗","Is the breathing normal?"],["checkup","/ˈtʃekʌp/","体检","医疗","The baby has a checkup."],["clinic","/ˈklɪnɪk/","诊所","医疗","The clinic opens at eight."],["cough","/kɔːf/","咳嗽","医疗","How long is the cough?"],["diagnosis","/ˌdaɪəɡˈnoʊsɪs/","诊断","医疗","The doctor confirmed the diagnosis."],["diarrhea","/ˌdaɪəˈriːə/","腹泻","医疗","The child has diarrhea."],["dose","/doʊs/","剂量","医疗","Follow the dose."],["emergency","/ɪˈmɜːrdʒənsi/","紧急情况","医疗","Call 911 in an emergency."],["fever","/ˈfiːvər/","发烧","医疗","The baby has a fever."],["follow-up","/ˈfɑːloʊ ʌp/","复诊","医疗","Schedule a follow-up."],["insurance","/ɪnˈʃʊrəns/","保险","医疗","Does insurance cover it?"],["medication","/ˌmedɪˈkeɪʃən/","药物","医疗","Take the medication."],["pain","/peɪn/","疼痛","医疗","Where is the pain?"],["patient","/ˈpeɪʃənt/","病人","医疗","The patient is resting."],["pharmacy","/ˈfɑːrməsi/","药房","医疗","Go to the pharmacy."],["prescription","/prɪˈskrɪpʃən/","处方","医疗","The prescription is ready."],["rash","/ræʃ/","皮疹","医疗","When did the rash appear?"],["recovery","/rɪˈkʌvəri/","恢复","医疗","Recovery is going well."],["referral","/rɪˈfɜːrəl/","转诊","医疗","You need a referral."],["side effect","/ˈsaɪd ɪfekt/","副作用","医疗","Sleepiness is a side effect."],["specialist","/ˈspeʃəlɪst/","专科医生","医疗","See a specialist."],["symptom","/ˈsɪmptəm/","症状","医疗","What symptoms do you have?"],["temperature","/ˈtemprətʃər/","体温","医疗","Check the temperature."],["treatment","/ˈtriːtmənt/","治疗","医疗","The treatment takes time."],["vaccine","/vækˈsiːn/","疫苗","医疗","The baby received a vaccine."],["vomiting","/ˈvɑːmɪtɪŋ/","呕吐","医疗","Vomiting continues."],["wound","/wuːnd/","伤口","医疗","Keep the wound clean."],["available","/əˈveɪləbəl/","有空的","日常","Are you available?"],["budget","/ˈbʌdʒɪt/","预算","日常","I made a budget."],["cancel","/ˈkænsəl/","取消","日常","Cancel the appointment."],["choose","/tʃuːz/","选择","日常","Choose one option."],["confirm","/kənˈfɜːrm/","确认","日常","Confirm the time."],["contact","/ˈkɑːntækt/","联系","日常","Contact me by email."],["convenient","/kənˈviːniənt/","方便的","日常","Online learning is convenient."],["delivery","/dɪˈlɪvəri/","配送","日常","The delivery arrives tomorrow."],["describe","/dɪˈskraɪb/","描述","日常","Describe the problem."],["discount","/ˈdɪskaʊnt/","折扣","日常","There is a discount."],["exchange","/ɪksˈtʃeɪndʒ/","换货","日常","Can I exchange it?"],["forget","/fərˈɡet/","忘记","日常","Do not forget."],["improve","/ɪmˈpruːv/","改善","日常","Improve your English."],["manage","/ˈmænɪdʒ/","管理","日常","Manage your time."],["message","/ˈmesɪdʒ/","消息","日常","Send me a message."],["order","/ˈɔːrdər/","订单","日常","I placed an order."],["prepare","/prɪˈper/","准备","日常","Prepare dinner."],["receipt","/rɪˈsiːt/","收据","日常","Keep the receipt."],["recommend","/ˌrekəˈmend/","推荐","日常","Recommend a restaurant."],["refund","/ˈriːfʌnd/","退款","日常","Request a refund."],["remind","/rɪˈmaɪnd/","提醒","日常","Remind me tomorrow."],["repair","/rɪˈper/","修理","日常","The phone needs repair."],["replace","/rɪˈpleɪs/","替换","日常","Replace the old filter."],["request","/rɪˈkwest/","请求","日常","Submit a request."],["schedule","/ˈskedʒuːl/","日程","日常","My schedule is busy."],["service","/ˈsɜːrvɪs/","服务","日常","The service was good."],["spend","/spend/","花费","日常","Spend time studying."],["suggest","/səˈdʒest/","建议","日常","What do you suggest?"],["understand","/ˌʌndərˈstænd/","理解","日常","I understand."],["update","/ˌʌpˈdeɪt/","更新","日常","Update the information."]];
+
+let vFilter='today',vMasterNow=3,vQuizItems=[],vQi=0,vScore=0;
+const vDay=()=>Math.floor(new Date(new Date().toDateString()).getTime()/86400000);
+function vToday(){let a=[],s=(vDay()*10)%V71BANK.length;for(let i=0;i<10;i++)a.push(V71BANK[(s+i)%V71BANK.length]);return a}
+function vKey(x){return 'v71-'+x[3]+'-'+x[0]}
+function vState(x){try{return JSON.parse(localStorage.getItem(vKey(x))||'{}')}catch{return {}}}
+function vSet(x,status){let s=vState(x);s.status=status;localStorage.setItem(vKey(x),JSON.stringify(s));vRender();vStats()}
+function vFav(x){let s=vState(x);s.favorite=!s.favorite;localStorage.setItem(vKey(x),JSON.stringify(s));vRender()}
+function setVFilter(f,b){vFilter=f;document.querySelectorAll('.filter-row button').forEach(x=>x.classList.remove('active'));b.classList.add('active');vRender()}
+function vItems(){if(vFilter==='today')return vToday();return V71BANK.filter(x=>{let s=vState(x);return vFilter==='review'?(s.status==='fuzzy'||s.status==='unknown'):vFilter==='mastered'?s.status==='mastered':!!s.favorite}).slice(0,60)}
+function vRender(){let e=document.getElementById('v71Words');if(!e)return;e.innerHTML=vItems().map(x=>{let s=vState(x);return `<div class="vocab-card"><div class="vocab-top"><div><b>${x[0]}</b><div class="muted">${x[1]} · ${x[2]} · ${x[3]}英语</div></div><button class="sound" onclick='say(${JSON.stringify(x[0])})'>🔊</button></div><div>${x[4]}</div><div class="vocab-actions"><button class="${s.status==='unknown'?'on':''}" onclick='vSet(${JSON.stringify(x)},"unknown")'>不认识</button><button class="${s.status==='fuzzy'?'on':''}" onclick='vSet(${JSON.stringify(x)},"fuzzy")'>模糊</button><button class="${s.status==='mastered'?'on':''}" onclick='vSet(${JSON.stringify(x)},"mastered")'>已掌握</button><button class="${s.favorite?'on':''}" onclick='vFav(${JSON.stringify(x)})'>☆</button></div></div>`}).join('')||'<p>暂无单词</p>'}
+function vStats(){let m=0,f=0,u=0;V71BANK.forEach(x=>{let s=vState(x);if(s.status==='mastered')m++;if(s.status==='fuzzy')f++;if(s.status==='unknown')u++});[['vMaster',m],['vFuzzy',f],['vUnknown',u]].forEach(x=>{let e=document.getElementById(x[0]);if(e)e.textContent=x[1]})}
+function startVQuiz(){vQuizItems=[...vToday()].sort(()=>Math.random()-.5).slice(0,5);vQi=0;vScore=0;vShowQuiz()}
+function vShowQuiz(){let e=document.getElementById('vQuiz');if(vQi>=vQuizItems.length){e.innerHTML=`<div class="notice">完成：${vScore}/5</div>`;return}let t=vQuizItems[vQi],o=[t,...V71BANK.filter(x=>x[0]!==t[0]).sort(()=>Math.random()-.5).slice(0,2)].sort(()=>Math.random()-.5);e.innerHTML=`<div class="notice"><b>${t[0]}</b> 是什么意思？</div>`+o.map(x=>`<button class="quiz" onclick='vAnswer(${JSON.stringify(t)},${JSON.stringify(x)})'>${x[2]}</button>`).join('')}
+function vAnswer(t,x){if(t[2]===x[2]){vScore++;vSet(t,'mastered')}else vSet(t,'fuzzy');vQi++;vShowQuiz()}
+function vStep(n){document.querySelectorAll('#vSteps .lesson-step').forEach((x,i)=>x.classList.toggle('active',i===n))}
+function vQuick(t,n){document.getElementById('aiInput').value=t;vStep(n);sendAI()}
+function vMastery(n){vMasterNow=n;document.querySelectorAll('.mastery button:not(.btn)').forEach((x,i)=>x.classList.toggle('on',i<n))}
+function vFinishCourse(){let a=JSON.parse(localStorage.getItem('v71-courses')||'[]');a.unshift({date:new Date().toLocaleString('zh-CN'),subject:document.getElementById('aiSubject').value,mastery:vMasterNow});localStorage.setItem('v71-courses',JSON.stringify(a));vStep(4);alert('课程已保存')}
+
 const AI_DAILY_QUESTION_LIMIT=15;
 const AI_DAILY_LESSON_LIMIT=1;
 function aiDayKey(){const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`}
@@ -587,7 +634,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     e.onchange=()=>{localStorage.setItem('v6-'+e.dataset.k,e.checked);refresh()}
   });
   const mood=+(localStorage.getItem('v6-mood')||3);setMood(mood);
-  renderWords();renderBaby();updateDailyDescriptions();renderAIUsage();document.getElementById('accessCode').value=localStorage.getItem('v7-access-code')||'';refresh();
+  renderWords();renderBaby();updateDailyDescriptions();renderAIUsage();vRender();vStats();document.getElementById('accessCode').value=localStorage.getItem('v7-access-code')||'';refresh();
 });
 </script>
 </body>
