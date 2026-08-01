@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5efe6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Kiki AI V7.2</title>
+<style>
+:root{
+  --bg:#f5efe6;--paper:#fffaf3;--paper2:#f8f1e7;--ink:#433d37;--muted:#8b8278;
+  --line:#e7dbcc;--sage:#7f9475;--sage-dark:#607059;--sage2:#e8efe4;
+  --wood:#b79572;--rose:#c98f8f;--gold:#d3aa58;
+  --shadow:0 16px 38px rgba(84,68,49,.10);--radius:24px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 5% 0%,#fff,transparent 28%),
+    linear-gradient(135deg,#faf6ef,#eee2d3);
+  min-height:100vh
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.app{display:grid;grid-template-columns:244px 1fr;min-height:100vh}
+.sidebar{
+  position:sticky;top:0;height:100vh;padding:25px 18px;
+  background:rgba(255,250,243,.91);backdrop-filter:blur(18px);
+  border-right:1px solid var(--line)
+}
+.brand{display:flex;align-items:center;gap:12px;margin:4px 8px 24px}
+.logo{
+  width:46px;height:46px;border-radius:16px;display:grid;place-items:center;
+  background:var(--sage);color:#fff;font-size:23px;box-shadow:0 10px 24px rgba(127,148,117,.25)
+}
+.brand strong{display:block}
+.brand small{color:var(--muted);font-size:10px;letter-spacing:.1em}
+.badge{
+  display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;
+  background:var(--sage2);color:var(--sage-dark);font-size:11px;margin-left:5px
+}
+.nav{display:grid;gap:7px}
+.nav button{
+  border:0;background:transparent;padding:13px 14px;border-radius:14px;
+  color:var(--muted);text-align:left;display:flex;gap:11px;align-items:center;width:100%
+}
+.nav button.active,.nav button:hover{background:#eee6db;color:var(--ink)}
+.side-note{
+  position:absolute;left:18px;right:18px;bottom:22px;background:#eee7dd;
+  border-radius:17px;padding:15px;color:var(--muted);font-size:12px;line-height:1.65
+}
+main{padding:30px;max-width:1450px;width:100%;margin:auto}
+.view{display:none}
+.view.active{display:block}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}
+.top h1{font-size:30px;margin:0 0 6px}
+.top p{margin:0;color:var(--muted)}
+.avatar{
+  width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+  background:#ead7bd;font-weight:700
+}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+.card{
+  background:rgba(255,250,243,.97);border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)
+}
+.hero{grid-column:span 8;min-height:224px;position:relative;overflow:hidden}
+.hero:after{content:"🌿";position:absolute;right:28px;bottom:8px;font-size:100px;opacity:.14}
+.progress{grid-column:span 4}
+.tasks{grid-column:span 5}
+.english{grid-column:span 7}
+.third{grid-column:span 4}
+.half{grid-column:span 6}
+.full{grid-column:span 12}
+.eyebrow{font-size:12px;letter-spacing:.15em;color:var(--sage);text-transform:uppercase}
+.muted{color:var(--muted);line-height:1.75}
+h2{font-size:29px;line-height:1.25;margin:11px 0}
+h3{margin:0 0 15px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;
+  border-radius:14px;padding:12px 18px;background:var(--sage);color:#fff;margin-top:12px
+}
+.btn.secondary{background:var(--sage2);color:var(--sage-dark)}
+.btn.wood{background:var(--wood)}
+.btn.rose{background:var(--rose)}
+.btn:active{transform:scale(.98)}
+.ring{
+  width:116px;height:116px;border-radius:50%;
+  background:conic-gradient(var(--sage) 0 var(--p,0%),#e7dfd5 var(--p,0%));
+  display:grid;place-items:center;margin:12px auto
+}
+.ring strong{
+  width:84px;height:84px;border-radius:50%;background:var(--paper);
+  display:grid;place-items:center;font-size:22px
+}
+.task{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.task input{width:20px;height:20px;accent-color:var(--sage)}
+.task input:checked+label{text-decoration:line-through;color:#aaa}
+.word{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:13px 14px;border-radius:15px;background:var(--paper2);margin-bottom:10px
+}
+.word b{display:block}
+.word small{color:var(--muted)}
+.word-left{display:flex;align-items:center;gap:10px}
+.word-index{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:var(--sage);color:#fff;font-size:12px;flex:none
+}
+.sound{border:0;border-radius:999px;background:#e5eee1;padding:8px 11px}
+.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.metric{padding:14px;border-radius:16px;background:var(--paper2)}
+.metric strong{display:block;font-size:18px;margin-top:5px}
+.notice{padding:14px 16px;border-radius:15px;background:#edf2e9;color:#5f6f58;margin:14px 0}
+textarea,input[type=text],input[type=number],input[type=date],select{
+  width:100%;border:1px solid var(--line);border-radius:15px;background:#fffdf9;
+  padding:13px;margin-top:8px
+}
+textarea{min-height:130px;resize:vertical}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.section-title h1{margin:0}
+.chip{
+  display:inline-flex;padding:8px 11px;border-radius:999px;background:var(--sage2);
+  margin:0 7px 8px 0;font-size:13px
+}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{background:var(--paper2);padding:18px;border-radius:18px}
+.stat strong{display:block;font-size:26px;margin-top:6px}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.course-card{padding:18px;border-radius:18px;background:var(--paper2);border:1px solid var(--line)}
+.course-card h3{margin-bottom:8px}
+.course-card p{min-height:48px}
+.lesson-panel{display:none;margin-top:18px}
+.day-chip{
+  display:inline-flex;padding:6px 10px;border-radius:999px;background:#f0e7da;
+  color:#7a6e62;font-size:12px;margin-bottom:10px
+}
+.voice-panel{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin:14px 0 18px}
+.timer{
+  display:grid;place-items:center;text-align:center;padding:18px;border-radius:20px;background:var(--paper2)
+}
+.timer-display{font-size:42px;font-weight:750;letter-spacing:.04em;margin:6px 0}
+.timer-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.streak{display:flex;align-items:center;gap:13px}
+.streak-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:#fff0dc;font-size:26px}
+.levelbar{height:12px;border-radius:999px;background:#e7dfd5;overflow:hidden;margin-top:11px}
+.levelbar span{display:block;height:100%;background:var(--gold);width:0}
+.calendar-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px}
+.daybox{padding:10px 6px;border-radius:14px;background:var(--paper2);text-align:center;font-size:12px}
+.daybox.done{background:var(--sage2);color:var(--sage-dark);font-weight:700}
+.toast{
+  position:fixed;right:22px;bottom:22px;background:#433d37;color:white;
+  border-radius:14px;padding:13px 17px;opacity:0;transform:translateY(8px);
+  transition:.25s;pointer-events:none;z-index:50
+}
+.toast.show{opacity:1;transform:none}
+@media(max-width:980px){
+  .app{grid-template-columns:84px 1fr}
+  .brand>div:last-child,.nav span,.side-note{display:none}
+  .brand{justify-content:center}
+  .nav button{justify-content:center;font-size:20px}
+  .hero,.progress,.tasks,.english,.third,.half{grid-column:span 12}
+  .course-grid{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .app{display:block}
+  .sidebar{
+    position:fixed;z-index:30;left:0;right:0;bottom:0;top:auto;height:auto;
+    padding:8px;border-top:1px solid var(--line);border-right:0
+  }
+  .brand,.side-note{display:none}
+  .nav{display:flex;justify-content:space-around}
+  .nav button{padding:9px 10px}
+  .nav button:nth-child(n+6){display:none}
+  .nav span{display:none}
+  main{padding:20px 14px 94px}
+  .top h1{font-size:25px}
+  .grid{display:block}
+  .card{margin-bottom:16px}
+  .hero h2{font-size:25px}
+  .form-grid,.stats,.course-grid{grid-template-columns:1fr}
+  .voice-panel{grid-template-columns:1fr}
+  .section-title{align-items:flex-start}
+}
+
+.dashboard-banner{grid-column:span 12;display:grid;grid-template-columns:1.5fr .8fr;gap:18px;background:linear-gradient(135deg,#748b6c,#95a98d);color:#fff;border:0;position:relative;overflow:hidden}
+.dashboard-banner:after{content:"KIKI AI";position:absolute;right:-18px;bottom:-22px;font-size:82px;font-weight:800;opacity:.08}
+.dashboard-banner h2{font-size:34px;max-width:720px}.dashboard-banner .muted{color:rgba(255,255,255,.82)}
+.ai-orb{width:150px;height:150px;border-radius:45px;margin:auto;display:grid;place-items:center;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);font-size:64px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.quick-action{border:1px solid var(--line);background:var(--paper2);border-radius:18px;padding:16px;text-align:left;color:var(--ink);min-height:112px}
+.quick-action span{display:block;font-size:27px;margin-bottom:12px}.quick-action strong{display:block}.quick-action small{display:block;color:var(--muted);margin-top:5px;line-height:1.45}
+.ai-advice{grid-column:span 7;background:linear-gradient(145deg,#fffaf3,#edf3e9)}.today-summary{grid-column:span 5}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.summary-row:last-child{border-bottom:0}
+.status-pill{display:inline-flex;padding:6px 9px;border-radius:999px;background:#eee7dd;color:var(--muted);font-size:12px}.status-pill.done{background:var(--sage2);color:var(--sage-dark)}
+.mini-progress{height:9px;border-radius:99px;background:#e7dfd5;overflow:hidden;margin-top:9px}.mini-progress span{height:100%;display:block;background:var(--sage);width:0}
+.quote-card{grid-column:span 12;display:flex;justify-content:space-between;align-items:center;gap:16px;background:rgba(255,250,243,.72)}
+.quote-card blockquote{font-size:20px;line-height:1.55;margin:0}.quote-card small{color:var(--muted)}
+.ai-teacher-card{padding:18px;border-radius:20px;background:#433d37;color:#fff;margin-top:15px}.ai-teacher-card p{color:rgba(255,255,255,.72)}
+.ai-input-row{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:12px}.ai-input-row input{margin:0;background:#fff}
+.ai-answer{display:none;margin-top:13px;padding:14px;border-radius:15px;background:rgba(255,255,255,.1);line-height:1.7}
+@media(max-width:980px){.dashboard-banner,.ai-advice,.today-summary{grid-column:span 12}.quick-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.dashboard-banner{grid-template-columns:1fr}.dashboard-banner h2{font-size:27px}.ai-orb{width:105px;height:105px;border-radius:32px;font-size:48px}.quick-grid{grid-template-columns:1fr 1fr}.quick-action{min-height:105px;padding:14px}.quote-card{display:block}}
+
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">
+    <div class="logo">🌿</div>
+    <div><strong>Kiki AI <span class="badge">V7.2</span></strong><small>LEARN · GROW · LIVE</small></div>
+  </div>
+  <nav class="nav">
+    <button class="active" data-view="home">🏡 <span>首页工作台</span></button>
+    <button data-view="english">🇺🇸 <span>英语学习</span></button>
+    <button data-view="courses">🎓 <span>高中课程</span></button>
+    <button data-view="reading">📖 <span>阅读笔记</span></button>
+    <button data-view="baby">👶 <span>宝宝成长</span></button>
+    <button data-view="goals">🎯 <span>目标计划</span></button>
+    <button data-view="stats">📊 <span>学习统计</span></button>
+  </nav>
+  <div class="side-note">V7.2：打开首页，就知道今天该学什么。</div>
+</aside>
+
+<main>
+<section id="home" class="view active">
+<div class="top"><div><h1 id="greetingTitle">欢迎回来，Kiki ☕</h1><p id="todayText">今天也一起前进一步。</p></div><div class="avatar">K</div></div>
+<div class="grid">
+<article class="card dashboard-banner"><div><div class="eyebrow" style="color:rgba(255,255,255,.72)">KIKI AI · DAILY GUIDE</div><h2 id="focusTitle">今天不需要完成很多，先认真完成一件事。</h2><p class="muted" id="focusText">我已经为你整理好今天的英语、高中课程、阅读和复习任务。</p><button class="btn" style="background:#fff;color:#607059" onclick="startToday()">开始今日学习 →</button></div><div class="ai-orb">🌿</div></article>
+<article class="card full"><div class="section-title" style="margin-bottom:12px"><h3 style="margin:0">快捷开始</h3><span class="badge">V7.2 Dashboard</span></div><div class="quick-grid">
+<button class="quick-action" onclick="openView('english')"><span>🇺🇸</span><strong>今日英语</strong><small>10 个新词与美式发音</small></button>
+<button class="quick-action" onclick="openView('courses')"><span>🎓</span><strong>高中课程</strong><small>从九科中选择一节</small></button>
+<button class="quick-action" onclick="openView('reading')"><span>📖</span><strong>阅读记录</strong><small>记录页数与感悟</small></button>
+<button class="quick-action" onclick="askDashboardAI()"><span>🤖</span><strong>AI 老师</strong><small>获得今天的学习建议</small></button>
+</div></article>
+<article class="card today-summary"><div class="eyebrow">TODAY'S PLAN</div><h3 style="margin-top:8px">📚 今日任务</h3>
+<div class="summary-row"><div>🇺🇸 英语 10 词</div><span id="sumWords" class="status-pill">未完成</span></div>
+<div class="summary-row"><div>🎓 高中课程 1 节</div><span id="sumCourse" class="status-pill">未完成</span></div>
+<div class="summary-row"><div>📖 阅读 10 分钟</div><span id="sumRead" class="status-pill">未完成</span></div>
+<div class="summary-row"><div>🔁 复习昨日内容</div><span id="sumReview" class="status-pill">未完成</span></div>
+<div class="mini-progress"><span id="dashboardProgress"></span></div><p class="muted" id="dashboardProgressText">今日进度 0%</p>
+<div style="display:none"><input data-task id="taskWords" type="checkbox"><input data-task id="taskCourse" type="checkbox"><input data-task id="taskRead" type="checkbox"><input data-task id="taskReview" type="checkbox"></div>
+</article>
+<article class="card ai-advice"><div class="eyebrow">AI STUDY COACH</div><h3 style="margin-top:8px">🤖 AI 今日建议</h3><p class="muted" id="aiAdviceText">先学习英语单词，再选择一节数学或英语课程。最后用 10 分钟做阅读记录。</p>
+<div class="ai-teacher-card"><strong>想让 AI 老师帮你安排什么？</strong><p>V7.2 先提供本地学习建议；接入 API 后可升级为真正的 AI 对话。</p><div class="ai-input-row"><input id="dashboardAiInput" type="text" placeholder="例如：今天只有 30 分钟，怎么安排？"><button class="btn" style="margin:0;background:#95a98d" onclick="askDashboardAI()">发送</button></div><div id="dashboardAiAnswer" class="ai-answer"></div></div></article>
+<article class="card third"><h3>⏱️ 专注学习</h3><div class="timer"><div class="muted">20 分钟专注时间</div><div class="timer-display" id="timerDisplay">20:00</div><div class="timer-actions"><button class="btn" onclick="toggleTimer()" id="timerButton">开始</button><button class="btn secondary" onclick="resetTimer()">重置</button></div></div></article>
+<article class="card third"><h3>🔥 连续学习</h3><div class="streak"><div class="streak-icon">🔥</div><div><strong style="font-size:26px" id="streakCount">0 天</strong><div class="muted">完成任意一项即可打卡</div></div></div><div class="calendar-strip" id="weekStrip"></div></article>
+<article class="card third"><h3>🏅 学习等级</h3><div class="metric">当前等级<strong id="levelName">Lv.1 起步者</strong></div><div class="levelbar"><span id="levelBar"></span></div><p class="muted" id="levelText">再完成 5 项任务即可升级。</p></article>
+<article class="card quote-card"><div><div class="eyebrow">DAILY NOTE</div><blockquote>“每天前进一点点，也是在认真改变人生。”</blockquote><small id="dashboardQuoteEn">Small steps every day lead to big changes.</small></div><button class="sound" onclick="speak(document.getElementById('dashboardQuoteEn').textContent)">🔊 英文发音</button></article>
+</div></section>
+
+<section id="english" class="view">
+  <div class="section-title"><h1>🇺🇸 英语学习 <span class="badge">每日自动换词</span></h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
+  <div class="card">
+    <div class="day-chip" id="wordDayLabel">今日新词</div>
+    <h3>今日 10 词 · American English</h3>
+    <p class="muted">同一天单词保持不变，第二天自动换下一组。点击星号可以加入复习。</p>
+    <div class="voice-panel">
+      <div><label>美式发音声音</label><select id="voiceSelect"></select></div>
+      <button class="btn secondary" onclick="testVoice()">试听声音</button>
+    </div>
+    <div id="dailyWords"></div>
+    <div class="notice"><b>今日一句：</b> <span id="dailySentence"></span> <button class="sound" onclick="speak(document.getElementById('dailySentence').textContent)">🔊</button></div>
+    <button class="btn" onclick="completeEnglish()">✅ 完成今日英语</button>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3>⭐ 我的复习单词</h3>
+    <div id="reviewWords" class="muted">还没有加入复习的单词。</div>
+  </div>
+</section>
+
+<section id="courses" class="view">
+  <div class="section-title"><h1>🎓 高中课程</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
+  <div class="card">
+    <h2>高中九科基础课程</h2>
+    <p class="muted">每天选择一科，不需要一次学很多。完成课程会自动计入学习统计。</p>
+    <div class="course-grid" id="courseGrid"></div>
+  </div>
+  <div class="card lesson-panel" id="lessonPanel"></div>
+</section>
+
+<section id="reading" class="view">
+  <div class="section-title"><h1>📖 阅读笔记</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
+  <div class="grid">
+    <div class="card half">
+      <h3>今日阅读</h3>
+      <label>书名</label><input data-store="bookName" type="text" value="活着">
+      <label>今天读到第几页？</label><input data-store="readingPage" type="number" value="92">
+      <label>今天的阅读感悟</label><textarea data-store="readingNote" placeholder="写下今天最打动你的一句话……"></textarea>
+      <button class="btn" onclick="saveReading()">保存阅读笔记</button>
+    </div>
+    <div class="card half">
+      <h3>阅读目标</h3>
+      <div class="metric-grid">
+        <div class="metric">今日目标<strong>10 页</strong></div>
+        <div class="metric">累计页数<strong id="readingTotal">92 页</strong></div>
+        <div class="metric">读书天数<strong id="readingDays">0 天</strong></div>
+        <div class="metric">当前书籍<strong id="currentBook">活着</strong></div>
+      </div>
+      <div class="notice">读得慢没有关系，读懂、思考并留下自己的感受更重要。</div>
+    </div>
+  </div>
+</section>
+
+<section id="baby" class="view">
+  <div class="section-title"><h1>👶 宝宝成长</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
+  <div class="card">
+    <div class="metric-grid">
+      <div class="metric">月龄<strong>6个月</strong></div>
+      <div class="metric">体重<strong>18.8 lb</strong></div>
+      <div class="metric">身高<strong>67 cm</strong></div>
+      <div class="metric">辅食阶段<strong>初期</strong></div>
+    </div>
+    <h3 style="margin-top:22px">添加今日记录</h3>
+    <div class="form-grid">
+      <div><label>日期</label><input data-store="babyDate" type="date"></div>
+      <div><label>辅食</label><input data-store="babyFood" type="text" placeholder="例如：米糊、土豆泥"></div>
+    </div>
+    <label>睡眠、便便或成长变化</label><textarea data-store="babyNote" placeholder="记录宝宝今天的变化……"></textarea>
+    <button class="btn" onclick="saveToast('宝宝记录已保存在这台设备')">保存记录</button>
+  </div>
+</section>
+
+<section id="goals" class="view">
+  <div class="section-title"><h1>🎯 目标计划</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
+  <div class="card">
+    <div class="task"><input data-goal id="goal1" type="checkbox"><label for="goal1">每天学习 10 个英语单词</label></div>
+    <div class="task"><input data-goal id="goal2" type="checkbox"><label for="goal2">系统学完高中课程</label></div>
+    <div class="task"><input data-goal id="goal3" type="checkbox"><label for="goal3">学习医疗英语，准备医疗口译</label></div>
+    <div class="task"><input data-goal id="goal4" type="checkbox"><label for="goal4">坚持阅读并记录感悟</label></div>
+    <div class="task"><input data-goal id="goal5" type="checkbox"><label for="goal5">持续完善 Kiki AI</label></div>
+  </div>
+</section>
+
+<section id="stats" class="view">
+  <div class="section-title"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openView('home')">返回首页</button></div>
+  <div class="stats">
+    <div class="stat">连续学习<strong id="statStreak">0 天</strong></div>
+    <div class="stat">累计任务<strong id="statTasks">0 项</strong></div>
+    <div class="stat">完成课程<strong id="statCourses">0 节</strong></div>
+    <div class="stat">收藏单词<strong id="statWords">0 个</strong></div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3>本周学习记录</h3>
+    <div class="calendar-strip" id="statsWeek"></div>
+    <div class="notice" id="statsMessage">今天完成一项学习任务，就会留下新的记录。</div>
+  </div>
+</section>
+</main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const WORD_SETS=[
+[
+{w:'progress',ipa:'/ˈprɑːɡres/',zh:'进步'},{w:'schedule',ipa:'/ˈskedʒuːl/',zh:'日程'},
+{w:'available',ipa:'/əˈveɪləbəl/',zh:'有空的；可获得的'},{w:'appointment',ipa:'/əˈpɔɪntmənt/',zh:'预约'},
+{w:'insurance',ipa:'/ɪnˈʃʊrəns/',zh:'保险'},{w:'receipt',ipa:'/rɪˈsiːt/',zh:'收据'},
+{w:'practice',ipa:'/ˈpræktɪs/',zh:'练习'},{w:'improve',ipa:'/ɪmˈpruːv/',zh:'提高'},
+{w:'patient',ipa:'/ˈpeɪʃənt/',zh:'病人；耐心的'},{w:'continue',ipa:'/kənˈtɪnjuː/',zh:'继续'}
+],
+[
+{w:'achieve',ipa:'/əˈtʃiːv/',zh:'实现；达到'},{w:'confident',ipa:'/ˈkɑːnfɪdənt/',zh:'自信的'},
+{w:'education',ipa:'/ˌedʒuˈkeɪʃən/',zh:'教育'},{w:'knowledge',ipa:'/ˈnɑːlɪdʒ/',zh:'知识'},
+{w:'challenge',ipa:'/ˈtʃælɪndʒ/',zh:'挑战'},{w:'develop',ipa:'/dɪˈveləp/',zh:'发展；培养'},
+{w:'future',ipa:'/ˈfjuːtʃər/',zh:'未来'},{w:'remember',ipa:'/rɪˈmembər/',zh:'记得'},
+{w:'understand',ipa:'/ˌʌndərˈstænd/',zh:'理解'},{w:'success',ipa:'/səkˈses/',zh:'成功'}
+],
+[
+{w:'symptom',ipa:'/ˈsɪmptəm/',zh:'症状'},{w:'medicine',ipa:'/ˈmedɪsɪn/',zh:'药物'},
+{w:'treatment',ipa:'/ˈtriːtmənt/',zh:'治疗'},{w:'emergency',ipa:'/ɪˈmɜːrdʒənsi/',zh:'紧急情况'},
+{w:'breathe',ipa:'/briːð/',zh:'呼吸'},{w:'temperature',ipa:'/ˈtemprətʃər/',zh:'体温；温度'},
+{w:'allergy',ipa:'/ˈælərdʒi/',zh:'过敏'},{w:'healthy',ipa:'/ˈhelθi/',zh:'健康的'},
+{w:'doctor',ipa:'/ˈdɑːktər/',zh:'医生'},{w:'nurse',ipa:'/nɜːrs/',zh:'护士'}
+],
+[
+{w:'compare',ipa:'/kəmˈper/',zh:'比较'},{w:'explain',ipa:'/ɪkˈspleɪn/',zh:'解释'},
+{w:'example',ipa:'/ɪɡˈzæmpəl/',zh:'例子'},{w:'important',ipa:'/ɪmˈpɔːrtənt/',zh:'重要的'},
+{w:'different',ipa:'/ˈdɪfrənt/',zh:'不同的'},{w:'possible',ipa:'/ˈpɑːsəbəl/',zh:'可能的'},
+{w:'question',ipa:'/ˈkwestʃən/',zh:'问题'},{w:'answer',ipa:'/ˈænsər/',zh:'回答'},
+{w:'reason',ipa:'/ˈriːzən/',zh:'原因'},{w:'decision',ipa:'/dɪˈsɪʒən/',zh:'决定'}
+],
+[
+{w:'family',ipa:'/ˈfæməli/',zh:'家庭'},{w:'support',ipa:'/səˈpɔːrt/',zh:'支持'},
+{w:'responsibility',ipa:'/rɪˌspɑːnsəˈbɪləti/',zh:'责任'},{w:'experience',ipa:'/ɪkˈspɪriəns/',zh:'经历；经验'},
+{w:'independent',ipa:'/ˌɪndɪˈpendənt/',zh:'独立的'},{w:'protect',ipa:'/prəˈtekt/',zh:'保护'},
+{w:'prepare',ipa:'/prɪˈper/',zh:'准备'},{w:'careful',ipa:'/ˈkerfəl/',zh:'小心的'},
+{w:'comfortable',ipa:'/ˈkʌmftəbəl/',zh:'舒服的'},{w:'together',ipa:'/təˈɡeðər/',zh:'一起'}
+],
+[
+{w:'calculate',ipa:'/ˈkælkjəleɪt/',zh:'计算'},{w:'equation',ipa:'/ɪˈkweɪʒən/',zh:'方程'},
+{w:'fraction',ipa:'/ˈfrækʃən/',zh:'分数'},{w:'multiply',ipa:'/ˈmʌltəplaɪ/',zh:'乘'},
+{w:'divide',ipa:'/dɪˈvaɪd/',zh:'除'},{w:'solution',ipa:'/səˈluːʃən/',zh:'解答；解决方法'},
+{w:'result',ipa:'/rɪˈzʌlt/',zh:'结果'},{w:'number',ipa:'/ˈnʌmbər/',zh:'数字'},
+{w:'increase',ipa:'/ɪnˈkriːs/',zh:'增加'},{w:'decrease',ipa:'/dɪˈkriːs/',zh:'减少'}
+]
+];
+
+const SENTENCES=[
+'Small steps every day lead to big changes.',
+'I am building a better future through learning.',
+'Practice makes me more confident every day.',
+'It is never too late to begin again.',
+'I can learn difficult things one step at a time.',
+'Every lesson brings me closer to my goal.'
+];
+
+const COURSES=[
+{id:'math',icon:'🧮',name:'数学',lesson:'一元一次方程',text:'学习移项、合并同类项和求未知数。',content:'例题：3x + 5 = 20。两边同时减去 5，得到 3x = 15；再同时除以 3，所以 x = 5。',q:'练习：2x + 6 = 16，x 等于多少？',a:'答案：x = 5。'},
+{id:'english',icon:'🇺🇸',name:'英语',lesson:'基础句子结构',text:'认识主语、动词和宾语。',content:'英语常见基础结构是：主语 + 动词 + 宾语。例如：I study English。',q:'练习：找出 “She reads books.” 的主语、动词和宾语。',a:'答案：She 是主语，reads 是动词，books 是宾语。'},
+{id:'chinese',icon:'📚',name:'语文',lesson:'阅读理解基础',text:'练习找中心句和概括段意。',content:'阅读时先找反复出现的关键词，再找能够概括整段意思的中心句。',q:'练习：用一句话概括刚刚读过的一段文字。',a:'答案没有唯一形式，重点是保留人物、事情和主要结果。'},
+{id:'physics',icon:'⚙️',name:'物理',lesson:'速度与时间',text:'认识速度、路程和时间的关系。',content:'速度 = 路程 ÷ 时间。例如 100 米用时 20 秒，速度就是每秒 5 米。',q:'练习：120 米用时 30 秒，速度是多少？',a:'答案：每秒 4 米。'},
+{id:'chemistry',icon:'🧪',name:'化学',lesson:'物质的变化',text:'区分物理变化和化学变化。',content:'冰融化没有产生新物质，是物理变化；铁生锈产生了新物质，是化学变化。',q:'练习：纸被撕碎和纸被燃烧分别是什么变化？',a:'答案：撕碎是物理变化；燃烧是化学变化。'},
+{id:'biology',icon:'🧬',name:'生物',lesson:'细胞基础',text:'认识细胞是生命活动的基本单位。',content:'大多数生物由细胞组成。细胞膜、细胞质和遗传物质是基础结构。',q:'练习：为什么说细胞是生命活动的基本单位？',a:'因为生物的生长、代谢和繁殖等活动都依靠细胞完成。'},
+{id:'history',icon:'🏛️',name:'历史',lesson:'时间线方法',text:'学习按时间顺序理解历史事件。',content:'学习历史时，可以把人物、时间、地点、原因、经过和结果放在一条时间线上。',q:'练习：历史事件最常用哪六个要素来整理？',a:'人物、时间、地点、原因、经过和结果。'},
+{id:'geography',icon:'🌍',name:'地理',lesson:'经纬度基础',text:'认识纬线、经线和方向。',content:'纬线表示南北位置，经线表示东西位置。赤道是 0° 纬线，本初子午线是 0° 经线。',q:'练习：赤道表示多少度纬线？',a:'答案：0° 纬线。'},
+{id:'politics',icon:'⚖️',name:'政治',lesson:'权利与责任',text:'理解个人权利与社会责任。',content:'权利保障个人自由和尊严，责任要求我们遵守规则并尊重他人。',q:'练习：为什么权利和责任通常要一起理解？',a:'因为享有权利的同时，也需要履行相应责任。'}
+];
+
+let selectedVoice=null;
+let timerSeconds=1200;
+let timerHandle=null;
+
+function todayKey(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function getDayIndex(){
+  const start=new Date(2026,7,1), today=new Date();
+  start.setHours(0,0,0,0);today.setHours(0,0,0,0);
+  return Math.max(0,Math.floor((today-start)/86400000));
+}
+function openView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function startToday(){openView('english')}
+function saveToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+function speak(text){
+  if(!('speechSynthesis' in window)){alert('请使用 Safari 打开网站后再试。');return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=.82;u.pitch=1;
+  if(selectedVoice)u.voice=selectedVoice;
+  speechSynthesis.speak(u);
+}
+function loadVoices(){
+  if(!('speechSynthesis' in window))return;
+  const voices=speechSynthesis.getVoices();
+  const us=voices.filter(v=>/^en-US/i.test(v.lang));
+  const list=us.length?us:voices.filter(v=>/^en/i.test(v.lang));
+  const sel=document.getElementById('voiceSelect');
+  sel.innerHTML='';
+  list.forEach(v=>{
+    const o=document.createElement('option');o.value=v.name;o.textContent=v.name+' ('+v.lang+')';sel.appendChild(o);
+  });
+  const preferred=['Samantha','Ava','Allison','Susan','Nicky','Joelle','Evan','Alex'];
+  selectedVoice=list.find(v=>preferred.some(n=>v.name.includes(n)))||list[0]||null;
+  const saved=localStorage.getItem('v72Voice');
+  if(saved&&list.some(v=>v.name===saved))selectedVoice=list.find(v=>v.name===saved);
+  if(selectedVoice)sel.value=selectedVoice.name;
+  sel.onchange=()=>{selectedVoice=list.find(v=>v.name===sel.value)||selectedVoice;localStorage.setItem('v72Voice',sel.value)};
+}
+function testVoice(){speak('Hello Kiki. This is your American English voice.')}
+function getTodayWords(){return WORD_SETS[getDayIndex()%WORD_SETS.length]}
+function reviewList(){return JSON.parse(localStorage.getItem('v72ReviewWords')||'[]')}
+function toggleReview(word){
+  let list=reviewList();
+  if(list.includes(word))list=list.filter(x=>x!==word);else list.push(word);
+  localStorage.setItem('v72ReviewWords',JSON.stringify(list));
+  renderWords();updateStats();
+}
+function renderWords(){
+  const words=getTodayWords(), list=reviewList();
+  const row=(item,i,short=false)=>`
+  <div class="word">
+    <div class="word-left"><span class="word-index">${i+1}</span><div><b>${item.w}</b><small>${item.ipa} · ${item.zh}</small></div></div>
+    <div style="display:flex;gap:6px">
+      ${short?'':`<button class="sound" onclick="toggleReview('${item.w}')">${list.includes(item.w)?'★':'☆'}</button>`}
+      <button class="sound" onclick="speak('${item.w}')">🔊</button>
+    </div>
+  </div>`;
+  document.getElementById('dailyWords').innerHTML=words.map((w,i)=>row(w,i)).join('');
+  document.getElementById('homeWords').innerHTML=words.slice(0,2).map((w,i)=>row(w,i,true)).join('');
+  document.getElementById('dailySentence').textContent=SENTENCES[getDayIndex()%SENTENCES.length];
+  document.getElementById('wordDayLabel').textContent='第 '+(getDayIndex()+1)+' 天 · 今日新词';
+  const review=words.concat(...WORD_SETS).filter((v,i,a)=>a.findIndex(x=>x.w===v.w)===i).filter(x=>list.includes(x.w));
+  document.getElementById('reviewWords').innerHTML=review.length?review.map(x=>`<span class="chip">${x.w} · ${x.zh}</span>`).join(''):'还没有加入复习的单词。';
+}
+function renderCourses(){
+  document.getElementById('courseGrid').innerHTML=COURSES.map(c=>`
+  <div class="course-card">
+    <div class="day-chip">${c.icon} ${c.name}</div>
+    <h3>${c.lesson}</h3><p class="muted">${c.text}</p>
+    <button class="btn" onclick="openLesson('${c.id}')">开始学习</button>
+  </div>`).join('');
+}
+function openLesson(id){
+  const c=COURSES.find(x=>x.id===id), panel=document.getElementById('lessonPanel');
+  const completed=JSON.parse(localStorage.getItem('v72CompletedCourses')||'[]').includes(id);
+  panel.style.display='block';
+  panel.innerHTML=`<h2>${c.icon} ${c.name}：${c.lesson}</h2><p class="muted">${c.content}</p>
+  <div class="notice">${c.q}</div><details><summary class="btn secondary">查看答案</summary><p class="muted">${c.a}</p></details><br>
+  <button class="btn" onclick="completeCourse('${id}')">${completed?'✅ 已完成':'标记完成'}</button>`;
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function completeCourse(id){
+  let list=JSON.parse(localStorage.getItem('v72CompletedCourses')||'[]');
+  if(!list.includes(id)){list.push(id);localStorage.setItem('v72CompletedCourses',JSON.stringify(list));incrementTaskCount();}
+  document.getElementById('taskCourse').checked=true;saveDailyTasks();markStudyDay();
+  openLesson(id);updateAll();saveToast('课程已完成并计入学习统计');
+}
+function completeEnglish(){
+  document.getElementById('taskWords').checked=true;saveDailyTasks();incrementTaskCount();markStudyDay();updateAll();saveToast('今日英语已完成');
+}
+function saveReading(){
+  document.querySelectorAll('[data-store]').forEach(el=>localStorage.setItem(el.dataset.store,el.value));
+  const page=Number(document.querySelector('[data-store="readingPage"]').value||0);
+  localStorage.setItem('v72ReadingTotal',String(page));
+  let days=JSON.parse(localStorage.getItem('v72ReadingDays')||'[]');
+  if(!days.includes(todayKey()))days.push(todayKey());
+  localStorage.setItem('v72ReadingDays',JSON.stringify(days));
+  document.getElementById('taskRead').checked=true;saveDailyTasks();incrementTaskCount();markStudyDay();updateAll();
+  saveToast('阅读笔记已保存');
+}
+function dailyTaskStorage(){return 'v72Tasks_'+todayKey()}
+function loadDailyTasks(){
+  const saved=JSON.parse(localStorage.getItem(dailyTaskStorage())||'{}');
+  document.querySelectorAll('[data-task]').forEach(el=>el.checked=!!saved[el.id]);
+}
+function saveDailyTasks(){
+  const data={};document.querySelectorAll('[data-task]').forEach(el=>data[el.id]=el.checked);
+  localStorage.setItem(dailyTaskStorage(),JSON.stringify(data));
+}
+function incrementTaskCount(){
+  const key='v72TaskCountMark_'+todayKey();
+  let count=Number(localStorage.getItem('v72TaskCount')||0);
+  const completed=document.querySelectorAll('[data-task]:checked').length;
+  const already=Number(localStorage.getItem(key)||0);
+  if(completed>already){count+=completed-already;localStorage.setItem('v72TaskCount',String(count));localStorage.setItem(key,String(completed))}
+}
+function markStudyDay(){
+  let days=JSON.parse(localStorage.getItem('v72StudyDays')||'[]');
+  if(!days.includes(todayKey()))days.push(todayKey());
+  localStorage.setItem('v72StudyDays',JSON.stringify(days));
+}
+function calculateStreak(){
+  const days=new Set(JSON.parse(localStorage.getItem('v72StudyDays')||'[]'));
+  let streak=0,d=new Date();
+  while(true){
+    const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    if(days.has(key)){streak++;d.setDate(d.getDate()-1)}else break;
+  }
+  return streak;
+}
+function updateProgress(){
+  const total=document.querySelectorAll('[data-task]').length;
+  const done=document.querySelectorAll('[data-task]:checked').length;
+  const p=Math.round(done/total*100);
+  document.getElementById('progressRing').style.setProperty('--p',p+'%');
+  document.getElementById('progressText').textContent=p+'%';
+  document.getElementById('progressCaption').textContent=done+' / '+total+' 项任务已完成';
+}
+function renderWeek(target){
+  const el=document.getElementById(target), days=new Set(JSON.parse(localStorage.getItem('v72StudyDays')||'[]'));
+  const names=['日','一','二','三','四','五','六'];
+  let html='';
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    html+=`<div class="daybox ${days.has(key)?'done':''}"><div>周${names[d.getDay()]}</div><strong>${d.getDate()}</strong></div>`;
+  }
+  el.innerHTML=html;
+}
+function updateLevel(){
+  const count=Number(localStorage.getItem('v72TaskCount')||0);
+  const level=Math.floor(count/5)+1;
+  const names=['起步者','坚持者','学习达人','进阶学习者','知识探索者','长期主义者'];
+  const name=names[Math.min(level-1,names.length-1)];
+  const within=count%5, pct=within/5*100;
+  document.getElementById('levelName').textContent='Lv.'+level+' '+name;
+  document.getElementById('levelBar').style.width=pct+'%';
+  document.getElementById('levelText').textContent=within===0&&count>0?'已经升级，继续保持！':'再完成 '+(5-within)+' 项任务即可升级。';
+}
+function updateStats(){
+  const streak=calculateStreak();
+  const taskCount=Number(localStorage.getItem('v72TaskCount')||0);
+  const courses=JSON.parse(localStorage.getItem('v72CompletedCourses')||'[]').length;
+  const words=reviewList().length;
+  document.getElementById('streakCount').textContent=streak+' 天';
+  document.getElementById('statStreak').textContent=streak+' 天';
+  document.getElementById('statTasks').textContent=taskCount+' 项';
+  document.getElementById('statCourses').textContent=courses+' 节';
+  document.getElementById('statWords').textContent=words+' 个';
+  document.getElementById('statsMessage').textContent=taskCount?`你已经累计完成 ${taskCount} 项学习任务。每一次完成都算数。`:'今天完成一项学习任务，就会留下新的记录。';
+}
+function updateReading(){
+  const page=localStorage.getItem('v72ReadingTotal')||localStorage.getItem('readingPage')||'92';
+  const days=JSON.parse(localStorage.getItem('v72ReadingDays')||'[]').length;
+  const book=localStorage.getItem('bookName')||'活着';
+  document.getElementById('readingTotal').textContent=page+' 页';
+  document.getElementById('readingDays').textContent=days+' 天';
+  document.getElementById('currentBook').textContent=book;
+}
+function updateAll(){
+  updateProgress();updateStats();updateLevel();updateReading();renderWeek('weekStrip');renderWeek('statsWeek');updateDashboard();
+}
+function toggleTimer(){
+  const btn=document.getElementById('timerButton');
+  if(timerHandle){
+    clearInterval(timerHandle);timerHandle=null;btn.textContent='继续';
+  }else{
+    btn.textContent='暂停';
+    timerHandle=setInterval(()=>{
+      timerSeconds--;
+      renderTimer();
+      if(timerSeconds<=0){
+        clearInterval(timerHandle);timerHandle=null;timerSeconds=0;renderTimer();
+        markStudyDay();incrementTaskCount();updateAll();saveToast('20 分钟专注学习完成！');
+      }
+    },1000);
+  }
+}
+function resetTimer(){
+  if(timerHandle){clearInterval(timerHandle);timerHandle=null}
+  timerSeconds=1200;renderTimer();document.getElementById('timerButton').textContent='开始';
+}
+function renderTimer(){
+  const m=String(Math.floor(timerSeconds/60)).padStart(2,'0');
+  const s=String(timerSeconds%60).padStart(2,'0');
+  document.getElementById('timerDisplay').textContent=m+':'+s;
+}
+
+function updateDashboard(){
+ const pairs=[['taskWords','sumWords'],['taskCourse','sumCourse'],['taskRead','sumRead'],['taskReview','sumReview']];let done=0;
+ pairs.forEach(([t,s])=>{const checked=document.getElementById(t).checked;const el=document.getElementById(s);el.textContent=checked?'已完成':'未完成';el.classList.toggle('done',checked);if(checked)done++;});
+ const pct=Math.round(done/4*100);document.getElementById('dashboardProgress').style.width=pct+'%';document.getElementById('dashboardProgressText').textContent='今日进度 '+pct+'% · '+done+'/4 项';
+}
+function askDashboardAI(){
+ const input=document.getElementById('dashboardAiInput');const answer=document.getElementById('dashboardAiAnswer');const q=(input&&input.value.trim())||'今天应该怎么学习？';
+ let reply='建议先用 10 分钟学习英语，再用 15 分钟完成一节高中课程，最后用 5 分钟复习。';
+ if(q.includes('30'))reply='你只有 30 分钟：英语 10 分钟，高中课程 15 分钟，复习 5 分钟。完成比完美更重要。';
+ else if(q.includes('累')||q.includes('疲惫'))reply='今天累，就把目标缩小：学 5 个单词，再读 5 分钟。保持连续性就很好。';
+ else if(q.includes('数学'))reply='今天学习一元一次方程：先看例题，再做一道练习，最后复述解题步骤。';
+ else if(q.includes('英语'))reply='今天先听美式发音，再朗读单词，最后把不熟悉的词加入复习区。';
+ answer.style.display='block';answer.textContent=reply;document.getElementById('aiAdviceText').textContent=reply;
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const d=new Date();
+  const hour=d.getHours();const greeting=hour<6?'夜深了':hour<12?'早上好':hour<18?'下午好':'晚上好';document.getElementById('greetingTitle').textContent=greeting+'，Kiki ☕';document.getElementById('todayText').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';
+  const focus=[
+    ['今天先完成一件最重要的小事。','学习 10 个英语单词，完成一节高中课程，再阅读 10 分钟。'],
+    ['不需要一次走很远，今天先走一步。','先打开英语学习，完成今天的 10 个单词。'],
+    ['真正的进步，来自每天都没有放弃。','选择一门高中课程，认真学完一小节。']
+  ][getDayIndex()%3];
+  document.getElementById('focusTitle').textContent=focus[0];
+  document.getElementById('focusText').textContent=focus[1];
+
+  document.querySelectorAll('[data-store]').forEach(el=>{
+    const s=localStorage.getItem(el.dataset.store);
+    if(s!==null)el.value=s;
+    el.addEventListener('change',()=>localStorage.setItem(el.dataset.store,el.value));
+  });
+  document.querySelectorAll('[data-task]').forEach(el=>el.addEventListener('change',()=>{
+    saveDailyTasks();
+    if(el.checked){incrementTaskCount();markStudyDay()}
+    updateAll();
+  }));
+  document.querySelectorAll('[data-goal]').forEach(el=>{
+    const s=localStorage.getItem(el.id);if(s!==null)el.checked=s==='true';
+    el.addEventListener('change',()=>localStorage.setItem(el.id,String(el.checked)));
+  });
+
+  const bd=document.querySelector('[data-store="babyDate"]');if(bd&&!bd.value)bd.value=todayKey();
+  loadDailyTasks();renderWords();renderCourses();loadVoices();updateAll();renderTimer();
+  if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=loadVoices;
+});
+</script>
+</body>
+</html>
