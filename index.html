@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki AI V9.1 High School Beta</title>
+<title>Kiki AI V9.1.3 Experience</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -116,12 +116,22 @@ html[data-theme="dark"] .academy-card,html[data-theme="dark"] .chapter-card{back
 @media(max-width:980px){.academy-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.academy-grid{grid-template-columns:1fr}.academy-card{min-height:auto}}
 
+
+.review-task-row{align-items:flex-start}
+.review-task-main{flex:1}
+.review-task-main strong,.review-task-main small{display:block}
+.review-task-main small{color:var(--muted);margin-top:5px;line-height:1.55}
+.review-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.review-mini-btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:7px 10px;font-size:12px}
+.review-mini-btn.done{background:var(--sage2);color:var(--sage)}
+html[data-theme="dark"] .review-mini-btn{background:#202824}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V9.1 Beta</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V9.1.3</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -131,7 +141,7 @@ html[data-theme="dark"] .academy-card,html[data-theme="dark"] .chapter-card{back
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V9.1 Beta：高中课程，正式升级为高中学院。</div>
+  <div class="side-note">V9.1.3 Experience：复习有内容才出现。</div>
 </aside>
 
 <main>
@@ -155,7 +165,17 @@ html[data-theme="dark"] .academy-card,html[data-theme="dark"] .chapter-card{back
       <div class="summary-row"><span>🇺🇸 英语 10 词</span><span id="sWords" class="status">未完成</span></div>
       <div class="summary-row"><span>🎓 高中课程 1 节</span><span id="sCourse" class="status">未完成</span></div>
       <div class="summary-row"><span>📖 阅读 10 分钟</span><span id="sRead" class="status">未完成</span></div>
-      <div id="reviewTaskRow" class="summary-row"><span>🔁 复习已收藏内容</span><span id="sReview" class="status">未完成</span></div>
+      <div id="reviewTaskRow" class="summary-row review-task-row" style="display:none">
+  <span>🔁</span>
+  <div class="review-task-main">
+    <strong>复习收藏单词</strong>
+    <small id="reviewTaskDetail">暂无内容</small>
+  </div>
+  <div class="review-actions">
+    <button class="review-mini-btn" onclick="openReviewContent()">去复习</button>
+    <button id="sReview" class="review-mini-btn" onclick="completeReviewTask()">未完成</button>
+  </div>
+</div>
       <div class="progress"><span id="todayBar"></span></div><p class="muted" id="todayProgress">今日进度 0%</p>
       <div hidden><input id="tWords" data-task type="checkbox"><input id="tCourse" data-task type="checkbox"><input id="tRead" data-task type="checkbox"><input id="tReview" data-task type="checkbox"></div>
     </article>
@@ -204,7 +224,7 @@ html[data-theme="dark"] .academy-card,html[data-theme="dark"] .chapter-card{back
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V9.1 Beta</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V9.1.3</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
 
   <div id="academyHome">
     <div class="card academy-hero">
@@ -329,7 +349,7 @@ function loadVoices(){if(!('speechSynthesis'in window))return;const all=speechSy
 function testVoice(){speak('Hello Kiki. This is your American English voice.')}
 function wordsToday(){return WORD_SETS[dayIndex()%WORD_SETS.length]}
 function reviews(){return JSON.parse(localStorage.getItem('kikiV8Reviews')||'[]')}
-function toggleReview(w){let a=reviews();a=a.includes(w)?a.filter(x=>x!==w):[...a,w];localStorage.setItem('kikiV8Reviews',JSON.stringify(a));renderWords();updateAll()}
+function toggleReview(w){let a=reviews();a=a.includes(w)?a.filter(x=>x!==w):[...a,w];localStorage.setItem('kikiV8Reviews',JSON.stringify(a));renderWords();syncReviewTask();updateAll()}
 function renderWords(){const a=reviews();document.getElementById('words').innerHTML=wordsToday().map((x,i)=>`<div class="word"><div class="word-left"><span class="num">${i+1}</span><div><b>${x.w}</b><small>${x.ipa} · ${x.zh}</small></div></div><div><button class="sound" onclick="toggleReview('${x.w}')">${a.includes(x.w)?'★':'☆'}</button> <button class="sound" onclick="speak('${x.w}')">🔊</button></div></div>`).join('');document.getElementById('sentence').textContent=SENTENCES[dayIndex()%SENTENCES.length];const all=WORD_SETS.flat().filter((x,i,a)=>a.findIndex(y=>y.w===x.w)===i).filter(x=>reviews().includes(x.w));document.getElementById('reviewWords').innerHTML=all.length?all.map(x=>`<span class="badge" style="margin:4px">${x.w} · ${x.zh}</span>`).join(''):'还没有收藏单词。'}
 function academyProgress(subject){
   const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
@@ -406,16 +426,44 @@ function renderWeek(id){const s=new Set(JSON.parse(localStorage.getItem('kikiV8D
 
 
 function reviewMaterial(){
-  const wordList=reviews();
-  const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
-  return {words:wordList.slice(0,5),lessonCount:completed.length,available:wordList.length>0||completed.length>0};
+  const selected=reviews();
+  const allWords=WORD_SETS.flat().filter((x,i,a)=>a.findIndex(y=>y.w===x.w)===i);
+  const words=allWords.filter(x=>selected.includes(x.w));
+  return {words,available:words.length>0};
 }
 function syncReviewTask(){
   const r=reviewMaterial();
-  const task=document.getElementById('tReview'),row=document.getElementById('reviewTaskRow');
+  const task=document.getElementById('tReview');
+  const row=document.getElementById('reviewTaskRow');
+  const detail=document.getElementById('reviewTaskDetail');
+  const status=document.getElementById('sReview');
   if(task)task.disabled=!r.available;
   if(row)row.style.display=r.available?'flex':'none';
-  if(!r.available&&task)task.checked=false;
+  if(detail)detail.textContent=r.available?r.words.slice(0,5).map(x=>`${x.w}（${x.zh}）`).join('、'):'暂无内容';
+  if(!r.available&&task){
+    task.checked=false;
+    saveTasks();
+  }
+  if(status&&task){
+    status.textContent=task.checked?'已完成':'未完成';
+    status.classList.toggle('done',task.checked);
+  }
+}
+function openReviewContent(){
+  openView('english');
+  setTimeout(()=>document.getElementById('reviewWords')?.scrollIntoView({behavior:'smooth',block:'center'}),120);
+}
+function completeReviewTask(){
+  const task=document.getElementById('tReview');
+  if(!reviewMaterial().available)return toast('目前没有收藏的复习内容');
+  if(!task.checked){
+    task.checked=true;
+    saveTasks();
+    addTask();
+    markDay();
+  }
+  updateAll();
+  toast('今日复习已完成');
 }
 
 function learningData(){
@@ -447,11 +495,11 @@ function brainPlan(){
     english:document.getElementById('tWords').checked,
     course:document.getElementById('tCourse').checked,
     read:document.getElementById('tRead').checked,
-    review:document.getElementById('tReview').checked
+    review:!!document.getElementById('tReview')?.checked
   };
   let items=[];
   if(h>=21||h<6){
-    const review=reviewMaterial();if(review.available&&!taskStates.review)items.push({view:'english',icon:'🔁',title:review.words.length?'复习已收藏单词':'回顾已学课程',desc:review.words.length?review.words.join('、'):'打开高中学院回顾已完成章节。'});
+    const review=reviewMaterial();if(review.available&&!taskStates.review)items.push({view:'english',icon:'🔁',title:'复习收藏单词',desc:review.words.slice(0,5).map(x=>x.w).join('、')});
     if(!taskStates.read)items.push({view:'reading',icon:'📖',title:'阅读 10 分钟',desc:'安静读几页，然后早点休息。'});
   }else{
     if(!taskStates.english)items.push({view:'english',icon:'🇺🇸',title:'今日英语 10 词',desc:'先完成最容易开始的一项。'});
@@ -491,7 +539,7 @@ function renderEvolution(){
 
 function setTextSafe(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
-function updateAll(){syncReviewTask();const review=reviewMaterial();const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead']];if(review.available)map.push(['tReview','sReview']);let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);if(e){e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done)}if(done)n++});const total=map.length,pct=Math.round(n/total*100);document.getElementById('todayBar').style.width=pct+'%';document.getElementById('todayProgress').textContent=`今日进度 ${pct}% · ${n}/${total} 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
+function updateAll(){syncReviewTask();const review=reviewMaterial();const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead']];if(review.available)map.push(['tReview','sReview']);let n=0;map.forEach(([a,b])=>{const input=document.getElementById(a),done=!!input?.checked,e=document.getElementById(b);if(e){e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done)}if(done)n++});const total=map.length,pct=Math.round(n/total*100);document.getElementById('todayBar').style.width=pct+'%';document.getElementById('todayProgress').textContent=`今日进度 ${pct}% · ${n}/${total} 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
 document.getElementById('level').textContent='Lv.'+(el.index+1)+' '+el.current.name;
 const start=el.current.min,end=next?next.min:start+300,levelPct=Math.min(100,Math.max(0,(evo.xp-start)/(end-start)*100));
 document.getElementById('levelBar').style.width=levelPct+'%';
