@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki AI V8.1 Moonlight</title>
+<title>Kiki AI V9 Evolution</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -71,12 +71,31 @@ html[data-theme="dark"] .sound{background:#304139;color:#e9f0e6}
 .lock-card strong{display:block;margin-bottom:7px}
 .lock-card.unlocked{border-style:solid;background:var(--sage2)}
 
+
+/* ===== V9 Evolution ===== */
+.brain-card{position:relative;overflow:hidden}
+.brain-card:after{content:"🧠";position:absolute;right:18px;top:14px;font-size:54px;opacity:.12}
+.plan-list{display:grid;gap:10px;margin:14px 0}
+.plan-item{display:flex;gap:12px;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}
+.plan-icon{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:var(--sage2);font-size:20px}
+.plan-item strong,.plan-item small{display:block}.plan-item small{color:var(--muted);margin-top:3px}
+.tree-wrap{text-align:center;padding:8px 0}.tree-stage{font-size:84px;filter:drop-shadow(0 12px 16px rgba(63,84,67,.17));transition:.35s}
+.tree-ground{height:10px;max-width:210px;margin:-8px auto 12px;border-radius:99px;background:linear-gradient(90deg,transparent,var(--sage2),transparent)}
+.xp-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.xp-pill{padding:7px 10px;border-radius:999px;background:var(--sage2);color:var(--sage);font-weight:700;font-size:12px}
+.subject-bars{display:grid;gap:13px;margin-top:14px}.subject-bar-row{display:grid;grid-template-columns:72px 1fr 40px;gap:10px;align-items:center}.subject-bar-row .progress{margin:0}
+.evolution-banner{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:16px;border-radius:18px;background:linear-gradient(135deg,var(--sage2),var(--soft));margin-top:14px}
+.evolution-banner strong{display:block;margin-bottom:5px}
+html[data-theme="dark"] .plan-item{background:#28332d}
+html[data-theme="dark"] .evolution-banner{background:linear-gradient(135deg,#2c3b32,#28312d)}
+@media(max-width:640px){.subject-bar-row{grid-template-columns:66px 1fr 34px}.tree-stage{font-size:72px}}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V8.1</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V9</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -86,7 +105,7 @@ html[data-theme="dark"] .sound{background:#304139;color:#e9f0e6}
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V8.1 Moonlight：白天温柔，夜晚安静。</div>
+  <div class="side-note">V9 Evolution：记录成长，推荐下一步。</div>
 </aside>
 
 <main>
@@ -114,10 +133,23 @@ html[data-theme="dark"] .sound{background:#304139;color:#e9f0e6}
       <div class="progress"><span id="todayBar"></span></div><p class="muted" id="todayProgress">今日进度 0%</p>
       <div hidden><input id="tWords" data-task type="checkbox"><input id="tCourse" data-task type="checkbox"><input id="tRead" data-task type="checkbox"><input id="tReview" data-task type="checkbox"></div>
     </article>
-    <article class="card seven"><div class="eyebrow">AI STUDY COACH</div><h3>AI 今日建议</h3><p class="muted">进入 AI 老师后，可以告诉它你今天有多少时间、想学什么、哪里不会。它会按你的情况安排。</p><button class="btn" onclick="openView('ai')">进入 AI 老师</button></article>
+    <article class="card seven brain-card">
+<div class="eyebrow">LEARNING BRAIN · V9</div>
+<h3>🧠 今日学习建议</h3>
+<p id="brainSummary" class="muted">正在根据你的学习记录生成建议……</p>
+<div id="dailyPlan" class="plan-list"></div>
+<div style="display:flex;gap:9px;flex-wrap:wrap">
+<button class="btn" onclick="startRecommended()">开始推荐任务</button>
+<button class="btn secondary" onclick="refreshBrain()">重新分析</button>
+</div>
+</article>
     <article class="card third"><h3>⏱️ 专注学习</h3><div class="timer"><div class="muted">20 分钟</div><div id="timerDisplay" class="timer-display">20:00</div><div class="timer-actions"><button id="timerBtn" class="btn" onclick="toggleTimer()">开始</button><button class="btn secondary" onclick="resetTimer()">重置</button></div></div></article>
     <article class="card third"><h3>🔥 连续学习</h3><div class="metric">当前连续<strong id="streak">0 天</strong></div><div id="week" class="calendar"></div></article>
-    <article class="card third"><h3>🏅 学习等级</h3><div class="metric">当前等级<strong id="level">Lv.1 起步者</strong></div><div class="progress"><span id="levelBar"></span></div><p id="levelText" class="muted"></p></article>
+    <article class="card third">
+<div class="xp-head"><h3>🏅 学习等级</h3><span id="xpPill" class="xp-pill">0 XP</span></div>
+<div class="metric">当前等级<strong id="level">Lv.1 起步者</strong></div>
+<div class="progress"><span id="levelBar"></span></div><p id="levelText" class="muted"></p>
+</article>
   </div>
 </section>
 
@@ -160,7 +192,9 @@ html[data-theme="dark"] .sound{background:#304139;color:#e9f0e6}
 
 <section id="stats" class="view">
   <div class="section-title"><h1>📊 学习统计</h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
-  <div class="stats"><div class="stat">连续学习<strong id="statStreak">0 天</strong></div><div class="stat">累计任务<strong id="statTasks">0 项</strong></div><div class="stat">完成课程<strong id="statCourses">0 节</strong></div><div class="stat">收藏单词<strong id="statWords">0 个</strong></div></div><div class="card" style="margin-top:16px"><h3>本周记录</h3><div id="statsWeek" class="calendar"></div></div>
+  <div class="stats"><div class="stat">连续学习<strong id="statStreak">0 天</strong></div><div class="stat">总经验值<strong id="statXP">0 XP</strong></div><div class="stat">完成课程<strong id="statCourses">0 节</strong></div><div class="stat">收藏单词<strong id="statWords">0 个</strong></div></div>
+  <div class="card" style="margin-top:16px"><h3>本周记录</h3><div id="statsWeek" class="calendar"></div></div>
+  <div class="card" style="margin-top:16px"><h3>学习成长分布</h3><div id="subjectBars" class="subject-bars"></div></div>
 </section>
 </main>
 </div>
@@ -209,7 +243,83 @@ function addTask(){localStorage.setItem('kikiV8TaskCount',String(Number(localSto
 function markDay(){let a=JSON.parse(localStorage.getItem('kikiV8Days')||'[]');if(!a.includes(dateKey()))a.push(dateKey());localStorage.setItem('kikiV8Days',JSON.stringify(a))}
 function streak(){const s=new Set(JSON.parse(localStorage.getItem('kikiV8Days')||'[]'));let n=0,d=new Date();while(s.has(dateKey(d))){n++;d.setDate(d.getDate()-1)}return n}
 function renderWeek(id){const s=new Set(JSON.parse(localStorage.getItem('kikiV8Days')||'[]')),names=['日','一','二','三','四','五','六'];let h='';for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);h+=`<div class="day ${s.has(dateKey(d))?'done':''}"><div>周${names[d.getDay()]}</div><strong>${d.getDate()}</strong></div>`}document.getElementById(id).innerHTML=h}
-function updateAll(){const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead'],['tReview','sReview']];let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done);if(done)n++});document.getElementById('todayBar').style.width=(n*25)+'%';document.getElementById('todayProgress').textContent=`今日进度 ${n*25}% · ${n}/4 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statTasks').textContent=tasks+' 项';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const lv=Math.floor(tasks/5)+1,within=tasks%5;document.getElementById('level').textContent='Lv.'+lv+' '+(['起步者','坚持者','学习达人','进阶学习者','知识探索者'][Math.min(lv-1,4)]);document.getElementById('levelBar').style.width=(within/5*100)+'%';document.getElementById('levelText').textContent='再完成 '+(5-within)+' 项任务即可升级。';renderWeek('week');renderWeek('statsWeek')}
+
+function learningData(){
+  const tasks=Number(localStorage.getItem('kikiV8TaskCount')||0);
+  const courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length;
+  const wordStars=reviews().length;
+  const readingDays=JSON.parse(localStorage.getItem('kikiV8ReadingDays')||'[]').length;
+  const days=JSON.parse(localStorage.getItem('kikiV8Days')||'[]').length;
+  const xp=tasks*5+courses*15+wordStars*2+readingDays*10+days*3;
+  return {tasks,courses,wordStars,readingDays,days,xp};
+}
+function evolutionLevel(xp){
+  const levels=[
+    {min:0,name:'起步者',tree:'🌱',treeName:'刚刚发芽'},
+    {min:40,name:'坚持者',tree:'🌿',treeName:'长出新叶'},
+    {min:100,name:'学习达人',tree:'🪴',treeName:'茁壮成长'},
+    {min:200,name:'知识探索者',tree:'🌳',treeName:'成为小树'},
+    {min:400,name:'进阶学习者',tree:'🌲',treeName:'枝繁叶茂'},
+    {min:700,name:'终身学习者',tree:'🌲✨',treeName:'闪耀成长'}
+  ];
+  let index=0;
+  levels.forEach((x,i)=>{if(xp>=x.min)index=i});
+  const current=levels[index],next=levels[index+1];
+  return {index,current,next};
+}
+function brainPlan(){
+  const h=new Date().getHours(),d=learningData();
+  const taskStates={
+    english:document.getElementById('tWords').checked,
+    course:document.getElementById('tCourse').checked,
+    read:document.getElementById('tRead').checked,
+    review:document.getElementById('tReview').checked
+  };
+  let items=[];
+  if(h>=21||h<6){
+    if(!taskStates.review)items.push({view:'english',icon:'🔁',title:'复习 5 个单词',desc:'晚上以复习为主，不增加太多压力。'});
+    if(!taskStates.read)items.push({view:'reading',icon:'📖',title:'阅读 10 分钟',desc:'安静读几页，然后早点休息。'});
+  }else{
+    if(!taskStates.english)items.push({view:'english',icon:'🇺🇸',title:'今日英语 10 词',desc:'先完成最容易开始的一项。'});
+    if(!taskStates.course)items.push({view:'courses',icon:'🎓',title:'高中课程 1 节',desc:d.courses===0?'建议从数学或英语基础开始。':'继续完成一节基础课程。'});
+    if(!taskStates.read)items.push({view:'reading',icon:'📖',title:'阅读 10 分钟',desc:'记录页数和一句自己的感受。'});
+  }
+  if(!items.length)items=[{view:'stats',icon:'🎉',title:'今日计划已完成',desc:'可以查看成长记录，或者安心休息。'}];
+  return items.slice(0,3);
+}
+function refreshBrain(){
+  const items=brainPlan(),d=learningData(),h=new Date().getHours();
+  document.getElementById('brainSummary').textContent=
+    h>=21||h<6?'现在比较晚了，今天以轻量复习为主。':
+    d.days===0?'这是你的学习起点，先完成一项最简单的任务。':
+    `你已累计学习 ${d.days} 天，今天继续保持稳定节奏。`;
+  document.getElementById('dailyPlan').innerHTML=items.map((x,i)=>`<div class="plan-item"><div class="plan-icon">${x.icon}</div><div><strong>${i+1}. ${x.title}</strong><small>${x.desc}</small></div></div>`).join('');
+  window.kikiRecommendedView=items[0].view;
+}
+function startRecommended(){openView(window.kikiRecommendedView||'english')}
+function renderEvolution(){
+  const d=learningData(),lv=evolutionLevel(d.xp),levelsCount=6;
+  document.getElementById('xpPill').textContent=d.xp+' XP';
+  document.getElementById('statXP').textContent=d.xp+' XP';
+  document.getElementById('treeStage').textContent=lv.current.tree;
+  document.getElementById('treeLabel').textContent=lv.current.treeName;
+  document.getElementById('treeText').textContent=`你的学习树已经积累 ${d.xp} XP。每一次完成，都会留下成长记录。`;
+  document.getElementById('nextMilestone').textContent=lv.next?`距离「${lv.next.treeName}」还有 ${lv.next.min-d.xp} XP`:'你已经解锁最高成长阶段';
+  const subjectData=[
+    ['英语',Math.min(100,d.wordStars*10+Number(document.getElementById('tWords').checked)*20)],
+    ['课程',Math.min(100,d.courses*12)],
+    ['阅读',Math.min(100,d.readingDays*15)],
+    ['坚持',Math.min(100,d.days*12)]
+  ];
+  document.getElementById('subjectBars').innerHTML=subjectData.map(([n,v])=>`<div class="subject-bar-row"><span>${n}</span><div class="progress"><span style="width:${v}%"></span></div><b>${v}%</b></div>`).join('');
+}
+
+function updateAll(){const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead'],['tReview','sReview']];let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done);if(done)n++});document.getElementById('todayBar').style.width=(n*25)+'%';document.getElementById('todayProgress').textContent=`今日进度 ${n*25}% · ${n}/4 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statTasks').textContent=tasks+' 项';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
+document.getElementById('level').textContent='Lv.'+(el.index+1)+' '+el.current.name;
+const start=el.current.min,end=next?next.min:start+300,pct=Math.min(100,Math.max(0,(evo.xp-start)/(end-start)*100));
+document.getElementById('levelBar').style.width=pct+'%';
+document.getElementById('levelText').textContent=next?'再获得 '+(next.min-evo.xp)+' XP 即可升级。':'你已经达到当前最高等级。';
+renderWeek('week');renderWeek('statsWeek');refreshBrain();renderEvolution()}
 function toggleTimer(){const b=document.getElementById('timerBtn');if(timerHandle){clearInterval(timerHandle);timerHandle=null;b.textContent='继续'}else{b.textContent='暂停';timerHandle=setInterval(()=>{timer--;renderTimer();if(timer<=0){clearInterval(timerHandle);timerHandle=null;timer=0;renderTimer();markDay();addTask();updateAll();toast('专注学习完成')}},1000)}}
 function resetTimer(){if(timerHandle)clearInterval(timerHandle);timerHandle=null;timer=1200;renderTimer();document.getElementById('timerBtn').textContent='开始'}
 function renderTimer(){document.getElementById('timerDisplay').textContent=String(Math.floor(timer/60)).padStart(2,'0')+':'+String(timer%60).padStart(2,'0')}
@@ -229,7 +339,7 @@ function setTheme(choice){themeChoice=choice;localStorage.setItem('kikiTheme',ch
 function updateNightGreeting(){const h=new Date().getHours(),note=document.getElementById('nightNote');if(note)note.hidden=!(h>=20||h<6)}
 function updateAiLock(){const card=document.getElementById('aiLockCard');const hasCode=!!(document.getElementById('accessCode')?.value.trim()||localStorage.getItem('kikiAccessCode'));if(!card)return;card.classList.toggle('unlocked',hasCode);card.innerHTML=hasCode?'<strong>✅ AI 老师已解锁</strong><span class="muted">当前设备已经保存私人访问密码。</span>':'<strong>🔒 AI 老师目前为 Kiki 专属</strong><span class="muted">其他人仍可使用英语、高中课程、阅读和学习统计。输入私人密码后，AI 老师会解锁。</span>'}
 
-document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
+document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
 </script>
 </body>
 </html>
