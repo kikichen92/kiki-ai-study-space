@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki AI V8</title>
+<title>Kiki AI V8.1 Moonlight</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -49,12 +49,34 @@ label{display:block;margin-top:12px}input,textarea,select{width:100%;border:1px 
 .compose{display:grid;grid-template-columns:1fr auto;gap:9px}.compose textarea{min-height:76px;margin:0}.ai-status{font-size:12px;color:var(--muted);margin-top:8px}.toast{position:fixed;right:20px;bottom:20px;background:#3e3934;color:#fff;padding:12px 16px;border-radius:14px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:50}.toast.show{opacity:1;transform:none}
 @media(max-width:980px){.app{grid-template-columns:82px 1fr}.brand>div:last-child,.nav span,.side-note{display:none}.brand{justify-content:center}.nav button{justify-content:center;font-size:20px}.hero,.full,.half,.third,.five,.seven{grid-column:span 12}.quick-grid{grid-template-columns:repeat(2,1fr)}.course-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.ai-layout{grid-template-columns:1fr}}
 @media(max-width:640px){.app{display:block}.sidebar{position:fixed;z-index:30;left:0;right:0;bottom:0;top:auto;height:auto;padding:8px;border-top:1px solid var(--line);border-right:0}.brand,.side-note{display:none}.nav{display:flex;justify-content:space-around}.nav button{padding:9px 10px}.nav button:nth-child(n+6){display:none}.nav span{display:none}main{padding:19px 13px 92px}.grid{display:block}.card{margin-bottom:15px}.hero{grid-template-columns:1fr}.hero h2{font-size:27px}.orb{width:104px;height:104px;border-radius:31px;font-size:47px}.quick-grid{grid-template-columns:1fr 1fr}.quick{min-height:102px;padding:13px}.course-grid,.form-grid,.stats{grid-template-columns:1fr}.compose{grid-template-columns:1fr}.section-title{align-items:flex-start}.bubble{max-width:95%}}
+
+:root{color-scheme:light}
+html[data-theme="dark"]{color-scheme:dark;--bg:#151b18;--paper:#202824;--soft:#27312c;--ink:#f3eee6;--muted:#b9b1a7;--line:#39443e;--sage:#91aa88;--sage2:#314038;--brown:#b68d69;--gold:#d8b76e;--shadow:0 18px 38px rgba(0,0,0,.28)}
+html[data-theme="dark"] body{background:radial-gradient(circle at 8% 0%,rgba(95,120,103,.18),transparent 30%),linear-gradient(145deg,#151b18,#1b211e)}
+html[data-theme="dark"] .sidebar{background:rgba(31,39,35,.94)}
+html[data-theme="dark"] .card{background:rgba(32,40,36,.96)}
+html[data-theme="dark"] .hero{background:linear-gradient(135deg,#314337,#526b58)}
+html[data-theme="dark"] .quick,html[data-theme="dark"] .metric,html[data-theme="dark"] .stat,html[data-theme="dark"] .timer,html[data-theme="dark"] .word,html[data-theme="dark"] .course,html[data-theme="dark"] .bubble.ai,html[data-theme="dark"] .day{background:var(--soft)}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select{background:#1c2420;color:var(--ink)}
+html[data-theme="dark"] .nav button.active,html[data-theme="dark"] .nav button:hover{background:#2e3933}
+html[data-theme="dark"] .side-note{background:#29332e}
+html[data-theme="dark"] .notice{background:#2b3a31;color:#c6d5c2}
+html[data-theme="dark"] .status{background:#303a35}
+html[data-theme="dark"] .sound{background:#304139;color:#e9f0e6}
+.theme-switcher{display:flex;gap:7px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.theme-btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 11px;font-size:13px}
+.theme-btn.active{background:var(--sage);color:#fff;border-color:transparent}
+.moon-note{margin-top:12px;padding:13px 15px;border-radius:16px;background:var(--sage2);color:var(--sage);line-height:1.65}
+.lock-card{border:1px dashed var(--line);background:var(--soft);border-radius:18px;padding:17px;margin-bottom:14px}
+.lock-card strong{display:block;margin-bottom:7px}
+.lock-card.unlocked{border-style:solid;background:var(--sage2)}
+
 </style>
 </head>
-<body>
+<body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V8</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V8.1</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -64,12 +86,18 @@ label{display:block;margin-top:12px}input,textarea,select{width:100%;border:1px 
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V8：干净重构、真实 AI、稳定部署。</div>
+  <div class="side-note">V8.1 Moonlight：白天温柔，夜晚安静。</div>
 </aside>
 
 <main>
 <section id="home" class="view active">
-  <div class="top"><div><h1 id="greeting">晚上好，Kiki ☕</h1><p id="today"></p></div><div class="avatar">K</div></div>
+  <div class="top">
+<div><h1 id="greeting">晚上好，Kiki ☕</h1><p id="today"></p><div id="nightNote" class="moon-note" hidden>🌙 今天已经很努力了，晚上学一点点就好。</div></div>
+<div><div class="avatar">K</div><div class="theme-switcher" style="margin-top:10px">
+<button class="theme-btn" data-theme-choice="system" onclick="setTheme('system')">自动</button>
+<button class="theme-btn" data-theme-choice="light" onclick="setTheme('light')">☀️</button>
+<button class="theme-btn" data-theme-choice="dark" onclick="setTheme('dark')">🌙</button>
+</div></div></div>
   <div class="grid">
     <article class="card hero"><div><div class="eyebrow" style="color:rgba(255,255,255,.75)">KIKI AI · DAILY GUIDE</div><h2>今天先完成最重要的一小步。</h2><p>英语、高中课程、阅读和复习已经整理好。你可以按照自己的时间完成，不需要追求一次做很多。</p><button class="btn" style="background:#fff;color:#5d7058" onclick="openView('english')">开始今日学习 →</button></div><div class="orb">🌿</div></article>
     <article class="card full"><h3>快捷开始</h3><div class="quick-grid">
@@ -109,6 +137,7 @@ label{display:block;margin-top:12px}input,textarea,select{width:100%;border:1px 
   <div class="section-title"><h1>🤖 AI 老师 <span class="badge">真实 API</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="ai-layout">
     <aside class="card ai-side">
+      <div id="aiLockCard" class="lock-card"><strong>🔒 AI 老师目前为 Kiki 专属</strong><span class="muted">其他人仍可使用英语、高中课程、阅读和学习统计。输入私人密码后，AI 老师会解锁。</span></div>
       <h3>学习设置</h3>
       <label>科目</label><select id="aiSubject"><option>数学</option><option>英语</option><option>语文</option><option>历史</option><option>地理</option><option>生物</option><option>物理</option><option>化学</option></select>
       <label>难度</label><select id="aiLevel"><option value="beginner">基础衔接</option><option value="highschool">高中基础</option><option value="challenge">提高难度</option></select>
@@ -189,10 +218,18 @@ function loadReading(){document.getElementById('book').value=localStorage.getIte
 function saveBaby(){localStorage.setItem('kikiV8BabyDate',document.getElementById('babyDate').value);localStorage.setItem('kikiV8BabyFood',document.getElementById('babyFood').value);localStorage.setItem('kikiV8BabyNote',document.getElementById('babyNote').value);toast('宝宝记录已保存')}
 function loadBaby(){document.getElementById('babyDate').value=localStorage.getItem('kikiV8BabyDate')||dateKey();document.getElementById('babyFood').value=localStorage.getItem('kikiV8BabyFood')||'';document.getElementById('babyNote').value=localStorage.getItem('kikiV8BabyNote')||''}
 function setMode(m){aiMode=m;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===m))}
-function saveCode(){const c=document.getElementById('accessCode').value.trim();if(!c)return toast('请输入访问密码');localStorage.setItem('kikiAccessCode',c);toast('密码已保存在当前设备')}
+function saveCode(){const c=document.getElementById('accessCode').value.trim();if(!c)return toast('请输入访问密码');localStorage.setItem('kikiAccessCode',c);updateAiLock();toast('密码已保存在当前设备')}
 function bubble(role,text){const d=document.createElement('div');d.className='bubble '+role;d.textContent=text;document.getElementById('chatLog').appendChild(d);d.scrollIntoView({behavior:'smooth'})}
 async function sendAI(){const input=document.getElementById('aiMessage'),message=input.value.trim(),code=document.getElementById('accessCode').value.trim()||localStorage.getItem('kikiAccessCode')||'';if(!message)return toast('请输入问题');if(!code)return toast('请先输入私人访问密码');bubble('user',message);input.value='';const btn=document.getElementById('sendBtn'),st=document.getElementById('aiStatus');btn.disabled=true;st.textContent='AI 老师正在思考…';try{const r=await fetch('/api/ai',{method:'POST',headers:{'content-type':'application/json','x-kiki-access':code},body:JSON.stringify({mode:aiMode,subject:document.getElementById('aiSubject').value,level:document.getElementById('aiLevel').value,message})});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||'AI 服务暂时不可用');bubble('ai',data.text||'没有返回内容');st.textContent=data.usage?.total_tokens?'完成 · '+data.usage.total_tokens+' tokens':'回答完成';markDay();addTask();updateAll()}catch(e){bubble('ai','出现问题：'+e.message);st.textContent='请求失败'}finally{btn.disabled=false}}
-document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
+
+let themeChoice=localStorage.getItem('kikiTheme')||'system';
+function resolvedTheme(choice=themeChoice){if(choice==='system')return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';return choice}
+function applyTheme(){document.documentElement.dataset.theme=resolvedTheme();document.querySelectorAll('[data-theme-choice]').forEach(btn=>btn.classList.toggle('active',btn.dataset.themeChoice===themeChoice))}
+function setTheme(choice){themeChoice=choice;localStorage.setItem('kikiTheme',choice);applyTheme();toast(choice==='system'?'已跟随系统主题':choice==='dark'?'已切换夜间模式':'已切换浅色模式')}
+function updateNightGreeting(){const h=new Date().getHours(),note=document.getElementById('nightNote');if(note)note.hidden=!(h>=20||h<6)}
+function updateAiLock(){const card=document.getElementById('aiLockCard');const hasCode=!!(document.getElementById('accessCode')?.value.trim()||localStorage.getItem('kikiAccessCode'));if(!card)return;card.classList.toggle('unlocked',hasCode);card.innerHTML=hasCode?'<strong>✅ AI 老师已解锁</strong><span class="muted">当前设备已经保存私人访问密码。</span>':'<strong>🔒 AI 老师目前为 Kiki 专属</strong><span class="muted">其他人仍可使用英语、高中课程、阅读和学习统计。输入私人密码后，AI 老师会解锁。</span>'}
+
+document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
 </script>
 </body>
 </html>
