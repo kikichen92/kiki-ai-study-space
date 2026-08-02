@@ -150,6 +150,24 @@ html[data-theme="dark"] .evolution-banner{background:linear-gradient(135deg,#2c3
 <div class="metric">当前等级<strong id="level">Lv.1 起步者</strong></div>
 <div class="progress"><span id="levelBar"></span></div><p id="levelText" class="muted"></p>
 </article>
+    <article class="card full">
+      <div class="xp-head">
+        <div><div class="eyebrow">LEARNING TREE</div><h3>🌳 我的学习树</h3></div>
+        <span id="treeLabel" class="badge">刚刚发芽</span>
+      </div>
+      <div class="tree-wrap">
+        <div id="treeStage" class="tree-stage">🌱</div>
+        <div class="tree-ground"></div>
+        <p id="treeText" class="muted">每完成一次学习，树都会继续成长。</p>
+      </div>
+      <div class="evolution-banner">
+        <div>
+          <strong id="nextMilestone">距离下一阶段还有 40 XP</strong>
+          <span class="muted">英语、高中课程、阅读和 AI 学习都会累积经验。</span>
+        </div>
+        <button class="btn secondary" onclick="openView('stats')">查看成长</button>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -314,7 +332,10 @@ function renderEvolution(){
   document.getElementById('subjectBars').innerHTML=subjectData.map(([n,v])=>`<div class="subject-bar-row"><span>${n}</span><div class="progress"><span style="width:${v}%"></span></div><b>${v}%</b></div>`).join('');
 }
 
-function updateAll(){const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead'],['tReview','sReview']];let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done);if(done)n++});document.getElementById('todayBar').style.width=(n*25)+'%';document.getElementById('todayProgress').textContent=`今日进度 ${n*25}% · ${n}/4 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statTasks').textContent=tasks+' 项';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
+
+function setTextSafe(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
+
+function updateAll(){const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead'],['tReview','sReview']];let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done);if(done)n++});document.getElementById('todayBar').style.width=(n*25)+'%';document.getElementById('todayProgress').textContent=`今日进度 ${n*25}% · ${n}/4 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
 document.getElementById('level').textContent='Lv.'+(el.index+1)+' '+el.current.name;
 const start=el.current.min,end=next?next.min:start+300,pct=Math.min(100,Math.max(0,(evo.xp-start)/(end-start)*100));
 document.getElementById('levelBar').style.width=pct+'%';
