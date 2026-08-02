@@ -394,7 +394,7 @@ function completeAcademyLesson(index){
   let completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
   if(!completed.includes(key)){completed.push(key);localStorage.setItem('kikiAcademyCompleted',JSON.stringify(completed));let old=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]');if(!old.includes(key)){old.push(key);localStorage.setItem('kikiV8Courses',JSON.stringify(old))}addTask()}
   document.getElementById('tCourse').checked=true;saveTasks();markDay();renderChapters();renderCourses();updateAll();toast('课程完成，学院进度已更新');
-}document.getElementById('tCourse').checked=true;saveTasks();markDay();updateAll();toast('课程已完成')}
+}
 function completeEnglish(){document.getElementById('tWords').checked=true;saveTasks();addTask();markDay();updateAll();toast('今日英语已完成')}
 function taskKey(){return 'kikiV8Tasks_'+dateKey()}
 function loadTasks(){const x=JSON.parse(localStorage.getItem(taskKey())||'{}');document.querySelectorAll('[data-task]').forEach(e=>e.checked=!!x[e.id])}
@@ -493,8 +493,8 @@ function setTextSafe(id,value){const el=document.getElementById(id);if(el)el.tex
 
 function updateAll(){syncReviewTask();const review=reviewMaterial();const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead']];if(review.available)map.push(['tReview','sReview']);let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);if(e){e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done)}if(done)n++});const total=map.length,pct=Math.round(n/total*100);document.getElementById('todayBar').style.width=pct+'%';document.getElementById('todayProgress').textContent=`今日进度 ${pct}% · ${n}/${total} 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
 document.getElementById('level').textContent='Lv.'+(el.index+1)+' '+el.current.name;
-const start=el.current.min,end=next?next.min:start+300,pct=Math.min(100,Math.max(0,(evo.xp-start)/(end-start)*100));
-document.getElementById('levelBar').style.width=pct+'%';
+const start=el.current.min,end=next?next.min:start+300,levelPct=Math.min(100,Math.max(0,(evo.xp-start)/(end-start)*100));
+document.getElementById('levelBar').style.width=levelPct+'%';
 document.getElementById('levelText').textContent=next?'再获得 '+(next.min-evo.xp)+' XP 即可升级。':'你已经达到当前最高等级。';
 renderWeek('week');renderWeek('statsWeek');refreshBrain();renderEvolution()}
 function toggleTimer(){const b=document.getElementById('timerBtn');if(timerHandle){clearInterval(timerHandle);timerHandle=null;b.textContent='继续'}else{b.textContent='暂停';timerHandle=setInterval(()=>{timer--;renderTimer();if(timer<=0){clearInterval(timerHandle);timerHandle=null;timer=0;renderTimer();markDay();addTask();updateAll();toast('专注学习完成')}},1000)}}
