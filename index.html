@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki AI V9 Evolution</title>
+<title>Kiki AI V9.1 High School Beta</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -90,12 +90,38 @@ html[data-theme="dark"] .plan-item{background:#28332d}
 html[data-theme="dark"] .evolution-banner{background:linear-gradient(135deg,#2c3b32,#28312d)}
 @media(max-width:640px){.subject-bar-row{grid-template-columns:66px 1fr 34px}.tree-stage{font-size:72px}}
 
+
+/* ===== V9.1 Kiki High School ===== */
+.academy-hero{background:linear-gradient(135deg,var(--sage2),var(--soft));position:relative;overflow:hidden}
+.academy-hero:after{content:"🏫";position:absolute;right:22px;bottom:4px;font-size:88px;opacity:.1}
+.academy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.academy-card{border:1px solid var(--line);background:var(--soft);border-radius:20px;padding:18px;text-align:left;color:var(--ink);min-height:172px}
+.academy-card .academy-icon{font-size:34px;display:block;margin-bottom:13px}
+.academy-card strong,.academy-card small{display:block}.academy-card small{color:var(--muted);line-height:1.55;margin-top:7px}
+.academy-card .progress{margin-top:14px}
+.grade-tabs{display:flex;gap:9px;flex-wrap:wrap;margin:13px 0 18px}
+.grade-tab{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:9px 14px}
+.grade-tab.active{background:var(--sage);color:#fff;border-color:transparent}
+.chapter-list{display:grid;gap:12px}
+.chapter-card{border:1px solid var(--line);background:var(--soft);border-radius:19px;padding:17px}
+.chapter-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.chapter-number{width:38px;height:38px;border-radius:13px;background:var(--sage2);display:grid;place-items:center;font-weight:750;color:var(--sage)}
+.chapter-title{flex:1}.chapter-title strong,.chapter-title small{display:block}.chapter-title small{color:var(--muted);margin-top:4px}
+.lesson-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.lesson-actions .btn{margin:0}
+.lesson-stage{display:none}
+.breadcrumb{display:flex;gap:7px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-bottom:14px}
+.mastery{padding:6px 9px;border-radius:999px;background:var(--sage2);color:var(--sage);font-size:12px}
+html[data-theme="dark"] .academy-card,html[data-theme="dark"] .chapter-card{background:#28332d}
+@media(max-width:980px){.academy-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.academy-grid{grid-template-columns:1fr}.academy-card{min-height:auto}}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V9</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V9.1 Beta</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -105,7 +131,7 @@ html[data-theme="dark"] .evolution-banner{background:linear-gradient(135deg,#2c3
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V9 Evolution：记录成长，推荐下一步。</div>
+  <div class="side-note">V9.1 Beta：高中课程，正式升级为高中学院。</div>
 </aside>
 
 <main>
@@ -129,7 +155,7 @@ html[data-theme="dark"] .evolution-banner{background:linear-gradient(135deg,#2c3
       <div class="summary-row"><span>🇺🇸 英语 10 词</span><span id="sWords" class="status">未完成</span></div>
       <div class="summary-row"><span>🎓 高中课程 1 节</span><span id="sCourse" class="status">未完成</span></div>
       <div class="summary-row"><span>📖 阅读 10 分钟</span><span id="sRead" class="status">未完成</span></div>
-      <div class="summary-row"><span>🔁 复习昨日内容</span><span id="sReview" class="status">未完成</span></div>
+      <div id="reviewTaskRow" class="summary-row"><span>🔁 复习已收藏内容</span><span id="sReview" class="status">未完成</span></div>
       <div class="progress"><span id="todayBar"></span></div><p class="muted" id="todayProgress">今日进度 0%</p>
       <div hidden><input id="tWords" data-task type="checkbox"><input id="tCourse" data-task type="checkbox"><input id="tRead" data-task type="checkbox"><input id="tReview" data-task type="checkbox"></div>
     </article>
@@ -178,9 +204,35 @@ html[data-theme="dark"] .evolution-banner{background:linear-gradient(135deg,#2c3
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🎓 高中九科</h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
-  <div class="card"><p class="muted">每天选一科，认真完成一小节。</p><div id="coursesGrid" class="course-grid"></div></div>
-  <div id="lesson" class="card lesson"></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V9.1 Beta</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+
+  <div id="academyHome">
+    <div class="card academy-hero">
+      <div class="eyebrow">KIKI HIGH SCHOOL</div>
+      <h2>欢迎回来，Kiki 🌿</h2>
+      <p class="muted">这里没有排名，也不用赶进度。选择一门学院，从高一开始，一课一课往前走。</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>九大学院</h3>
+      <div id="academyGrid" class="academy-grid"></div>
+    </div>
+  </div>
+
+  <div id="subjectHome" style="display:none">
+    <div class="card">
+      <div class="breadcrumb"><button class="chip" onclick="backToAcademy()">高中学院</button><span>›</span><span id="subjectCrumb">数学学院</span></div>
+      <div class="section-title"><div><div class="eyebrow">SUBJECT ACADEMY</div><h2 id="subjectTitle">📐 数学学院</h2><p id="subjectIntro" class="muted"></p></div><button class="btn secondary" onclick="backToAcademy()">返回学院</button></div>
+      <h3>请选择年级</h3>
+      <div class="grade-tabs">
+        <button class="grade-tab active" data-grade="1" onclick="selectGrade(1)">高一</button>
+        <button class="grade-tab" data-grade="2" onclick="selectGrade(2)">高二</button>
+        <button class="grade-tab" data-grade="3" onclick="selectGrade(3)">高三</button>
+      </div>
+      <div id="chapterList" class="chapter-list"></div>
+    </div>
+  </div>
+
+  <div id="lessonStage" class="card lesson-stage" style="margin-top:16px"></div>
 </section>
 
 <section id="ai" class="view">
@@ -225,17 +277,46 @@ const WORD_SETS=[
 [{w:'symptom',ipa:'/ˈsɪmptəm/',zh:'症状'},{w:'medicine',ipa:'/ˈmedɪsɪn/',zh:'药物'},{w:'treatment',ipa:'/ˈtriːtmənt/',zh:'治疗'},{w:'emergency',ipa:'/ɪˈmɜːrdʒənsi/',zh:'紧急情况'},{w:'breathe',ipa:'/briːð/',zh:'呼吸'},{w:'temperature',ipa:'/ˈtemprətʃər/',zh:'体温'},{w:'allergy',ipa:'/ˈælərdʒi/',zh:'过敏'},{w:'healthy',ipa:'/ˈhelθi/',zh:'健康的'},{w:'doctor',ipa:'/ˈdɑːktər/',zh:'医生'},{w:'nurse',ipa:'/nɜːrs/',zh:'护士'}]
 ];
 const SENTENCES=['Small steps every day lead to big changes.','I am building a better future through learning.','Practice makes me more confident every day.'];
-const COURSES=[
-{id:'math',icon:'🧮',name:'数学',title:'一元一次方程',desc:'学习移项和求未知数。',body:'例题：3x + 5 = 20。两边减去5，得到3x=15，再除以3，所以x=5。',q:'练习：2x + 6 = 16，x等于多少？',a:'答案：x=5。'},
-{id:'english',icon:'🇺🇸',name:'英语',title:'基础句子结构',desc:'认识主语、动词和宾语。',body:'常见结构：主语 + 动词 + 宾语，例如 I study English。',q:'She reads books. 中的主语、动词和宾语是什么？',a:'She、reads、books。'},
-{id:'chinese',icon:'📚',name:'语文',title:'阅读理解基础',desc:'找中心句和概括段意。',body:'先找关键词，再找能够概括整段意思的中心句。',q:'用一句话概括你刚读过的一段文字。',a:'保留人物、事情和主要结果。'},
-{id:'physics',icon:'⚙️',name:'物理',title:'速度与时间',desc:'认识速度、路程和时间。',body:'速度=路程÷时间。100米用20秒，速度是每秒5米。',q:'120米用30秒，速度是多少？',a:'每秒4米。'},
-{id:'chemistry',icon:'🧪',name:'化学',title:'物质的变化',desc:'区分物理变化和化学变化。',body:'冰融化是物理变化；铁生锈产生新物质，是化学变化。',q:'纸撕碎和纸燃烧分别是什么变化？',a:'撕碎是物理变化；燃烧是化学变化。'},
-{id:'biology',icon:'🧬',name:'生物',title:'细胞基础',desc:'认识细胞是基本单位。',body:'大多数生物由细胞组成，生命活动依靠细胞完成。',q:'为什么说细胞是基本单位？',a:'因为生长、代谢和繁殖等活动依靠细胞。'},
-{id:'history',icon:'🏛️',name:'历史',title:'时间线方法',desc:'按时间顺序理解历史。',body:'把人物、时间、地点、原因、经过和结果放在时间线上。',q:'整理历史事件常用哪六个要素？',a:'人物、时间、地点、原因、经过和结果。'},
-{id:'geography',icon:'🌍',name:'地理',title:'经纬度基础',desc:'认识经线和纬线。',body:'纬线表示南北位置，经线表示东西位置。',q:'赤道是多少度纬线？',a:'0°纬线。'},
-{id:'politics',icon:'⚖️',name:'政治',title:'权利与责任',desc:'理解个人权利和责任。',body:'权利保障自由与尊严，责任要求遵守规则并尊重他人。',q:'为什么权利和责任要一起理解？',a:'享有权利时，也需要履行责任。'}
+const ACADEMIES=[
+{id:'math',icon:'📐',name:'数学学院',intro:'从集合、函数和方程开始，建立完整的数学基础。'},
+{id:'english',icon:'🇺🇸',name:'英语学院',intro:'词汇、语法、阅读和写作同步学习。'},
+{id:'chinese',icon:'📖',name:'语文学院',intro:'阅读理解、现代文、古诗文和写作。'},
+{id:'physics',icon:'⚛️',name:'物理学院',intro:'从运动、力和能量认识世界。'},
+{id:'chemistry',icon:'🧪',name:'化学学院',intro:'认识物质、反应、元素和实验。'},
+{id:'biology',icon:'🧬',name:'生物学院',intro:'学习细胞、遗传、人体和生态。'},
+{id:'geography',icon:'🌍',name:'地理学院',intro:'从地图、气候到人口和区域。'},
+{id:'history',icon:'📜',name:'历史学院',intro:'用时间线理解中国与世界历史。'},
+{id:'politics',icon:'🏛️',name:'政治学院',intro:'理解社会、经济、法律和责任。'}
 ];
+
+const ACADEMY_CHAPTERS={
+math:{
+1:[
+{title:'集合',lesson:'什么是集合？',body:'集合就是把具有共同特征的对象放在一起。比如：小于5的正整数可以组成集合 {1,2,3,4}。',q:'请写出小于4的正整数集合。',a:'{1,2,3}',ai:'请用最简单的中文给我讲解高中数学“集合”，并给一个生活例子。'},
+{title:'函数基础',lesson:'变量与函数关系',body:'当一个量变化时，另一个量按照确定规则变化，就可以建立函数关系。',q:'如果每支笔2美元，买x支共多少钱？',a:'y=2x',ai:'请从零基础讲解函数是什么，并用买东西举例。'},
+{title:'一元一次方程',lesson:'移项与求未知数',body:'解方程时，对等式两边做相同运算。例：3x+5=20，得到x=5。',q:'2x+6=16，x是多少？',a:'x=5',ai:'请一步一步讲解一元一次方程，适合初中基础较弱的人。'}],
+2:[
+{title:'指数与对数',lesson:'指数运算基础',body:'指数表示相同因数重复相乘，例如2³=2×2×2。',q:'3²等于多少？',a:'9',ai:'请讲解指数的含义和最基本运算。'},
+{title:'三角函数',lesson:'直角三角形中的比值',body:'正弦、余弦和正切描述角与边的关系。',q:'直角三角形中最长的边叫什么？',a:'斜边',ai:'请用零基础方式介绍三角函数。'}],
+3:[
+{title:'数列',lesson:'等差数列基础',body:'相邻两项的差相同，叫等差数列。',q:'2,5,8,11的公差是多少？',a:'3',ai:'请讲解等差数列和公差。'},
+{title:'概率统计',lesson:'概率的基本含义',body:'概率描述某件事发生的可能性，范围是0到1。',q:'抛一枚公平硬币，正面概率是多少？',a:'1/2',ai:'请用抛硬币讲解概率。'}]},
+english:{
+1:[
+{title:'基础句子结构',lesson:'主语、动词、宾语',body:'英语基础结构常见为：主语 + 动词 + 宾语，例如 I study English.',q:'She reads books. 的动词是什么？',a:'reads',ai:'Teach me basic English sentence structure in simple Chinese with American examples.'},
+{title:'一般现在时',lesson:'描述习惯和事实',body:'一般现在时用于习惯、事实和经常发生的动作。',q:'把“我每天学习”翻译成英语。',a:'I study every day.',ai:'请讲解英语一般现在时并给美式例句。'}],
+2:[{title:'阅读理解',lesson:'找主题句',body:'先找重复关键词，再判断作者主要想说明什么。',q:'主题句通常表达什么？',a:'段落的主要意思。',ai:'请教我高中英语阅读如何找主题句。'}],
+3:[{title:'英语写作',lesson:'基础段落结构',body:'一段通常包括主题句、支持句和总结句。',q:'一段的第一句通常叫什么？',a:'主题句。',ai:'请教我写一个简单的高中英语段落。'}]},
+chinese:{1:[{title:'现代文阅读',lesson:'找中心句',body:'反复出现的关键词和概括全文的句子，常能帮助找到中心。',q:'中心句的作用是什么？',a:'概括主要内容。',ai:'请讲解高中语文如何找中心句。'}],2:[{title:'古诗文基础',lesson:'理解意象',body:'意象是诗中带有情感的景物形象。',q:'月亮常表达什么情感？',a:'思乡、思念等。',ai:'请讲解古诗中的意象。'}],3:[{title:'议论文写作',lesson:'论点与论据',body:'论点是观点，论据是支持观点的材料。',q:'事实例子属于什么？',a:'论据。',ai:'请教我议论文的论点和论据。'}]},
+physics:{1:[{title:'运动与速度',lesson:'速度=路程÷时间',body:'速度表示物体运动快慢。',q:'100米用20秒，速度是多少？',a:'5米/秒',ai:'请讲解高中物理速度公式。'}],2:[{title:'牛顿定律',lesson:'力与运动',body:'合力会改变物体的运动状态。',q:'没有合力时物体可能怎样运动？',a:'静止或匀速直线运动。',ai:'请简单讲解牛顿第一定律。'}],3:[{title:'电学基础',lesson:'电流与电压',body:'电压推动电荷定向移动形成电流。',q:'电流单位是什么？',a:'安培。',ai:'请讲解电流和电压。'}]},
+chemistry:{1:[{title:'物质变化',lesson:'物理与化学变化',body:'产生新物质的是化学变化。',q:'铁生锈是什么变化？',a:'化学变化。',ai:'请讲解物理变化和化学变化。'}],2:[{title:'元素与周期表',lesson:'认识元素',body:'元素由相同核电荷数的原子组成。',q:'氧的元素符号是什么？',a:'O',ai:'请介绍元素周期表基础。'}],3:[{title:'化学反应',lesson:'反应速率',body:'温度、浓度等因素会影响反应快慢。',q:'通常升高温度会怎样影响反应？',a:'加快反应。',ai:'请讲解反应速率。'}]},
+biology:{1:[{title:'细胞基础',lesson:'生命的基本单位',body:'细胞是大多数生物结构和功能的基本单位。',q:'细胞外层的结构是什么？',a:'细胞膜。',ai:'请讲解细胞基础。'}],2:[{title:'遗传基础',lesson:'基因与性状',body:'基因携带遗传信息并影响性状。',q:'遗传信息主要储存在哪里？',a:'DNA。',ai:'请介绍基因和DNA。'}],3:[{title:'生态系统',lesson:'生物与环境',body:'生态系统由生物和非生物环境组成。',q:'阳光属于生物因素吗？',a:'不是。',ai:'请讲解生态系统组成。'}]},
+geography:{1:[{title:'地图基础',lesson:'经纬度',body:'纬线表示南北位置，经线表示东西位置。',q:'赤道是多少度纬线？',a:'0°。',ai:'请讲解经纬度。'}],2:[{title:'气候',lesson:'气温与降水',body:'气候是一个地区多年平均的天气状况。',q:'天气和气候哪个时间更长？',a:'气候。',ai:'请区分天气和气候。'}],3:[{title:'人口与城市',lesson:'人口迁移',body:'人口会因工作、教育等因素迁移。',q:'就业机会属于迁移的什么因素？',a:'经济因素。',ai:'请讲解人口迁移。'}]},
+history:{1:[{title:'历史时间线',lesson:'整理六要素',body:'人物、时间、地点、原因、经过和结果是常用要素。',q:'历史事件的结果表示什么？',a:'事件产生的影响。',ai:'请教我用时间线学历史。'}],2:[{title:'中国近代史',lesson:'时代变化',body:'近代中国经历社会、政治和经济的深刻变化。',q:'学习历史为什么要看原因和结果？',a:'帮助理解事件之间的联系。',ai:'请用时间线介绍中国近代史学习方法。'}],3:[{title:'世界现代史',lesson:'全球联系',body:'工业化、战争和全球化影响现代世界。',q:'全球化强调什么？',a:'世界各地联系加强。',ai:'请介绍世界现代史学习框架。'}]},
+politics:{1:[{title:'权利与责任',lesson:'两者的关系',body:'享有权利的同时，也需要履行相应责任。',q:'遵守规则属于什么？',a:'责任。',ai:'请讲解权利与责任。'}],2:[{title:'经济生活',lesson:'需求与选择',body:'资源有限，人们需要做出选择。',q:'为什么需要合理消费？',a:'资源和收入有限。',ai:'请讲解基本经济选择。'}],3:[{title:'法律基础',lesson:'规则与公平',body:'法律维护秩序、权利与公平。',q:'法律只约束普通人吗？',a:'不是，法律面前人人平等。',ai:'请讲解法律与公平。'}]}
+};
+
+let currentSubject='math',currentGrade=1;
 let voice=null,timer=1200,timerHandle=null,aiMode='teacher';
 
 function dateKey(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -250,9 +331,70 @@ function wordsToday(){return WORD_SETS[dayIndex()%WORD_SETS.length]}
 function reviews(){return JSON.parse(localStorage.getItem('kikiV8Reviews')||'[]')}
 function toggleReview(w){let a=reviews();a=a.includes(w)?a.filter(x=>x!==w):[...a,w];localStorage.setItem('kikiV8Reviews',JSON.stringify(a));renderWords();updateAll()}
 function renderWords(){const a=reviews();document.getElementById('words').innerHTML=wordsToday().map((x,i)=>`<div class="word"><div class="word-left"><span class="num">${i+1}</span><div><b>${x.w}</b><small>${x.ipa} · ${x.zh}</small></div></div><div><button class="sound" onclick="toggleReview('${x.w}')">${a.includes(x.w)?'★':'☆'}</button> <button class="sound" onclick="speak('${x.w}')">🔊</button></div></div>`).join('');document.getElementById('sentence').textContent=SENTENCES[dayIndex()%SENTENCES.length];const all=WORD_SETS.flat().filter((x,i,a)=>a.findIndex(y=>y.w===x.w)===i).filter(x=>reviews().includes(x.w));document.getElementById('reviewWords').innerHTML=all.length?all.map(x=>`<span class="badge" style="margin:4px">${x.w} · ${x.zh}</span>`).join(''):'还没有收藏单词。'}
-function renderCourses(){document.getElementById('coursesGrid').innerHTML=COURSES.map(c=>`<div class="course"><span class="badge">${c.icon} ${c.name}</span><h3>${c.title}</h3><p class="muted">${c.desc}</p><button class="btn" onclick="openLesson('${c.id}')">开始学习</button></div>`).join('')}
-function openLesson(id){const c=COURSES.find(x=>x.id===id),el=document.getElementById('lesson');el.style.display='block';el.innerHTML=`<h2>${c.icon} ${c.name}：${c.title}</h2><p class="muted">${c.body}</p><div class="notice">${c.q}</div><details><summary class="btn secondary">查看答案</summary><p>${c.a}</p></details><br><button class="btn" onclick="completeCourse('${id}')">完成课程</button>`;el.scrollIntoView({behavior:'smooth'})}
-function completeCourse(id){let a=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]');if(!a.includes(id)){a.push(id);localStorage.setItem('kikiV8Courses',JSON.stringify(a));addTask()}document.getElementById('tCourse').checked=true;saveTasks();markDay();updateAll();toast('课程已完成')}
+function academyProgress(subject){
+  const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
+  const all=[1,2,3].flatMap(g=>(ACADEMY_CHAPTERS[subject]?.[g]||[]).map((_,i)=>`${subject}-${g}-${i}`));
+  if(!all.length)return 0;
+  return Math.round(all.filter(x=>completed.includes(x)).length/all.length*100);
+}
+function renderCourses(){
+  document.getElementById('academyGrid').innerHTML=ACADEMIES.map(a=>{const p=academyProgress(a.id);return `<button class="academy-card" onclick="openAcademy('${a.id}')"><span class="academy-icon">${a.icon}</span><strong>${a.name}</strong><small>${a.intro}</small><div class="progress"><span style="width:${p}%"></span></div><small>${p}% 完成</small></button>`}).join('');
+}
+function openAcademy(id){
+  currentSubject=id;currentGrade=1;
+  const a=ACADEMIES.find(x=>x.id===id);
+  document.getElementById('academyHome').style.display='none';
+  document.getElementById('subjectHome').style.display='block';
+  document.getElementById('lessonStage').style.display='none';
+  document.getElementById('subjectTitle').textContent=`${a.icon} ${a.name}`;
+  document.getElementById('subjectCrumb').textContent=a.name;
+  document.getElementById('subjectIntro').textContent=a.intro;
+  document.querySelectorAll('.grade-tab').forEach(x=>x.classList.toggle('active',x.dataset.grade==='1'));
+  renderChapters();
+}
+function backToAcademy(){
+  document.getElementById('academyHome').style.display='block';
+  document.getElementById('subjectHome').style.display='none';
+  document.getElementById('lessonStage').style.display='none';
+  renderCourses();
+}
+function selectGrade(g){
+  currentGrade=g;
+  document.querySelectorAll('.grade-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.grade)===g));
+  document.getElementById('lessonStage').style.display='none';
+  renderChapters();
+}
+function renderChapters(){
+  const list=ACADEMY_CHAPTERS[currentSubject]?.[currentGrade]||[];
+  const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
+  document.getElementById('chapterList').innerHTML=list.map((c,i)=>{
+    const key=`${currentSubject}-${currentGrade}-${i}`,done=completed.includes(key);
+    return `<div class="chapter-card"><div class="chapter-head"><div class="chapter-number">${i+1}</div><div class="chapter-title"><strong>第${i+1}章 · ${c.title}</strong><small>${c.lesson}</small></div><span class="mastery">${done?'⭐ 已掌握':'0%'}</span></div><div class="lesson-actions"><button class="btn" onclick="openAcademyLesson(${i},'lesson')">📖 学课程</button><button class="btn secondary" onclick="openAcademyLesson(${i},'practice')">✍ 做练习</button><button class="btn secondary" onclick="openAcademyLesson(${i},'ai')">🤖 AI讲解</button></div></div>`;
+  }).join('');
+}
+function openAcademyLesson(index,mode){
+  const c=ACADEMY_CHAPTERS[currentSubject][currentGrade][index],a=ACADEMIES.find(x=>x.id===currentSubject),stage=document.getElementById('lessonStage');
+  stage.style.display='block';
+  if(mode==='lesson'){
+    stage.innerHTML=`<div class="breadcrumb"><span>${a.name}</span><span>›</span><span>高${['','一','二','三'][currentGrade]}</span><span>›</span><span>${c.title}</span></div><h2>📖 ${c.lesson}</h2><p class="muted">${c.body}</p><div class="notice">学完后，请尝试用自己的话说一遍核心知识。</div><button class="btn" onclick="completeAcademyLesson(${index})">✅ 完成本课</button>`;
+  }else if(mode==='practice'){
+    stage.innerHTML=`<h2>✍ ${c.title} · 练习</h2><div class="notice">${c.q}</div><details><summary class="btn secondary">查看答案</summary><p>${c.a}</p></details><br><button class="btn" onclick="completeAcademyLesson(${index})">我已完成练习</button>`;
+  }else{
+    document.getElementById('aiSubject').value=ACADEMY_SUBJECT_MAP[currentSubject]||'数学';
+    document.getElementById('aiMessage').value=c.ai;
+    openView('ai');
+    toast('已为 AI 老师准备好本课问题');
+    return;
+  }
+  stage.scrollIntoView({behavior:'smooth',block:'start'});
+}
+const ACADEMY_SUBJECT_MAP={math:'数学',english:'英语',chinese:'语文',physics:'物理',chemistry:'化学',biology:'生物',geography:'地理',history:'历史',politics:'政治'};
+function completeAcademyLesson(index){
+  const key=`${currentSubject}-${currentGrade}-${index}`;
+  let completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
+  if(!completed.includes(key)){completed.push(key);localStorage.setItem('kikiAcademyCompleted',JSON.stringify(completed));let old=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]');if(!old.includes(key)){old.push(key);localStorage.setItem('kikiV8Courses',JSON.stringify(old))}addTask()}
+  document.getElementById('tCourse').checked=true;saveTasks();markDay();renderChapters();renderCourses();updateAll();toast('课程完成，学院进度已更新');
+}document.getElementById('tCourse').checked=true;saveTasks();markDay();updateAll();toast('课程已完成')}
 function completeEnglish(){document.getElementById('tWords').checked=true;saveTasks();addTask();markDay();updateAll();toast('今日英语已完成')}
 function taskKey(){return 'kikiV8Tasks_'+dateKey()}
 function loadTasks(){const x=JSON.parse(localStorage.getItem(taskKey())||'{}');document.querySelectorAll('[data-task]').forEach(e=>e.checked=!!x[e.id])}
@@ -261,6 +403,20 @@ function addTask(){localStorage.setItem('kikiV8TaskCount',String(Number(localSto
 function markDay(){let a=JSON.parse(localStorage.getItem('kikiV8Days')||'[]');if(!a.includes(dateKey()))a.push(dateKey());localStorage.setItem('kikiV8Days',JSON.stringify(a))}
 function streak(){const s=new Set(JSON.parse(localStorage.getItem('kikiV8Days')||'[]'));let n=0,d=new Date();while(s.has(dateKey(d))){n++;d.setDate(d.getDate()-1)}return n}
 function renderWeek(id){const s=new Set(JSON.parse(localStorage.getItem('kikiV8Days')||'[]')),names=['日','一','二','三','四','五','六'];let h='';for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);h+=`<div class="day ${s.has(dateKey(d))?'done':''}"><div>周${names[d.getDay()]}</div><strong>${d.getDate()}</strong></div>`}document.getElementById(id).innerHTML=h}
+
+
+function reviewMaterial(){
+  const wordList=reviews();
+  const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
+  return {words:wordList.slice(0,5),lessonCount:completed.length,available:wordList.length>0||completed.length>0};
+}
+function syncReviewTask(){
+  const r=reviewMaterial();
+  const task=document.getElementById('tReview'),row=document.getElementById('reviewTaskRow');
+  if(task)task.disabled=!r.available;
+  if(row)row.style.display=r.available?'flex':'none';
+  if(!r.available&&task)task.checked=false;
+}
 
 function learningData(){
   const tasks=Number(localStorage.getItem('kikiV8TaskCount')||0);
@@ -295,7 +451,7 @@ function brainPlan(){
   };
   let items=[];
   if(h>=21||h<6){
-    if(!taskStates.review)items.push({view:'english',icon:'🔁',title:'复习 5 个单词',desc:'晚上以复习为主，不增加太多压力。'});
+    const review=reviewMaterial();if(review.available&&!taskStates.review)items.push({view:'english',icon:'🔁',title:review.words.length?'复习已收藏单词':'回顾已学课程',desc:review.words.length?review.words.join('、'):'打开高中学院回顾已完成章节。'});
     if(!taskStates.read)items.push({view:'reading',icon:'📖',title:'阅读 10 分钟',desc:'安静读几页，然后早点休息。'});
   }else{
     if(!taskStates.english)items.push({view:'english',icon:'🇺🇸',title:'今日英语 10 词',desc:'先完成最容易开始的一项。'});
@@ -335,7 +491,7 @@ function renderEvolution(){
 
 function setTextSafe(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
-function updateAll(){const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead'],['tReview','sReview']];let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done);if(done)n++});document.getElementById('todayBar').style.width=(n*25)+'%';document.getElementById('todayProgress').textContent=`今日进度 ${n*25}% · ${n}/4 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
+function updateAll(){syncReviewTask();const review=reviewMaterial();const map=[['tWords','sWords'],['tCourse','sCourse'],['tRead','sRead']];if(review.available)map.push(['tReview','sReview']);let n=0;map.forEach(([a,b])=>{const done=document.getElementById(a).checked,e=document.getElementById(b);if(e){e.textContent=done?'已完成':'未完成';e.classList.toggle('done',done)}if(done)n++});const total=map.length,pct=Math.round(n/total*100);document.getElementById('todayBar').style.width=pct+'%';document.getElementById('todayProgress').textContent=`今日进度 ${pct}% · ${n}/${total} 项`;const st=streak(),tasks=Number(localStorage.getItem('kikiV8TaskCount')||0),courses=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]').length,rv=reviews().length;document.getElementById('streak').textContent=st+' 天';document.getElementById('statStreak').textContent=st+' 天';document.getElementById('statCourses').textContent=courses+' 节';document.getElementById('statWords').textContent=rv+' 个';const evo=learningData(),el=evolutionLevel(evo.xp),next=el.next;
 document.getElementById('level').textContent='Lv.'+(el.index+1)+' '+el.current.name;
 const start=el.current.min,end=next?next.min:start+300,pct=Math.min(100,Math.max(0,(evo.xp-start)/(end-start)*100));
 document.getElementById('levelBar').style.width=pct+'%';
@@ -360,7 +516,7 @@ function setTheme(choice){themeChoice=choice;localStorage.setItem('kikiTheme',ch
 function updateNightGreeting(){const h=new Date().getHours(),note=document.getElementById('nightNote');if(note)note.hidden=!(h>=20||h<6)}
 function updateAiLock(){const card=document.getElementById('aiLockCard');const hasCode=!!(document.getElementById('accessCode')?.value.trim()||localStorage.getItem('kikiAccessCode'));if(!card)return;card.classList.toggle('unlocked',hasCode);card.innerHTML=hasCode?'<strong>✅ AI 老师已解锁</strong><span class="muted">当前设备已经保存私人访问密码。</span>':'<strong>🔒 AI 老师目前为 Kiki 专属</strong><span class="muted">其他人仍可使用英语、高中课程、阅读和学习统计。输入私人密码后，AI 老师会解锁。</span>'}
 
-document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
+document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
 </script>
 </body>
 </html>
