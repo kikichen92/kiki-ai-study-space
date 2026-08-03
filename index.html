@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki AI V9.1.3 Experience</title>
+<title>Kiki AI V9.2 Smart Guide & Reading Academy</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -126,12 +126,128 @@ html[data-theme="dark"] .academy-card,html[data-theme="dark"] .chapter-card{back
 .review-mini-btn.done{background:var(--sage2);color:var(--sage)}
 html[data-theme="dark"] .review-mini-btn{background:#202824}
 
+
+/* ===== V9.2 Smart Guide + Reading Academy ===== */
+.guide-card{
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,var(--sage2),var(--soft));
+  position:relative;
+  overflow:hidden
+}
+.guide-card:after{
+  content:"✨";
+  position:absolute;
+  right:20px;
+  top:14px;
+  font-size:56px;
+  opacity:.13
+}
+.guide-options{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.guide-option{
+  border:1px solid var(--line);
+  background:var(--paper);
+  color:var(--ink);
+  border-radius:15px;
+  padding:11px 14px
+}
+.guide-option.active{background:var(--sage);color:#fff;border-color:transparent}
+.guide-flow{display:none;margin-top:16px}
+.guide-step{display:none}
+.guide-step.active{display:block}
+.plan-result{
+  display:none;
+  margin-top:16px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:20px;
+  padding:17px
+}
+.plan-result.show{display:block}
+.plan-result h3{margin-top:0}
+.plan-action{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line)
+}
+.plan-action:last-child{border-bottom:0}
+.plan-action strong,.plan-action small{display:block}
+.plan-action small{color:var(--muted);margin-top:4px}
+.reading-hero{
+  background:linear-gradient(135deg,var(--sage2),var(--soft));
+  position:relative;
+  overflow:hidden
+}
+.reading-hero:after{
+  content:"📚";
+  position:absolute;
+  right:22px;
+  bottom:3px;
+  font-size:90px;
+  opacity:.10
+}
+.bookshelf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.book-card{
+  border:1px solid var(--line);
+  background:var(--soft);
+  border-radius:20px;
+  padding:17px;
+  min-height:190px;
+  display:flex;
+  flex-direction:column
+}
+.book-cover{
+  width:58px;height:76px;border-radius:10px;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,#c9ab87,#9f7c59);
+  color:white;font-size:27px;
+  box-shadow:0 10px 18px rgba(73,55,38,.15);
+  margin-bottom:13px
+}
+.book-card strong,.book-card small{display:block}
+.book-card small{color:var(--muted);line-height:1.5;margin-top:5px}
+.book-card .progress{margin-top:auto}
+.book-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.book-editor{display:none}
+.reader-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
+.ai-reader-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ai-reader-btn{
+  border:1px solid var(--line);
+  background:var(--soft);
+  color:var(--ink);
+  border-radius:17px;
+  padding:14px;
+  text-align:left
+}
+.ai-reader-btn span{display:block;font-size:25px;margin-bottom:8px}
+.notes-list{display:grid;gap:10px;margin-top:12px}
+.note-card{border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:13px}
+.note-card small{color:var(--muted)}
+.empty-state{text-align:center;padding:28px;color:var(--muted)}
+html[data-theme="dark"] .guide-card,
+html[data-theme="dark"] .book-card,
+html[data-theme="dark"] .ai-reader-btn,
+html[data-theme="dark"] .note-card{background:#28332d}
+@media(max-width:980px){
+  .bookshelf-grid{grid-template-columns:repeat(2,1fr)}
+  .reader-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .bookshelf-grid{grid-template-columns:1fr}
+  .ai-reader-actions{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V9.1.3</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki AI <span class="badge">V9.2</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -141,7 +257,7 @@ html[data-theme="dark"] .review-mini-btn{background:#202824}
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V9.1.3 Experience：复习有内容才出现。</div>
+  <div class="side-note">V9.2：AI 帮你开始，阅读也有自己的学院。</div>
 </aside>
 
 <main>
@@ -224,7 +340,7 @@ html[data-theme="dark"] .review-mini-btn{background:#202824}
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V9.1.3</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V9.2</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
 
   <div id="academyHome">
     <div class="card academy-hero">
@@ -256,23 +372,155 @@ html[data-theme="dark"] .review-mini-btn{background:#202824}
 </section>
 
 <section id="ai" class="view">
-  <div class="section-title"><h1>🤖 AI 老师 <span class="badge">真实 API</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🤖 AI 学习导师 <span class="badge">V9.2</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+
+  <div class="guide-card">
+    <div class="eyebrow">SMART LEARNING GUIDE</div>
+    <h2>✨ 不知道学什么？</h2>
+    <p class="muted">今天不用自己想从哪里开始。告诉我你有多少时间、今天状态怎么样，我会帮你准备第一步。</p>
+    <button class="btn" onclick="startGuide()">开始今天</button>
+
+    <div id="guideFlow" class="guide-flow">
+      <div id="guideStepTime" class="guide-step">
+        <h3>今天有多少学习时间？</h3>
+        <div class="guide-options">
+          <button class="guide-option" data-minutes="15" onclick="chooseGuideTime(15,this)">15 分钟</button>
+          <button class="guide-option" data-minutes="30" onclick="chooseGuideTime(30,this)">30 分钟</button>
+          <button class="guide-option" data-minutes="60" onclick="chooseGuideTime(60,this)">60 分钟</button>
+          <button class="guide-option" data-minutes="90" onclick="chooseGuideTime(90,this)">今天时间很多</button>
+        </div>
+      </div>
+
+      <div id="guideStepEnergy" class="guide-step">
+        <h3>今天状态怎么样？</h3>
+        <div class="guide-options">
+          <button class="guide-option" data-energy="good" onclick="chooseGuideEnergy('good',this)">😄 很有精神</button>
+          <button class="guide-option" data-energy="normal" onclick="chooseGuideEnergy('normal',this)">🙂 一般</button>
+          <button class="guide-option" data-energy="tired" onclick="chooseGuideEnergy('tired',this)">😴 有点累</button>
+        </div>
+      </div>
+
+      <div id="guideResult" class="plan-result">
+        <h3>🌿 今天的学习计划</h3>
+        <p id="guideMessage" class="muted"></p>
+        <div id="guidePlanItems"></div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:13px">
+          <button class="btn" onclick="beginGuidePlan()">▶ 开始今天</button>
+          <button class="btn secondary" onclick="resetGuide()">重新选择</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice">💬 也可以直接向 AI 提问，或者使用下面的答疑、微课程和出题批改。</div>
+
   <div class="ai-layout">
     <aside class="card ai-side">
       <div id="aiLockCard" class="lock-card"><strong>🔒 AI 老师目前为 Kiki 专属</strong><span class="muted">其他人仍可使用英语、高中课程、阅读和学习统计。输入私人密码后，AI 老师会解锁。</span></div>
       <h3>学习设置</h3>
-      <label>科目</label><select id="aiSubject"><option>数学</option><option>英语</option><option>语文</option><option>历史</option><option>地理</option><option>生物</option><option>物理</option><option>化学</option></select>
-      <label>难度</label><select id="aiLevel"><option value="beginner">基础衔接</option><option value="highschool">高中基础</option><option value="challenge">提高难度</option></select>
-      <label>模式</label><div class="chips"><button class="chip active" data-mode="teacher" onclick="setMode('teacher')">答疑</button><button class="chip" data-mode="lesson" onclick="setMode('lesson')">微课程</button><button class="chip" data-mode="quiz" onclick="setMode('quiz')">出题批改</button></div>
-      <label>私人访问密码</label><input id="accessCode" type="password" placeholder="KIKI_ACCESS_CODE"><button class="btn secondary" style="margin-top:9px" onclick="saveCode()">保存到本机</button><p class="muted" style="font-size:12px">密码只保存在当前设备。</p>
+      <label>科目</label>
+      <select id="aiSubject">
+        <option>数学</option><option>英语</option><option>语文</option><option>历史</option><option>地理</option>
+        <option>生物</option><option>物理</option><option>化学</option><option>政治</option>
+      </select>
+      <label>难度</label>
+      <select id="aiLevel"><option value="beginner">基础衔接</option><option value="highschool">高中基础</option><option value="challenge">提高难度</option></select>
+      <label>模式</label>
+      <div class="chips">
+        <button class="chip active" data-mode="teacher" onclick="setMode('teacher')">答疑</button>
+        <button class="chip" data-mode="lesson" onclick="setMode('lesson')">微课程</button>
+        <button class="chip" data-mode="quiz" onclick="setMode('quiz')">出题批改</button>
+      </div>
+      <label>私人访问密码</label>
+      <input id="accessCode" type="password" placeholder="KIKI_ACCESS_CODE">
+      <button class="btn secondary" style="margin-top:9px" onclick="saveCode()">保存到本机</button>
+      <p class="muted" style="font-size:12px">密码只保存在当前设备。</p>
     </aside>
-    <div class="card chat"><div id="chatLog" class="chat-log"><div class="bubble ai">你好，Kiki。我可以答疑、讲一节微课程，也可以出题并批改。先选择科目和模式，再告诉我今天想学什么。</div></div><div class="compose"><textarea id="aiMessage" placeholder="例如：用最简单的方法讲一元一次方程。"></textarea><button id="sendBtn" class="btn" onclick="sendAI()">发送</button></div><div id="aiStatus" class="ai-status">准备就绪</div></div>
+
+    <div class="card chat">
+      <div id="chatLog" class="chat-log">
+        <div class="bubble ai">你好，Kiki。我可以答疑、讲一节微课程，也可以出题并批改。也可以点上面的「不知道学什么」，让我帮你安排今天。</div>
+      </div>
+      <div class="compose">
+        <textarea id="aiMessage" placeholder="今天想学什么？或者点上面的「不知道学什么」。"></textarea>
+        <button id="sendBtn" class="btn" onclick="sendAI()">发送</button>
+      </div>
+      <div id="aiStatus" class="ai-status">准备就绪</div>
+    </div>
   </div>
 </section>
 
 <section id="reading" class="view">
-  <div class="section-title"><h1>📖 阅读笔记</h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
-  <div class="grid"><div class="card half"><label>书名</label><input id="book" value="活着"><label>读到第几页</label><input id="page" type="number" value="92"><label>感悟</label><textarea id="readingNote" placeholder="今天最打动你的地方……"></textarea><button class="btn" onclick="saveReading()">保存阅读笔记</button></div><div class="card half"><div class="metric-grid"><div class="metric">当前书籍<strong id="bookStat">活着</strong></div><div class="metric">累计页数<strong id="pageStat">92 页</strong></div><div class="metric">阅读天数<strong id="readingDays">0 天</strong></div><div class="metric">今日目标<strong>10 页</strong></div></div><div class="notice">读得慢没有关系，理解和留下自己的感受更重要。</div></div></div>
+  <div class="section-title"><h1>📚 阅读学院 <span class="badge">V9.2</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+
+  <div id="readingHome">
+    <div class="card reading-hero">
+      <div class="eyebrow">READING ACADEMY</div>
+      <h2>我的书架</h2>
+      <p class="muted">每一本书都有自己的阅读进度、感悟和 AI 阅读伙伴。</p>
+      <button class="btn" onclick="showAddBook()">➕ 添加一本书</button>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="section-title"><h3>📖 正在阅读</h3><span id="readingBookCount" class="badge">0 本</span></div>
+      <div id="bookshelf" class="bookshelf-grid"></div>
+    </div>
+
+    <div id="addBookCard" class="card book-editor" style="margin-top:16px">
+      <h3>➕ 添加新书</h3>
+      <div class="form-grid">
+        <div><label>书名</label><input id="newBookTitle" placeholder="例如：活着"></div>
+        <div><label>作者</label><input id="newBookAuthor" placeholder="例如：余华"></div>
+        <div><label>总页数</label><input id="newBookTotal" type="number" min="1" placeholder="例如：220"></div>
+        <div><label>当前页数</label><input id="newBookPage" type="number" min="0" value="0"></div>
+      </div>
+      <div style="display:flex;gap:9px;margin-top:13px">
+        <button class="btn" onclick="addBook()">保存到书架</button>
+        <button class="btn secondary" onclick="hideAddBook()">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="bookDetail" style="display:none">
+    <div class="card">
+      <div class="breadcrumb"><button class="chip" onclick="backToBookshelf()">阅读学院</button><span>›</span><span id="bookCrumb">书籍</span></div>
+      <div class="section-title">
+        <div><div class="eyebrow">CURRENT BOOK</div><h2 id="detailBookTitle">📖 活着</h2><p id="detailBookAuthor" class="muted"></p></div>
+        <button class="btn secondary" onclick="backToBookshelf()">返回书架</button>
+      </div>
+
+      <div class="reader-grid">
+        <div>
+          <label>当前页数</label>
+          <input id="detailCurrentPage" type="number" min="0">
+          <label>总页数</label>
+          <input id="detailTotalPages" type="number" min="1">
+          <div class="progress" style="margin-top:14px"><span id="detailProgressBar"></span></div>
+          <p id="detailProgressText" class="muted"></p>
+
+          <label>今天的阅读感悟</label>
+          <textarea id="detailReadingNote" placeholder="今天最打动你的地方……"></textarea>
+          <button class="btn" onclick="saveCurrentBook()">保存阅读进度与感悟</button>
+        </div>
+
+        <div>
+          <h3>🤖 AI 阅读伙伴</h3>
+          <p class="muted">选择一个入口，我会自动把书名、页数和你的需求带到 AI 学习导师。</p>
+          <div class="ai-reader-actions">
+            <button class="ai-reader-btn" onclick="askReadingAI('summary')"><span>💡</span><strong>总结这一部分</strong></button>
+            <button class="ai-reader-btn" onclick="askReadingAI('character')"><span>👤</span><strong>分析人物</strong></button>
+            <button class="ai-reader-btn" onclick="askReadingAI('feeling')"><span>💬</span><strong>聊聊我的感受</strong></button>
+            <button class="ai-reader-btn" onclick="askReadingAI('quote')"><span>✨</span><strong>推荐思考角度</strong></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>📝 这本书的阅读记录</h3>
+      <div id="bookNotes" class="notes-list"></div>
+    </div>
+  </div>
 </section>
 
 <section id="baby" class="view">
@@ -548,8 +796,8 @@ renderWeek('week');renderWeek('statsWeek');refreshBrain();renderEvolution()}
 function toggleTimer(){const b=document.getElementById('timerBtn');if(timerHandle){clearInterval(timerHandle);timerHandle=null;b.textContent='继续'}else{b.textContent='暂停';timerHandle=setInterval(()=>{timer--;renderTimer();if(timer<=0){clearInterval(timerHandle);timerHandle=null;timer=0;renderTimer();markDay();addTask();updateAll();toast('专注学习完成')}},1000)}}
 function resetTimer(){if(timerHandle)clearInterval(timerHandle);timerHandle=null;timer=1200;renderTimer();document.getElementById('timerBtn').textContent='开始'}
 function renderTimer(){document.getElementById('timerDisplay').textContent=String(Math.floor(timer/60)).padStart(2,'0')+':'+String(timer%60).padStart(2,'0')}
-function saveReading(){localStorage.setItem('kikiV8Book',document.getElementById('book').value);localStorage.setItem('kikiV8Page',document.getElementById('page').value);localStorage.setItem('kikiV8ReadingNote',document.getElementById('readingNote').value);let a=JSON.parse(localStorage.getItem('kikiV8ReadingDays')||'[]');if(!a.includes(dateKey()))a.push(dateKey());localStorage.setItem('kikiV8ReadingDays',JSON.stringify(a));document.getElementById('tRead').checked=true;saveTasks();markDay();addTask();loadReading();updateAll();toast('阅读笔记已保存')}
-function loadReading(){document.getElementById('book').value=localStorage.getItem('kikiV8Book')||'活着';document.getElementById('page').value=localStorage.getItem('kikiV8Page')||'92';document.getElementById('readingNote').value=localStorage.getItem('kikiV8ReadingNote')||'';document.getElementById('bookStat').textContent=document.getElementById('book').value;document.getElementById('pageStat').textContent=document.getElementById('page').value+' 页';document.getElementById('readingDays').textContent=JSON.parse(localStorage.getItem('kikiV8ReadingDays')||'[]').length+' 天'}
+function saveReading(){saveCurrentBook()}
+function loadReading(){renderBookshelf()}
 function saveBaby(){localStorage.setItem('kikiV8BabyDate',document.getElementById('babyDate').value);localStorage.setItem('kikiV8BabyFood',document.getElementById('babyFood').value);localStorage.setItem('kikiV8BabyNote',document.getElementById('babyNote').value);toast('宝宝记录已保存')}
 function loadBaby(){document.getElementById('babyDate').value=localStorage.getItem('kikiV8BabyDate')||dateKey();document.getElementById('babyFood').value=localStorage.getItem('kikiV8BabyFood')||'';document.getElementById('babyNote').value=localStorage.getItem('kikiV8BabyNote')||''}
 function setMode(m){aiMode=m;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===m))}
@@ -564,7 +812,224 @@ function setTheme(choice){themeChoice=choice;localStorage.setItem('kikiTheme',ch
 function updateNightGreeting(){const h=new Date().getHours(),note=document.getElementById('nightNote');if(note)note.hidden=!(h>=20||h<6)}
 function updateAiLock(){const card=document.getElementById('aiLockCard');const hasCode=!!(document.getElementById('accessCode')?.value.trim()||localStorage.getItem('kikiAccessCode'));if(!card)return;card.classList.toggle('unlocked',hasCode);card.innerHTML=hasCode?'<strong>✅ AI 老师已解锁</strong><span class="muted">当前设备已经保存私人访问密码。</span>':'<strong>🔒 AI 老师目前为 Kiki 专属</strong><span class="muted">其他人仍可使用英语、高中课程、阅读和学习统计。输入私人密码后，AI 老师会解锁。</span>'}
 
-document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
+
+let guideMinutes=30;
+let guideEnergy='normal';
+let currentBookId=null;
+
+function startGuide(){
+  document.getElementById('guideFlow').style.display='block';
+  document.getElementById('guideStepTime').classList.add('active');
+  document.getElementById('guideStepEnergy').classList.remove('active');
+  document.getElementById('guideResult').classList.remove('show');
+}
+function chooseGuideTime(minutes,button){
+  guideMinutes=minutes;
+  document.querySelectorAll('[data-minutes]').forEach(x=>x.classList.remove('active'));
+  button.classList.add('active');
+  document.getElementById('guideStepTime').classList.remove('active');
+  document.getElementById('guideStepEnergy').classList.add('active');
+}
+function chooseGuideEnergy(energy,button){
+  guideEnergy=energy;
+  document.querySelectorAll('[data-energy]').forEach(x=>x.classList.remove('active'));
+  button.classList.add('active');
+  generateGuidePlan();
+}
+function guidePlanData(){
+  const late=new Date().getHours()>=21||new Date().getHours()<6;
+  let total=guideMinutes;
+  if(guideEnergy==='tired')total=Math.min(total,20);
+  if(late)total=Math.min(total,20);
+
+  const plan=[];
+  if(total<=15){
+    plan.push({view:'english',icon:'🇺🇸',title:'英语学院',desc:'学习或复习 5 个单词',minutes:8});
+    plan.push({view:'reading',icon:'📚',title:'阅读学院',desc:'继续当前书籍',minutes:Math.max(5,total-8)});
+  }else if(total<=30){
+    plan.push({view:'english',icon:'🇺🇸',title:'英语学院',desc:'完成今日 10 个单词',minutes:10});
+    plan.push({view:'courses',icon:'🏫',title:'高中学院',desc:'选择一节基础课程',minutes:12});
+    plan.push({view:'reading',icon:'📚',title:'阅读学院',desc:'阅读并留一句感悟',minutes:8});
+  }else{
+    plan.push({view:'courses',icon:'🏫',title:'高中学院',desc:'完成一节课程与一道练习',minutes:25});
+    plan.push({view:'english',icon:'🇺🇸',title:'英语学院',desc:'学习 10 个单词并朗读',minutes:15});
+    plan.push({view:'reading',icon:'📚',title:'阅读学院',desc:'继续阅读并记录感悟',minutes:15});
+    if(total>=60)plan.push({view:'ai',icon:'🤖',title:'AI 学习导师',desc:'复盘今天不会的知识',minutes:10});
+  }
+
+  if(guideEnergy==='tired'){
+    return {
+      message:'今天有点累，不需要学很多。完成一个轻量计划，就已经很好。',
+      plan:plan.slice(0,2)
+    };
+  }
+  if(late){
+    return {
+      message:'已经比较晚了，今晚以轻量学习为主，完成后早点休息。',
+      plan:plan.slice(0,2)
+    };
+  }
+  return {
+    message:'今天不用担心从哪里开始，我已经帮你准备好了第一步。',
+    plan
+  };
+}
+function generateGuidePlan(){
+  const data=guidePlanData();
+  document.getElementById('guideStepEnergy').classList.remove('active');
+  document.getElementById('guideMessage').textContent=data.message;
+  document.getElementById('guidePlanItems').innerHTML=data.plan.map(item=>`
+    <div class="plan-action">
+      <div><strong>${item.icon} ${item.title}</strong><small>${item.desc}</small></div>
+      <span class="badge">${item.minutes} 分钟</span>
+    </div>`).join('');
+  document.getElementById('guideResult').classList.add('show');
+  window.kikiGuidePlan=data.plan;
+}
+function beginGuidePlan(){
+  const first=(window.kikiGuidePlan||[])[0];
+  if(!first)return toast('请先生成学习计划');
+  openView(first.view);
+}
+function resetGuide(){
+  guideMinutes=30;guideEnergy='normal';
+  document.querySelectorAll('[data-minutes],[data-energy]').forEach(x=>x.classList.remove('active'));
+  document.getElementById('guideResult').classList.remove('show');
+  document.getElementById('guideStepEnergy').classList.remove('active');
+  document.getElementById('guideStepTime').classList.add('active');
+}
+
+function loadBooks(){
+  let books=JSON.parse(localStorage.getItem('kikiBooks')||'[]');
+  if(!books.length){
+    books=[{
+      id:'book-'+Date.now(),
+      title:'活着',
+      author:'余华',
+      total:220,
+      page:Number(localStorage.getItem('kikiV8Page')||92),
+      notes:[],
+      created:dateKey()
+    }];
+    localStorage.setItem('kikiBooks',JSON.stringify(books));
+  }
+  return books;
+}
+function saveBooks(books){localStorage.setItem('kikiBooks',JSON.stringify(books))}
+function renderBookshelf(){
+  const books=loadBooks();
+  document.getElementById('readingBookCount').textContent=books.length+' 本';
+  document.getElementById('bookshelf').innerHTML=books.length?books.map(book=>{
+    const pct=Math.min(100,Math.round((Number(book.page)||0)/(Number(book.total)||1)*100));
+    return `<div class="book-card">
+      <div class="book-cover">📖</div>
+      <strong>${escapeHtml(book.title)}</strong>
+      <small>${escapeHtml(book.author||'作者未填写')}</small>
+      <small>${book.page||0} / ${book.total||0} 页</small>
+      <div class="progress"><span style="width:${pct}%"></span></div>
+      <small>${pct}% 完成</small>
+      <div class="book-actions">
+        <button class="btn" onclick="openBook('${book.id}')">继续阅读</button>
+        <button class="btn secondary" onclick="deleteBook('${book.id}')">删除</button>
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty-state">书架还是空的，添加第一本书吧。</div>';
+}
+function escapeHtml(value){
+  return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+function showAddBook(){document.getElementById('addBookCard').style.display='block';document.getElementById('addBookCard').scrollIntoView({behavior:'smooth'})}
+function hideAddBook(){document.getElementById('addBookCard').style.display='none'}
+function addBook(){
+  const title=document.getElementById('newBookTitle').value.trim();
+  const author=document.getElementById('newBookAuthor').value.trim();
+  const total=Number(document.getElementById('newBookTotal').value||0);
+  const page=Number(document.getElementById('newBookPage').value||0);
+  if(!title)return toast('请输入书名');
+  if(total<=0)return toast('请输入正确的总页数');
+  const books=loadBooks();
+  books.unshift({id:'book-'+Date.now(),title,author,total,page:Math.min(page,total),notes:[],created:dateKey()});
+  saveBooks(books);
+  document.getElementById('newBookTitle').value='';
+  document.getElementById('newBookAuthor').value='';
+  document.getElementById('newBookTotal').value='';
+  document.getElementById('newBookPage').value='0';
+  hideAddBook();renderBookshelf();toast('新书已加入书架');
+}
+function deleteBook(id){
+  const books=loadBooks().filter(x=>x.id!==id);
+  saveBooks(books);renderBookshelf();toast('已从书架删除');
+}
+function openBook(id){
+  const book=loadBooks().find(x=>x.id===id);
+  if(!book)return;
+  currentBookId=id;
+  document.getElementById('readingHome').style.display='none';
+  document.getElementById('bookDetail').style.display='block';
+  document.getElementById('bookCrumb').textContent=book.title;
+  document.getElementById('detailBookTitle').textContent='📖 '+book.title;
+  document.getElementById('detailBookAuthor').textContent=book.author||'作者未填写';
+  document.getElementById('detailCurrentPage').value=book.page||0;
+  document.getElementById('detailTotalPages').value=book.total||1;
+  document.getElementById('detailReadingNote').value='';
+  updateBookProgressPreview();
+  renderBookNotes(book);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function backToBookshelf(){
+  currentBookId=null;
+  document.getElementById('readingHome').style.display='block';
+  document.getElementById('bookDetail').style.display='none';
+  renderBookshelf();
+}
+function updateBookProgressPreview(){
+  const page=Number(document.getElementById('detailCurrentPage').value||0);
+  const total=Math.max(1,Number(document.getElementById('detailTotalPages').value||1));
+  const pct=Math.min(100,Math.round(page/total*100));
+  document.getElementById('detailProgressBar').style.width=pct+'%';
+  document.getElementById('detailProgressText').textContent=`${page} / ${total} 页 · ${pct}%`;
+}
+function saveCurrentBook(){
+  const books=loadBooks(),book=books.find(x=>x.id===currentBookId);
+  if(!book)return;
+  const total=Math.max(1,Number(document.getElementById('detailTotalPages').value||1));
+  const page=Math.min(total,Math.max(0,Number(document.getElementById('detailCurrentPage').value||0)));
+  const note=document.getElementById('detailReadingNote').value.trim();
+  book.total=total;book.page=page;
+  if(note){
+    book.notes=Array.isArray(book.notes)?book.notes:[];
+    book.notes.unshift({date:dateKey(),page,note});
+  }
+  saveBooks(books);
+  document.getElementById('detailReadingNote').value='';
+  document.getElementById('tRead').checked=true;
+  saveTasks();markDay();addTask();
+  updateBookProgressPreview();renderBookNotes(book);updateAll();
+  toast('阅读进度与感悟已保存');
+}
+function renderBookNotes(book){
+  const notes=Array.isArray(book.notes)?book.notes:[];
+  document.getElementById('bookNotes').innerHTML=notes.length?notes.map(n=>`
+    <div class="note-card"><small>${n.date} · 第 ${n.page} 页</small><div style="margin-top:7px">${escapeHtml(n.note)}</div></div>`).join(''):
+    '<div class="empty-state">还没有阅读感悟，读完一点后写下一句话吧。</div>';
+}
+function askReadingAI(type){
+  const book=loadBooks().find(x=>x.id===currentBookId);
+  if(!book)return;
+  const page=Number(document.getElementById('detailCurrentPage').value||book.page||0);
+  const prompts={
+    summary:`我正在读《${book.title}》，作者是${book.author||'未知'}，目前读到第${page}页。请先提醒我：如果没有提供原文，你不能准确总结具体页面；然后请给我三个适合自己回顾这一部分的问题。`,
+    character:`我正在读《${book.title}》，目前读到第${page}页。请用不剧透后面内容的方式，教我如何分析目前出现的人物。`,
+    feeling:`我正在读《${book.title}》，目前读到第${page}页。请像读书伙伴一样，问我三个问题，帮助我整理自己的感受。`,
+    quote:`我正在读《${book.title}》，目前读到第${page}页。请不要捏造原书句子，给我三个可以记录在阅读笔记里的思考角度。`
+  };
+  document.getElementById('aiSubject').value='语文';
+  document.getElementById('aiMessage').value=prompts[type];
+  openView('ai');
+  toast('已为 AI 阅读伙伴准备好问题');
+}
+
+document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();renderBookshelf();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();document.getElementById('detailCurrentPage')?.addEventListener('input',updateBookProgressPreview);document.getElementById('detailTotalPages')?.addEventListener('input',updateBookProgressPreview);const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
 </script>
 </body>
 </html>
