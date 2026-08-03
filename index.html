@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V10.0 Engine</title>
+<title>Kiki Academy V10.1 Grade Unlock</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -261,12 +261,19 @@ html[data-theme="dark"] .note-card{background:#28332d}
 html[data-theme="dark"] .next-lesson-box,html[data-theme="dark"] .subject-next{background:#202824}
 @media(max-width:800px){.engine-dashboard{grid-template-columns:1fr}}
 
+
+/* ===== V10.1 Grade Unlock ===== */
+.grade-tab.locked{opacity:.45;cursor:not-allowed}
+.grade-tab.locked:after{content:" 🔒"}
+.grade-lock-note{margin:10px 0 15px;padding:12px 14px;border:1px solid var(--line);border-radius:15px;background:var(--soft);color:var(--muted);font-size:13px}
+.grade-complete-banner{margin:12px 0;padding:13px 15px;border-radius:16px;background:var(--sage2);color:var(--sage);font-weight:700}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V10.0</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V10.1</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -276,7 +283,7 @@ html[data-theme="dark"] .next-lesson-box,html[data-theme="dark"] .subject-next{b
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V10.0 Engine：每个学院都会记住你学到哪里。</div>
+  <div class="side-note">V10.1：完成高一后，才会解锁高二。</div>
 </aside>
 
 <main>
@@ -359,7 +366,7 @@ html[data-theme="dark"] .next-lesson-box,html[data-theme="dark"] .subject-next{b
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V10.0</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V10.1</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
 
   <div class="engine-dashboard">
     <div class="card engine-card">
@@ -369,7 +376,7 @@ html[data-theme="dark"] .next-lesson-box,html[data-theme="dark"] .subject-next{b
       <div id="engineNextLesson" class="next-lesson-box"></div>
     </div>
     <div class="card">
-      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V10 在线</span></div>
+      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V10.1 在线</span></div>
       <div class="engine-stats">
         <div class="engine-stat">已完成课程<strong id="engineCompleted">0</strong></div>
         <div class="engine-stat">学院总进度<strong id="engineOverall">0%</strong></div>
@@ -401,6 +408,7 @@ html[data-theme="dark"] .next-lesson-box,html[data-theme="dark"] .subject-next{b
         <button class="grade-tab" data-grade="2" onclick="selectGrade(2)">高二</button>
         <button class="grade-tab" data-grade="3" onclick="selectGrade(3)">高三</button>
       </div>
+      <div id="gradeLockNote" class="grade-lock-note"></div>
       <div id="chapterList" class="chapter-list"></div>
     </div>
   </div>
@@ -641,10 +649,66 @@ const ENGINE_KEY='kikiDynamicLearningEngineV10';
 function engineState(){const s=JSON.parse(localStorage.getItem(ENGINE_KEY)||'{}');return{activeSubject:s.activeSubject||'math',lastUpdated:s.lastUpdated||dateKey()}}
 function saveEngineState(s){localStorage.setItem(ENGINE_KEY,JSON.stringify({...s,lastUpdated:dateKey()}))}
 function allLessonKeys(subject){return[1,2,3].flatMap(g=>(ACADEMY_CHAPTERS[subject]?.[g]||[]).map((_,i)=>({key:`${subject}-${g}-${i}`,subject,grade:g,index:i,lesson:ACADEMY_CHAPTERS[subject][g][i]})))}
-function getNextLesson(subject){const c=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]'),lessons=allLessonKeys(subject),n=lessons.find(x=>!c.includes(x.key));return n?{...n,done:false,title:n.lesson.title}:{done:true,subject,title:'全部课程已完成',grade:3,index:0,key:null}}
+function getNextLesson(subject){
+  for(let grade=1;grade<=3;grade++){
+    if(!isGradeUnlocked(subject,grade))break;
+    const next=firstIncompleteInGrade(subject,grade);
+    if(next)return next;
+  }
+  return {done:true,subject,title:'全部课程已完成',grade:3,index:0,key:null};
+}
 function firstAvailableNextLesson(){const s=engineState(),p=getNextLesson(s.activeSubject);if(!p.done)return p;for(const a of ACADEMIES){const n=getNextLesson(a.id);if(!n.done)return n}return{done:true,title:'九大学院当前课程已全部完成'}}
 function renderLearningEngine(){const c=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]'),total=ACADEMIES.reduce((sum,a)=>sum+allLessonKeys(a.id).length,0),overall=total?Math.round(c.length/total*100):0,next=firstAvailableNextLesson(),a=ACADEMIES.find(x=>x.id===next.subject)||ACADEMIES[0];document.getElementById('engineCompleted').textContent=c.length;document.getElementById('engineOverall').textContent=overall+'%';document.getElementById('engineSubject').textContent=next.done?'已完成':a.name.replace('学院','');document.getElementById('engineLessonNo').textContent=next.done?'—':next.index+1;const box=document.getElementById('engineNextLesson');box.innerHTML=next.done?'<strong>🎓 当前课程全部完成</strong><small>你已经完成九大学院现有课程。</small>':`<strong>${a.icon} ${a.name} · ${next.title}</strong><small>高${['','一','二','三'][next.grade]} · 第${next.index+1}章 · ${next.lesson.lesson}</small><button class="btn continue-btn" onclick="continueNextLesson()">继续学习</button>`}
 function continueNextLesson(){const n=firstAvailableNextLesson();if(n.done)return toast('当前课程已经全部完成');const s=engineState();s.activeSubject=n.subject;saveEngineState(s);openAcademy(n.subject);selectGrade(n.grade);setTimeout(()=>document.querySelectorAll('#chapterList .chapter-card')[n.index]?.scrollIntoView({behavior:'smooth',block:'center'}),120)}
+
+
+function completedKeys(){
+  return JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
+}
+function gradeLessonKeys(subject,grade){
+  return (ACADEMY_CHAPTERS[subject]?.[grade]||[]).map((_,i)=>`${subject}-${grade}-${i}`);
+}
+function isGradeComplete(subject,grade){
+  const keys=gradeLessonKeys(subject,grade);
+  if(!keys.length)return false;
+  const completed=completedKeys();
+  return keys.every(key=>completed.includes(key));
+}
+function unlockedGrade(subject){
+  if(!isGradeComplete(subject,1))return 1;
+  if(!isGradeComplete(subject,2))return 2;
+  return 3;
+}
+function isGradeUnlocked(subject,grade){
+  return grade<=unlockedGrade(subject);
+}
+function updateGradeTabs(){
+  const maxGrade=unlockedGrade(currentSubject);
+  document.querySelectorAll('.grade-tab').forEach(btn=>{
+    const grade=Number(btn.dataset.grade);
+    const unlocked=grade<=maxGrade;
+    btn.classList.toggle('locked',!unlocked);
+    btn.disabled=!unlocked;
+  });
+  const note=document.getElementById('gradeLockNote');
+  if(!note)return;
+  note.textContent=maxGrade===1
+    ?'🔒 完成高一全部课程后，自动解锁高二。'
+    :maxGrade===2
+      ?'✅ 高一已完成。完成高二全部课程后，自动解锁高三。'
+      :'🎓 高一、高二、高三均已解锁。';
+}
+function firstIncompleteInGrade(subject,grade){
+  const completed=completedKeys();
+  const lessons=ACADEMY_CHAPTERS[subject]?.[grade]||[];
+  for(let i=0;i<lessons.length;i++){
+    const key=`${subject}-${grade}-${i}`;
+    if(!completed.includes(key)){
+      return {key,subject,grade,index:i,lesson:lessons[i],done:false,title:lessons[i].title};
+    }
+  }
+  return null;
+}
 
 function academyProgress(subject){
   const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
@@ -665,7 +729,8 @@ function renderCourses(){
   renderLearningEngine();
 }
 function openAcademy(id){
-  currentSubject=id;currentGrade=1;
+  currentSubject=id;
+  currentGrade=unlockedGrade(id);
   const a=ACADEMIES.find(x=>x.id===id);
   document.getElementById('academyHome').style.display='none';
   document.getElementById('subjectHome').style.display='block';
@@ -673,7 +738,8 @@ function openAcademy(id){
   document.getElementById('subjectTitle').textContent=`${a.icon} ${a.name}`;
   document.getElementById('subjectCrumb').textContent=a.name;
   document.getElementById('subjectIntro').textContent=a.intro;
-  document.querySelectorAll('.grade-tab').forEach(x=>x.classList.toggle('active',x.dataset.grade==='1'));
+  updateGradeTabs();
+  document.querySelectorAll('.grade-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.grade)===currentGrade));
   renderChapters();
 }
 function backToAcademy(){
@@ -683,17 +749,38 @@ function backToAcademy(){
   renderCourses();
 }
 function selectGrade(g){
+  if(!isGradeUnlocked(currentSubject,g)){
+    toast(`请先完成高${['','一','二','三'][g-1]}全部课程`);
+    return;
+  }
   currentGrade=g;
+  updateGradeTabs();
   document.querySelectorAll('.grade-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.grade)===g));
   document.getElementById('lessonStage').style.display='none';
   renderChapters();
 }
 function renderChapters(){
+  updateGradeTabs();
   const list=ACADEMY_CHAPTERS[currentSubject]?.[currentGrade]||[];
-  const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
-  document.getElementById('chapterList').innerHTML=list.map((c,i)=>{
+  const completed=completedKeys();
+  const allDone=list.length>0&&list.every((_,i)=>completed.includes(`${currentSubject}-${currentGrade}-${i}`));
+  const banner=allDone
+    ?`<div class="grade-complete-banner">🎉 高${['','一','二','三'][currentGrade]}课程已完成${currentGrade<3?'，下一年级已经解锁。':'。'}</div>`
+    :'';
+  document.getElementById('chapterList').innerHTML=banner+list.map((c,i)=>{
     const key=`${currentSubject}-${currentGrade}-${i}`,done=completed.includes(key);
-    return `<div class="chapter-card"><div class="chapter-head"><div class="chapter-number">${i+1}</div><div class="chapter-title"><strong>第${i+1}章 · ${c.title}</strong><small>${c.lesson}</small></div><span class="mastery">${done?'⭐ 已掌握':'0%'}</span></div><div class="lesson-actions"><button class="btn" onclick="openAcademyLesson(${i},'lesson')">📖 学课程</button><button class="btn secondary" onclick="openAcademyLesson(${i},'practice')">✍ 做练习</button><button class="btn secondary" onclick="openAcademyLesson(${i},'ai')">🤖 AI讲解</button></div></div>`;
+    return `<div class="chapter-card">
+      <div class="chapter-head">
+        <div class="chapter-number">${i+1}</div>
+        <div class="chapter-title"><strong>第${i+1}章 · ${c.title}</strong><small>${c.lesson}</small></div>
+        <span class="mastery">${done?'⭐ 已掌握':'0%'}</span>
+      </div>
+      <div class="lesson-actions">
+        <button class="btn" onclick="openAcademyLesson(${i},'lesson')">📖 学课程</button>
+        <button class="btn secondary" onclick="openAcademyLesson(${i},'practice')">✍ 做练习</button>
+        <button class="btn secondary" onclick="openAcademyLesson(${i},'ai')">🤖 AI讲解</button>
+      </div>
+    </div>`;
   }).join('');
 }
 function openAcademyLesson(index,mode){
@@ -714,9 +801,37 @@ function openAcademyLesson(index,mode){
 }
 const ACADEMY_SUBJECT_MAP={math:'数学',english:'英语',chinese:'语文',physics:'物理',chemistry:'化学',biology:'生物',geography:'地理',history:'历史',politics:'政治'};
 function completeAcademyLesson(index){
-  const key=`${currentSubject}-${currentGrade}-${index}`;let completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]');
-  if(!completed.includes(key)){completed.push(key);localStorage.setItem('kikiAcademyCompleted',JSON.stringify(completed));let old=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]');if(!old.includes(key)){old.push(key);localStorage.setItem('kikiV8Courses',JSON.stringify(old))}addTask()}
-  const s=engineState();s.activeSubject=currentSubject;saveEngineState(s);document.getElementById('tCourse').checked=true;saveTasks();markDay();renderChapters();renderCourses();renderLearningEngine();updateAll();const next=getNextLesson(currentSubject);toast(next.done?'该学院当前课程已完成':'课程完成，下一课已自动准备好');
+  const key=`${currentSubject}-${currentGrade}-${index}`;
+  let completed=completedKeys();
+  if(!completed.includes(key)){
+    completed.push(key);
+    localStorage.setItem('kikiAcademyCompleted',JSON.stringify(completed));
+    let old=JSON.parse(localStorage.getItem('kikiV8Courses')||'[]');
+    if(!old.includes(key)){
+      old.push(key);
+      localStorage.setItem('kikiV8Courses',JSON.stringify(old));
+    }
+    addTask();
+  }
+  const state=engineState();
+  state.activeSubject=currentSubject;
+  saveEngineState(state);
+  document.getElementById('tCourse').checked=true;
+  saveTasks();
+  markDay();
+  updateGradeTabs();
+  renderChapters();
+  renderCourses();
+  renderLearningEngine();
+  updateAll();
+
+  const gradeDone=isGradeComplete(currentSubject,currentGrade);
+  const next=getNextLesson(currentSubject);
+  if(gradeDone&&currentGrade<3){
+    toast(`高${['','一','二','三'][currentGrade]}已完成，高${['','一','二','三'][currentGrade+1]}已解锁`);
+  }else{
+    toast(next.done?'该学院当前课程已完成':'课程完成，下一课已自动准备好');
+  }
 }
 function completeEnglish(){document.getElementById('tWords').checked=true;saveTasks();addTask();markDay();updateAll();toast('今日英语已完成')}
 function taskKey(){return 'kikiV8Tasks_'+dateKey()}
