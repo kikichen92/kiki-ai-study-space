@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V10.3 Flow Mode</title>
+<title>Kiki Academy V10.4 Learning Companion</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -313,12 +313,58 @@ html[data-theme="dark"] .flow-answer,html[data-theme="dark"] .flow-ai-box,html[d
   .flow-header{top:4px}
 }
 
+
+/* ===== V10.4 Learning Companion ===== */
+.companion-card{
+  background:linear-gradient(135deg,var(--sage2),var(--soft));
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden
+}
+.companion-card:after{
+  content:"🌿";
+  position:absolute;
+  right:18px;
+  bottom:4px;
+  font-size:92px;
+  opacity:.10
+}
+.companion-card h2{margin:5px 0 8px}
+.companion-status{
+  margin-top:15px;
+  padding:15px;
+  border-radius:17px;
+  border:1px solid var(--line);
+  background:var(--paper)
+}
+.companion-status strong,.companion-status small{display:block}
+.companion-status small{color:var(--muted);margin-top:5px}
+.companion-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.learning-summary{
+  display:none;
+  text-align:center;
+  padding:26px 18px
+}
+.learning-summary.show{display:block}
+.learning-summary .summary-icon{font-size:58px}
+.learning-summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+.learning-summary-grid div{border:1px solid var(--line);background:var(--soft);border-radius:15px;padding:13px}
+.learning-summary-grid strong{display:block;font-size:20px;margin-top:4px}
+.companion-mini{font-size:12px;color:var(--muted);margin-top:8px}
+html[data-theme="dark"] .companion-status{background:#202824}
+@media(max-width:640px){
+  .learning-summary-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V10.3</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V10.4</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -328,11 +374,23 @@ html[data-theme="dark"] .flow-answer,html[data-theme="dark"] .flow-ai-box,html[d
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V10.3 Flow Mode：一节课一路向下，不再来回滑动。</div>
+  <div class="side-note">V10.4 Learning Companion：欢迎回来，我们继续昨天。</div>
 </aside>
 
 <main>
 <section id="home" class="view active">
+  <div id="learningCompanionCard" class="companion-card">
+    <div class="eyebrow">LEARNING COMPANION · V10.4</div>
+    <h2 id="companionGreeting">🌿 欢迎回来，Kiki。</h2>
+    <p id="companionMessage" class="muted">今天不用着急，我们继续昨天。</p>
+    <div id="companionStatus" class="companion-status"></div>
+    <div class="companion-actions">
+      <button id="companionContinueBtn" class="btn" onclick="continueFromCompanion()">▶️ 继续学习</button>
+      <button class="btn secondary" onclick="openView('courses')">查看全部课程</button>
+    </div>
+    <div id="companionMini" class="companion-mini"></div>
+  </div>
+
   <div class="top">
 <div><h1 id="greeting">晚上好，Kiki ☕</h1><p id="today"></p><div id="nightNote" class="moon-note" hidden>🌙 今天已经很努力了，晚上学一点点就好。</div></div>
 <div><div class="avatar">K</div><div class="theme-switcher" style="margin-top:10px">
@@ -411,7 +469,7 @@ html[data-theme="dark"] .flow-answer,html[data-theme="dark"] .flow-ai-box,html[d
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V10.3</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V10.4</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
 
   <div class="engine-dashboard">
     <div class="card engine-card">
@@ -421,7 +479,7 @@ html[data-theme="dark"] .flow-answer,html[data-theme="dark"] .flow-ai-box,html[d
       <div id="engineNextLesson" class="next-lesson-box"></div>
     </div>
     <div class="card">
-      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V10.3 在线</span></div>
+      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V10.4 在线</span></div>
       <div class="engine-stats">
         <div class="engine-stat">已完成课程<strong id="engineCompleted">0</strong></div>
         <div class="engine-stat">学院总进度<strong id="engineOverall">0%</strong></div>
@@ -654,7 +712,8 @@ let voice=null,timer=1200,timerHandle=null,aiMode='teacher';
 
 function dateKey(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function dayIndex(){const s=new Date(2026,7,1),d=new Date();s.setHours(0,0,0,0);d.setHours(0,0,0,0);return Math.max(0,Math.floor((d-s)/86400000))}
-function openView(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'})}
+function openView(id){
+  if(id==='home')setTimeout(renderLearningCompanion,0);document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>openView(b.dataset.view));
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
 function speak(text){if(!('speechSynthesis'in window)){alert('请用Safari打开。');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.83;if(voice)u.voice=voice;speechSynthesis.speak(u)}
@@ -836,6 +895,105 @@ function openAcademyLesson(index,mode){
   toast('已为 AI 学习导师准备好本课问题');
 }
 
+
+const COMPANION_KEY='kikiLearningCompanionV104';
+
+function companionData(){
+  try{
+    return JSON.parse(localStorage.getItem(COMPANION_KEY)||'{}');
+  }catch{
+    return {};
+  }
+}
+function saveCompanionData(data){
+  localStorage.setItem(COMPANION_KEY,JSON.stringify(data));
+}
+function daysBetween(a,b){
+  const one=24*60*60*1000;
+  return Math.floor((new Date(b)-new Date(a))/one);
+}
+function currentCompanionLesson(){
+  const saved=loadFlowState();
+  if(saved){
+    const c=ACADEMY_CHAPTERS[saved.subject]?.[saved.grade]?.[saved.index];
+    const a=ACADEMIES.find(x=>x.id===saved.subject);
+    if(c&&a)return {saved,c,a,step:saved.step||1};
+  }
+  const next=firstAvailableNextLesson();
+  if(next.done)return null;
+  const c=ACADEMY_CHAPTERS[next.subject]?.[next.grade]?.[next.index];
+  const a=ACADEMIES.find(x=>x.id===next.subject);
+  if(!c||!a)return null;
+  return {saved:null,c,a,step:1,next};
+}
+function renderLearningCompanion(){
+  const greeting=document.getElementById('companionGreeting');
+  const message=document.getElementById('companionMessage');
+  const status=document.getElementById('companionStatus');
+  const button=document.getElementById('companionContinueBtn');
+  const mini=document.getElementById('companionMini');
+  if(!greeting||!message||!status||!button)return;
+
+  const now=new Date();
+  const hour=now.getHours();
+  const daypart=hour<12?'早上好':hour<18?'下午好':'晚上好';
+  const data=companionData();
+  const lastVisit=data.lastVisit||null;
+  const gap=lastVisit?daysBetween(lastVisit,now.toISOString()):0;
+  const current=currentCompanionLesson();
+
+  greeting.textContent=`🌿 ${daypart}，Kiki。`;
+
+  if(gap>=3){
+    message.textContent='好久不见。你的课程一直都在，我们从今天轻轻地继续。';
+  }else if(gap===1){
+    message.textContent='欢迎回来。昨天我们学到哪里，今天就从那里继续。';
+  }else{
+    message.textContent='今天不用着急，我们继续昨天。';
+  }
+
+  if(!current){
+    status.innerHTML='<strong>🎓 当前课程已经全部完成</strong><small>可以去阅读学院，或者让 AI 学习导师帮你安排今天。</small>';
+    button.textContent='🤖 打开 AI 学习导师';
+    button.dataset.mode='ai';
+  }else{
+    const stepText=flowStepLabel(current.step);
+    const savedText=current.saved?`上次停在：${stepText}`:`下一课：${current.c.title}`;
+    status.innerHTML=`<strong>${current.a.icon} ${current.a.name} · 第${(current.saved?.index ?? current.next?.index ?? 0)+1}课</strong>
+      <small>${current.c.title} · 高${['','一','二','三'][current.saved?.grade ?? current.next?.grade ?? 1]} · ${savedText}</small>`;
+    button.textContent=current.saved?'▶️ 从上次步骤继续':'▶️ 开始今天的学习';
+    button.dataset.mode=current.saved?'resume':'next';
+  }
+
+  const completed=JSON.parse(localStorage.getItem('kikiAcademyCompleted')||'[]').length;
+  mini.textContent=`已完成 ${completed} 节课程。每一天多懂一点点，就已经很好了。`;
+
+  data.lastVisit=now.toISOString();
+  saveCompanionData(data);
+}
+function continueFromCompanion(){
+  const btn=document.getElementById('companionContinueBtn');
+  const mode=btn?.dataset.mode;
+  if(mode==='ai'){openView('ai');return}
+  if(mode==='resume'){resumeFlowLesson();return}
+  continueNextLesson();
+}
+function recordLearningSummary(subject,grade,index,minutes){
+  const a=ACADEMIES.find(x=>x.id===subject);
+  const c=ACADEMY_CHAPTERS[subject]?.[grade]?.[index];
+  if(!a||!c)return;
+  const data=companionData();
+  data.lastCompleted={
+    subject,grade,index,
+    academy:a.name,
+    icon:a.icon,
+    title:c.title,
+    minutes:minutes||c.minutes||20,
+    completedAt:new Date().toISOString()
+  };
+  saveCompanionData(data);
+}
+
 const FLOW_KEY='kikiFlowModeV103';
 let activeFlow=null;
 
@@ -857,9 +1015,29 @@ function flowStepLabel(step){
   return ['','课程','练习','AI 辅导','小测验','完成'][step]||'课程';
 }
 function flowQuizChoices(c){
-  const correct=c.a;
-  const choices=[correct,'我还不确定，需要再复习','以上都不对'];
-  return [...new Set(choices)].slice(0,3);
+  const correct=String(c.a||'').trim();
+  const banks={
+    english:['一般现在时只用于正在发生的动作。','所有主语后面的动词形式都完全一样。'],
+    chinese:['只要把原文重复一遍就算正确。','不需要结合文章内容，只写自己的想法。'],
+    math:['任何情况下都可以直接套用同一个公式。','计算时可以忽略定义域和题目条件。'],
+    physics:['公式中的适用条件可以忽略。','所有物理过程都可以看成静止状态。'],
+    chemistry:['实验条件对结果没有影响。','化学反应中质量可以随意消失。'],
+    biology:['所有生命活动都由同一个结构完成。','生物过程不需要能量。'],
+    geography:['所有地区的自然条件都完全一样。','只看单一因素就能解释所有地理现象。'],
+    history:['历史事件都只有一个原因。','只记年份，不需要理解背景和影响。'],
+    politics:['材料分析不需要联系知识点。','只写结论，不需要说明理由。']
+  };
+  const bank=banks[activeFlow?.subject]||banks.english;
+  const choices=[
+    {text:correct,correct:true},
+    {text:'错误说法：'+bank[0],correct:false},
+    {text:'错误说法：'+bank[1],correct:false}
+  ];
+  for(let i=choices.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [choices[i],choices[j]]=[choices[j],choices[i]];
+  }
+  return choices;
 }
 function startFlowLesson(index,startStep=1){
   activeFlow={subject:currentSubject,grade:currentGrade,index,step:startStep,startedAt:Date.now()};
@@ -938,9 +1116,9 @@ function renderFlowLesson(){
 
       <section id="flowStep4" class="flow-section ${step<4?'locked':step===4?'active':'done'}">
         <h3><span class="flow-number">4</span>📝 小测验</h3>
-        <p><strong>${c.q}</strong></p>
+        <p><strong>${c.q}</strong></p><p class="muted">请选择最准确的一项，选项顺序每次都会变化。</p>
         <div class="flow-quiz-options">
-          ${choices.map((x,i)=>`<button class="flow-quiz-option" onclick="selectFlowQuiz(this,${i===0})">${x}</button>`).join('')}
+          ${choices.map(x=>`<button class="flow-quiz-option" onclick="selectFlowQuiz(this,${x.correct})">${x.text}</button>`).join('')}
         </div>
         <div id="flowQuizFeedback" class="flow-answer"></div>
         <button id="flowFinishBtn" class="btn flow-next" onclick="finishFlowLesson()" disabled>🎉 完成本课</button>
@@ -952,9 +1130,15 @@ function renderFlowLesson(){
           <h2>今天完成啦！</h2>
           <p>${a.icon} ${a.name} · 第${activeFlow.index+1}课</p>
           <h3>${c.title}</h3>
-          <p class="muted">课程、练习、AI 辅导和小测验已经完成。</p>
+          <div class="learning-summary-grid">
+            <div>完成步骤<strong>4 / 4</strong></div>
+            <div>预计学习<strong>${c.minutes||20} 分钟</strong></div>
+            <div>当前年级<strong>高${['','一','二','三'][activeFlow.grade]}</strong></div>
+            <div>本课状态<strong>✅ 已完成</strong></div>
+          </div>
+          <p class="muted">今天已经很好了。早点休息，我们明天继续。</p>
           <button class="btn" onclick="flowNextLesson()">➡️ 进入下一课</button>
-          <button class="btn secondary" onclick="closeFlowLesson()">返回课程表</button>
+          <button class="btn secondary" onclick="closeFlowLesson()">🏠 返回课程表</button>
         </div>
       </section>
     </div>`;
@@ -990,10 +1174,13 @@ function selectFlowQuiz(button,isCorrect){
 }
 function finishFlowLesson(){
   if(!activeFlow)return;
+  const c=flowLesson();
   completeAcademyLesson(activeFlow.index);
+  recordLearningSummary(activeFlow.subject,activeFlow.grade,activeFlow.index,c?.minutes||20);
   activeFlow.step=5;
   saveFlowState(activeFlow);
   renderFlowLesson();
+  renderLearningCompanion();
   flowScroll('flowStep5');
 }
 function flowNextLesson(){
@@ -1422,7 +1609,7 @@ function askReadingAI(type){
   toast('已为 AI 阅读伙伴准备好问题');
 }
 
-document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();renderBookshelf();renderLearningEngine();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();document.getElementById('detailCurrentPage')?.addEventListener('input',updateBookProgressPreview);document.getElementById('detailTotalPages')?.addEventListener('input',updateBookProgressPreview);const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
+document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();renderBookshelf();renderLearningEngine();renderLearningCompanion();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();document.getElementById('detailCurrentPage')?.addEventListener('input',updateBookProgressPreview);document.getElementById('detailTotalPages')?.addEventListener('input',updateBookProgressPreview);const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
 </script>
 </body>
 </html>
