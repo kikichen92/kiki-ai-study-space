@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V10.4 Learning Companion</title>
+<title>Kiki Academy V11 Real High School Engine</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -359,12 +359,72 @@ html[data-theme="dark"] .companion-status{background:#202824}
   .learning-summary-grid{grid-template-columns:1fr}
 }
 
+
+/* ===== V11 Real High School Engine ===== */
+.subject-engine-banner{
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,var(--sage2),var(--soft));
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:14px
+}
+.subject-engine-banner strong,.subject-engine-banner small{display:block}
+.subject-engine-banner small{color:var(--muted);margin-top:5px;line-height:1.6}
+.real-example{
+  border-left:4px solid var(--sage);
+  background:var(--paper);
+  border-radius:14px;
+  padding:14px;
+  margin:12px 0;
+  line-height:1.75
+}
+.real-example strong{display:block;margin-bottom:6px}
+.response-box{
+  width:100%;
+  min-height:110px;
+  margin-top:10px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:var(--paper);
+  color:var(--ink)
+}
+.subject-tool-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:12px
+}
+.subject-tool{
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:15px;
+  padding:13px;
+  text-align:left;
+  color:var(--ink)
+}
+.subject-tool strong,.subject-tool small{display:block}
+.subject-tool small{color:var(--muted);margin-top:4px}
+.rubric-box{
+  border:1px dashed var(--line);
+  background:var(--soft);
+  border-radius:14px;
+  padding:13px;
+  margin-top:12px
+}
+html[data-theme="dark"] .real-example,
+html[data-theme="dark"] .response-box,
+html[data-theme="dark"] .subject-tool{background:#202824}
+@media(max-width:640px){
+  .subject-tool-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V10.4</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V11</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -374,7 +434,7 @@ html[data-theme="dark"] .companion-status{background:#202824}
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V10.4 Learning Companion：欢迎回来，我们继续昨天。</div>
+  <div class="side-note">V11 Real High School Engine：每门学科都有自己的教学方式。</div>
 </aside>
 
 <main>
@@ -469,7 +529,13 @@ html[data-theme="dark"] .companion-status{background:#202824}
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V10.4</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V11</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="eyebrow">REAL HIGH SCHOOL ENGINE</div>
+    <h2>📚 九大学院，九种教学方式</h2>
+    <p class="muted">数学重推理，语文重文本，英语重语境，理化重计算与实验，史地政重材料分析。V11 不再让所有学科共用同一种模板。</p>
+  </div>
+
 
   <div class="engine-dashboard">
     <div class="card engine-card">
@@ -479,7 +545,7 @@ html[data-theme="dark"] .companion-status{background:#202824}
       <div id="engineNextLesson" class="next-lesson-box"></div>
     </div>
     <div class="card">
-      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V10.4 在线</span></div>
+      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V11 在线</span></div>
       <div class="engine-stats">
         <div class="engine-stat">已完成课程<strong id="engineCompleted">0</strong></div>
         <div class="engine-stat">学院总进度<strong id="engineOverall">0%</strong></div>
@@ -994,6 +1060,121 @@ function recordLearningSummary(subject,grade,index,minutes){
   saveCompanionData(data);
 }
 
+
+const SUBJECT_ENGINES={
+  math:{
+    name:'数学推理引擎',
+    flow:['概念','例题','练习','分步讲解','综合题'],
+    prompt:'先理解条件，再列式，再计算，最后检查定义域和结果。'
+  },
+  english:{
+    name:'英语语言引擎',
+    flow:['词汇/语法','例句','选择或填空','阅读/写作','纠错'],
+    prompt:'关注时态、主谓一致、词义和真实语境。'
+  },
+  chinese:{
+    name:'语文阅读表达引擎',
+    flow:['文本理解','关键句','阅读分析','表达训练','点评'],
+    prompt:'答案必须结合文本、人物、结构或表达效果，不能只背概念。'
+  },
+  physics:{
+    name:'物理建模引擎',
+    flow:['情境','已知量','物理规律','计算/实验','结果解释'],
+    prompt:'先画图或明确研究对象，再选择物理规律。'
+  },
+  chemistry:{
+    name:'化学实验推理引擎',
+    flow:['物质与条件','现象','方程式','实验分析','结论'],
+    prompt:'注意反应条件、现象、守恒和安全。'
+  },
+  biology:{
+    name:'生物结构功能引擎',
+    flow:['结构','功能','过程','图表/实验','应用'],
+    prompt:'把结构、功能和生命过程联系起来。'
+  },
+  geography:{
+    name:'地理材料分析引擎',
+    flow:['位置','自然条件','人文因素','材料图表','综合解释'],
+    prompt:'地理结论要结合位置、气候、地形、人口或产业。'
+  },
+  history:{
+    name:'历史材料论证引擎',
+    flow:['时空背景','材料信息','原因','影响','观点论证'],
+    prompt:'结论要有史实依据，区分原因、过程和影响。'
+  },
+  politics:{
+    name:'政治材料思辨引擎',
+    flow:['材料情境','对应知识点','原因','意义/影响','规范表达'],
+    prompt:'观点必须结合材料，并使用清楚的理由和规范术语。'
+  }
+};
+
+function subjectEngine(subject){
+  return SUBJECT_ENGINES[subject]||SUBJECT_ENGINES.math;
+}
+
+function realHighSchoolActivity(subject,c){
+  const title=c.title;
+  const defaults={
+    math:{
+      example:`已知本课主题是“${title}”。请先写出已知条件，再说明应该使用什么数学方法。`,
+      task:`完成一道与“${title}”有关的计算或判断题，并写出步骤。`,
+      rubric:'步骤完整；公式或方法正确；结果经过检查。'
+    },
+    english:{
+      example:`请用“${title}”涉及的语法或词汇写一个正确英文句子。`,
+      task:`完成一道选择或填空题，再解释为什么其他选项不合适。`,
+      rubric:'时态正确；主谓一致；拼写与语境合理。'
+    },
+    chinese:{
+      example:`阅读一段人物描写后，从语言、动作或神态中找出证据。`,
+      task:`结合文本分析“${title}”，至少写出一个观点和一个文本依据。`,
+      rubric:'观点明确；引用或概括文本依据；说明表达效果。'
+    },
+    physics:{
+      example:`面对“${title}”问题，先明确研究对象、已知量和未知量。`,
+      task:`列出适用的物理规律，并完成一个简单计算或实验判断。`,
+      rubric:'研究对象清楚；公式适用；单位和结果合理。'
+    },
+    chemistry:{
+      example:`围绕“${title}”，写出反应物、条件、现象或产物。`,
+      task:`完成一个方程式、实验现象或原因分析题。`,
+      rubric:'化学式正确；条件完整；符合守恒和实验事实。'
+    },
+    biology:{
+      example:`围绕“${title}”，说明一个结构和它对应的功能。`,
+      task:`完成一个过程图、实验变量或图表分析题。`,
+      rubric:'结构功能对应；过程顺序正确；实验变量清楚。'
+    },
+    geography:{
+      example:`分析“${title}”时，先定位地区，再判断自然和人文条件。`,
+      task:`结合一则材料或图表，说明一个原因和一个影响。`,
+      rubric:'结合材料；因素完整；因果关系清楚。'
+    },
+    history:{
+      example:`把“${title}”放回当时的时间、地区和社会背景中。`,
+      task:`依据材料分析一个原因、影响或历史意义。`,
+      rubric:'有史实依据；时间逻辑正确；原因和影响分开。'
+    },
+    politics:{
+      example:`阅读一则社会材料，判断它对应“${title}”中的哪个知识点。`,
+      task:`使用“材料 + 知识点 + 分析 + 结论”的结构作答。`,
+      rubric:'紧扣材料；术语准确；理由完整；表达有层次。'
+    }
+  };
+  return defaults[subject]||defaults.math;
+}
+
+function v11PracticePrompt(subject,c){
+  const activity=realHighSchoolActivity(subject,c);
+  return `${activity.task}\n评分标准：${activity.rubric}`;
+}
+
+function v11AIMessage(subject,c){
+  const engine=subjectEngine(subject);
+  return `你是Kiki Academy的${engine.name}。当前课程是“${c.title}”。${engine.prompt} 请按真实高中课堂方式：先给一个具体材料或例题，再一步一步引导我作答，不要只解释概念。`;
+}
+
 const FLOW_KEY='kikiFlowModeV103';
 let activeFlow=null;
 
@@ -1062,61 +1243,92 @@ function renderFlowLesson(){
   const c=flowLesson();
   const a=ACADEMIES.find(x=>x.id===activeFlow.subject);
   if(!c||!a)return;
+
   const step=Math.max(1,Math.min(5,activeFlow.step||1));
+  const engine=subjectEngine(activeFlow.subject);
+  const activity=realHighSchoolActivity(activeFlow.subject,c);
   const choices=flowQuizChoices(c);
   const stage=document.getElementById('lessonStage');
   stage.style.display='block';
+
   stage.innerHTML=`
     <div class="flow-header">
       <div class="flow-header-top">
         <div>
-          <div class="eyebrow">FLOW MODE · ${c.id||''}</div>
+          <div class="eyebrow">V11 REAL HIGH SCHOOL · ${c.id||''}</div>
           <h2>${a.icon} 第${activeFlow.index+1}课 · ${c.title}</h2>
-          <div class="muted">高${['','一','二','三'][activeFlow.grade]} · 预计 ${c.minutes||20} 分钟 · 当前：${flowStepLabel(step)}</div>
+          <div class="muted">高${['','一','二','三'][activeFlow.grade]} · ${engine.name} · 当前：${flowStepLabel(step)}</div>
         </div>
         <button class="btn secondary" onclick="closeFlowLesson()">返回课程表</button>
       </div>
       <div class="flow-progress"><span style="width:${Math.min(100,step*25)}%"></span></div>
       <div class="flow-steps">
-        <span class="${step>1?'done':step===1?'current':''}">① 学课程</span>
-        <span class="${step>2?'done':step===2?'current':''}">② 做练习</span>
-        <span class="${step>3?'done':step===3?'current':''}">③ AI 辅导</span>
-        <span class="${step>4?'done':step===4?'current':''}">④ 小测验</span>
+        <span class="${step>1?'done':step===1?'current':''}">① ${engine.flow[0]}</span>
+        <span class="${step>2?'done':step===2?'current':''}">② ${engine.flow[2]}</span>
+        <span class="${step>3?'done':step===3?'current':''}">③ ${engine.flow[3]}</span>
+        <span class="${step>4?'done':step===4?'current':''}">④ 综合检测</span>
       </div>
     </div>
+
     <div class="flow-content">
+      <div class="subject-engine-banner">
+        <strong>🧠 ${engine.name}</strong>
+        <small>${engine.prompt}</small>
+        <div class="curriculum-meta">
+          ${engine.flow.map(x=>`<span class="curriculum-pill">${x}</span>`).join('')}
+        </div>
+      </div>
+
       ${step>1?`<div class="flow-resume">🌿 已自动保存。回来时会从“${flowStepLabel(step)}”继续。</div>`:''}
 
       <section id="flowStep1" class="flow-section ${step===1?'active':step>1?'done':''}">
-        <h3><span class="flow-number">1</span>📖 学课程</h3>
+        <h3><span class="flow-number">1</span>📖 真实课堂</h3>
         <h2>${c.lesson}</h2>
         <p>${c.body}</p>
-        <div class="notice">学习提示：读完后，试着用自己的话说出最核心的一点。</div>
-        <button class="btn flow-next" onclick="advanceFlow(2)">✅ 我学完了 · 自动进入练习</button>
+        <div class="real-example">
+          <strong>课堂材料 / 例题</strong>
+          ${activity.example}
+        </div>
+        <div class="notice">学习方法：${engine.prompt}</div>
+        <button class="btn flow-next" onclick="advanceFlow(2)">✅ 我学完了 · 进入学科练习</button>
       </section>
 
       <section id="flowStep2" class="flow-section ${step<2?'locked':step===2?'active':'done'}">
-        <h3><span class="flow-number">2</span>✍️ 做练习</h3>
-        <div class="notice">${c.q}</div>
-        <button class="btn secondary" style="margin-top:12px" onclick="toggleFlowAnswer()">查看参考答案</button>
-        <div id="flowAnswer" class="flow-answer"><strong>参考答案：</strong><p>${c.a}</p></div>
-        <button class="btn flow-next" onclick="advanceFlow(3)">✅ 我做完了 · 自动进入 AI 辅导</button>
+        <h3><span class="flow-number">2</span>✍️ 学科练习</h3>
+        <div class="notice">${activity.task}</div>
+        <textarea id="v11StudentResponse" class="response-box" placeholder="先写下自己的思路或答案……"></textarea>
+        <div class="rubric-box"><strong>评分标准</strong><p>${activity.rubric}</p></div>
+        <button class="btn secondary" style="margin-top:12px" onclick="toggleFlowAnswer()">查看参考思路</button>
+        <div id="flowAnswer" class="flow-answer">
+          <strong>参考思路：</strong>
+          <p>${c.a}</p>
+          <p class="muted">真实高中题通常不只看结论，还要看过程和依据。</p>
+        </div>
+        <button class="btn flow-next" onclick="advanceFlow(3)">✅ 我完成了 · 进入分步讲解</button>
       </section>
 
       <section id="flowStep3" class="flow-section ${step<3?'locked':step===3?'active':'done'}">
-        <h3><span class="flow-number">3</span>🤖 AI 辅导</h3>
+        <h3><span class="flow-number">3</span>🤖 分步讲解</h3>
         <div class="flow-ai-box">
-          <strong>本课 AI 辅导问题已经准备好：</strong>
-          <p>${c.ai}</p>
-          <button class="btn secondary" onclick="openFlowAI()">打开 AI 学习导师深入讲解</button>
+          <strong>${engine.name}已经准备好：</strong>
+          <p>${v11AIMessage(activeFlow.subject,c)}</p>
+          <button class="btn secondary" onclick="openFlowAI()">打开 AI 老师分步辅导</button>
         </div>
-        <p class="muted">不需要深入提问时，也可以直接继续小测验。</p>
-        <button class="btn flow-next" onclick="advanceFlow(4)">✅ 我明白了 · 自动进入小测验</button>
+        <div class="subject-tool-grid">
+          <button class="subject-tool" onclick="prepareSubjectAI('hint')">
+            <strong>💡 只给提示</strong><small>不直接公布答案</small>
+          </button>
+          <button class="subject-tool" onclick="prepareSubjectAI('steps')">
+            <strong>🧩 分步骤讲</strong><small>找出我卡住的地方</small>
+          </button>
+        </div>
+        <button class="btn flow-next" onclick="advanceFlow(4)">✅ 我理解了 · 进入综合检测</button>
       </section>
 
       <section id="flowStep4" class="flow-section ${step<4?'locked':step===4?'active':'done'}">
-        <h3><span class="flow-number">4</span>📝 小测验</h3>
-        <p><strong>${c.q}</strong></p><p class="muted">请选择最准确的一项，选项顺序每次都会变化。</p>
+        <h3><span class="flow-number">4</span>📝 综合检测</h3>
+        <p><strong>${v11PracticePrompt(activeFlow.subject,c)}</strong></p>
+        <p class="muted">先完成真实作答，再选择最符合本课要求的一项。</p>
         <div class="flow-quiz-options">
           ${choices.map(x=>`<button class="flow-quiz-option" onclick="selectFlowQuiz(this,${x.correct})">${x.text}</button>`).join('')}
         </div>
@@ -1131,12 +1343,12 @@ function renderFlowLesson(){
           <p>${a.icon} ${a.name} · 第${activeFlow.index+1}课</p>
           <h3>${c.title}</h3>
           <div class="learning-summary-grid">
+            <div>教学引擎<strong>${engine.name}</strong></div>
             <div>完成步骤<strong>4 / 4</strong></div>
-            <div>预计学习<strong>${c.minutes||20} 分钟</strong></div>
             <div>当前年级<strong>高${['','一','二','三'][activeFlow.grade]}</strong></div>
             <div>本课状态<strong>✅ 已完成</strong></div>
           </div>
-          <p class="muted">今天已经很好了。早点休息，我们明天继续。</p>
+          <p class="muted">今天不是只记住了一个定义，而是完成了一次真实的学科练习。</p>
           <button class="btn" onclick="flowNextLesson()">➡️ 进入下一课</button>
           <button class="btn secondary" onclick="closeFlowLesson()">🏠 返回课程表</button>
         </div>
@@ -1157,11 +1369,26 @@ function openFlowAI(){
   const c=flowLesson();
   if(!c)return;
   document.getElementById('aiSubject').value=ACADEMY_SUBJECT_MAP[activeFlow.subject]||'数学';
-  document.getElementById('aiMessage').value=c.ai;
+  document.getElementById('aiMessage').value=v11AIMessage(activeFlow.subject,c);
   saveFlowState(activeFlow);
   openView('ai');
-  toast('讲解问题已准备好；完成后可返回高中学院继续本课');
+  toast('V11 学科讲解问题已准备好');
 }
+
+function prepareSubjectAI(mode){
+  const c=flowLesson();
+  if(!c)return;
+  const engine=subjectEngine(activeFlow.subject);
+  const response=document.getElementById('v11StudentResponse')?.value.trim()||'我还没有写答案';
+  const task=mode==='hint'
+    ?`只给我一个提示，不要直接公布答案。我的当前回答是：${response}`
+    :`请检查我的思路，从第一步开始指出哪里正确、哪里需要修改。我的当前回答是：${response}`;
+  document.getElementById('aiSubject').value=ACADEMY_SUBJECT_MAP[activeFlow.subject]||'数学';
+  document.getElementById('aiMessage').value=`你是${engine.name}。课程：${c.title}。${task}`;
+  saveFlowState(activeFlow);
+  openView('ai');
+}
+
 function selectFlowQuiz(button,isCorrect){
   document.querySelectorAll('.flow-quiz-option').forEach(x=>x.classList.remove('selected'));
   button.classList.add('selected');
