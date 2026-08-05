@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V11 Real High School Engine</title>
+<title>Kiki Academy V11.0.1 Real High School Engine</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -419,12 +419,20 @@ html[data-theme="dark"] .subject-tool{background:#202824}
   .subject-tool-grid{grid-template-columns:1fr}
 }
 
+
+/* V11.0.1 Release Scanner */
+.release-scanner{border:1px solid var(--line);background:var(--soft);border-radius:18px;padding:15px;margin-top:14px}
+.release-scanner-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.release-scanner-row:last-child{border-bottom:0}
+.release-ok{color:var(--sage);font-weight:700}
+.release-warn{color:#a05a2c;font-weight:700}
+
 </style>
 </head>
 <body><script>(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V11</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V11.0.1</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button class="active" data-view="home">🏡 <span>首页</span></button>
     <button data-view="english">🇺🇸 <span>英语</span></button>
@@ -434,13 +442,13 @@ html[data-theme="dark"] .subject-tool{background:#202824}
     <button data-view="baby">👶 <span>宝宝成长</span></button>
     <button data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V11 Real High School Engine：每门学科都有自己的教学方式。</div>
+  <div class="side-note">V11.0.1 Real High School Engine：版本统一与发布检查。</div>
 </aside>
 
 <main>
 <section id="home" class="view active">
   <div id="learningCompanionCard" class="companion-card">
-    <div class="eyebrow">LEARNING COMPANION · V10.4</div>
+    <div class="eyebrow">LEARNING COMPANION · V11.0.1</div>
     <h2 id="companionGreeting">🌿 欢迎回来，Kiki。</h2>
     <p id="companionMessage" class="muted">今天不用着急，我们继续昨天。</p>
     <div id="companionStatus" class="companion-status"></div>
@@ -529,9 +537,9 @@ html[data-theme="dark"] .subject-tool{background:#202824}
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V11</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V11.0.1</span></h1><button class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="card" style="margin-bottom:16px">
-    <div class="eyebrow">REAL HIGH SCHOOL ENGINE</div>
+    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V11.0.1</div><div id="releaseScanner" class="release-scanner"></div>
     <h2>📚 九大学院，九种教学方式</h2>
     <p class="muted">数学重推理，语文重文本，英语重语境，理化重计算与实验，史地政重材料分析。V11 不再让所有学科共用同一种模板。</p>
   </div>
@@ -545,7 +553,7 @@ html[data-theme="dark"] .subject-tool{background:#202824}
       <div id="engineNextLesson" class="next-lesson-box"></div>
     </div>
     <div class="card">
-      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V11 在线</span></div>
+      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V11.0.1 在线</span></div>
       <div class="engine-stats">
         <div class="engine-stat">已完成课程<strong id="engineCompleted">0</strong></div>
         <div class="engine-stat">学院总进度<strong id="engineOverall">0%</strong></div>
@@ -1060,6 +1068,22 @@ function recordLearningSummary(subject,grade,index,minutes){
   saveCompanionData(data);
 }
 
+
+
+const RELEASE_VERSION='V11.0.1';
+function scanReleaseVersion(){
+  const html=document.documentElement.outerHTML;
+  const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
+  return {titleOk:document.title.includes(RELEASE_VERSION),badgeOk:[...document.querySelectorAll('.badge')].some(x=>x.textContent.trim()===RELEASE_VERSION),old};
+}
+function renderReleaseScanner(){
+  const box=document.getElementById('releaseScanner'); if(!box)return;
+  const r=scanReleaseVersion();
+  box.innerHTML=`<div class="release-scanner-row"><strong>当前正式版本</strong><span class="release-ok">${RELEASE_VERSION}</span></div>
+  <div class="release-scanner-row"><span>浏览器标题</span><span class="${r.titleOk?'release-ok':'release-warn'}">${r.titleOk?'✅ 已统一':'⚠️ 未统一'}</span></div>
+  <div class="release-scanner-row"><span>页面版本徽章</span><span class="${r.badgeOk?'release-ok':'release-warn'}">${r.badgeOk?'✅ 已统一':'⚠️ 未统一'}</span></div>
+  <div class="release-scanner-row"><span>旧版可见文案</span><span class="${r.old.length?'release-warn':'release-ok'}">${r.old.length?'⚠️ '+r.old.length+' 处':'✅ 未发现'}</span></div>`;
+}
 
 const SUBJECT_ENGINES={
   math:{
@@ -1836,7 +1860,7 @@ function askReadingAI(type){
   toast('已为 AI 阅读伙伴准备好问题');
 }
 
-document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();renderBookshelf();renderLearningEngine();renderLearningCompanion();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();document.getElementById('detailCurrentPage')?.addEventListener('input',updateBookProgressPreview);document.getElementById('detailTotalPages')?.addEventListener('input',updateBookProgressPreview);const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
+document.addEventListener('DOMContentLoaded',()=>{const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();renderBookshelf();renderLearningEngine();renderLearningCompanion();renderReleaseScanner();document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();document.getElementById('detailCurrentPage')?.addEventListener('input',updateBookProgressPreview);document.getElementById('detailTotalPages')?.addEventListener('input',updateBookProgressPreview);const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
 </script>
 </body>
 </html>
