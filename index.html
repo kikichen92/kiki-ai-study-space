@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V12 RC</title>
+<title>Kiki Academy V12 RC2</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -420,7 +420,7 @@ html[data-theme="dark"] .subject-tool{background:#202824}
 }
 
 
-/* V12 RC Release Scanner */
+/* V12 RC2 Release Scanner */
 .release-scanner{border:1px solid var(--line);background:var(--soft);border-radius:18px;padding:15px;margin-top:14px}
 .release-scanner-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
 .release-scanner-row:last-child{border-bottom:0}
@@ -521,7 +521,7 @@ const KikiDiagnostics = {
 (function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V12 RC</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V12 RC2</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button type="button" class="active" data-view="home">🏡 <span>首页</span></button>
     <button type="button" data-view="english">🇺🇸 <span>英语</span></button>
@@ -537,7 +537,7 @@ const KikiDiagnostics = {
 <main>
 <section id="home" class="view active">
   <div class="daily-english-card">
-    <div class="eyebrow">DAILY ENGLISH · V12 RC</div><div class="database-status"><strong>Database First</strong> · 文章、单词和题目来自独立 JSON 文件。</div>
+    <div class="eyebrow">DAILY ENGLISH · V12 RC2</div><div class="database-status"><strong>Database First</strong> · 文章、单词和题目来自独立 JSON 文件。</div>
     <h2>🇺🇸 每日英语</h2>
     <p id="dailyHomeTitle"><strong>The Power of Small Steps</strong></p>
     <div class="daily-meta"><span class="daily-pill">⏱️ 2 分钟</span><span class="daily-pill">⭐ A2</span><span class="daily-pill">📖 约 120 词</span></div>
@@ -546,7 +546,7 @@ const KikiDiagnostics = {
   </div>
 
   <div id="learningCompanionCard" class="companion-card">
-    <div class="eyebrow">LEARNING COMPANION · V12 RC</div>
+    <div class="eyebrow">LEARNING COMPANION · V12 RC2</div>
     <h2 id="companionGreeting">🌿 欢迎回来，Kiki。</h2>
     <p id="companionMessage" class="muted">今天不用着急，我们继续昨天。</p>
     <div id="companionStatus" class="companion-status"></div>
@@ -647,7 +647,7 @@ const KikiDiagnostics = {
 </section>
 
 <section id="dailyEnglish" class="view">
-  <div class="section-title"><h1>🇺🇸 Daily English <span class="badge">V12 RC</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🇺🇸 Daily English <span class="badge">V12 RC2</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="daily-reading-grid">
     <div>
       <div class="daily-section"><div class="eyebrow">TODAY'S READING</div><h2 id="dailyTitle"></h2><div class="daily-meta"><span id="dailyLevel" class="daily-pill"></span><span id="dailyTime" class="daily-pill"></span><span id="dailyTopic" class="daily-pill"></span></div><div id="dailyArticle" class="daily-article"></div><div class="daily-actions"><button type="button" class="btn" onclick="speakDaily(.8)">🔊 0.8×</button><button type="button" class="btn secondary" onclick="speakDaily(1)">🔊 1.0×</button><button type="button" class="btn secondary" onclick="speakDaily(1.2)">🔊 1.2×</button><button type="button" class="btn secondary" onclick="speechSynthesis.cancel()">停止</button></div></div>
@@ -663,9 +663,9 @@ const KikiDiagnostics = {
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V12 RC</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V12 RC2</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="card" style="margin-bottom:16px">
-    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V12 RC</div><div id="releaseScanner" class="release-scanner"></div>
+    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V12 RC2</div><div id="releaseScanner" class="release-scanner"></div>
     <h2>📚 九大学院，九种教学方式</h2>
     <p class="muted">数学重推理，语文重文本，英语重语境，理化重计算与实验，史地政重材料分析。V11 不再让所有学科共用同一种模板。</p>
   </div>
@@ -679,7 +679,7 @@ const KikiDiagnostics = {
       <div id="engineNextLesson" class="next-lesson-box"></div>
     </div>
     <div class="card">
-      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V12 RC 在线</span></div>
+      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V12 RC2 在线</span></div>
       <div class="engine-stats">
         <div class="engine-stat">已完成课程<strong id="engineCompleted">0</strong></div>
         <div class="engine-stat">学院总进度<strong id="engineOverall">0%</strong></div>
@@ -1211,8 +1211,25 @@ async function loadDailyEnglishDatabase(){
 
 function dailyState(){try{return JSON.parse(localStorage.getItem(DAILY_ENGLISH_KEY)||'{}')}catch{return {}}}
 function saveDailyState(s){localStorage.setItem(DAILY_ENGLISH_KEY,JSON.stringify(s))}
+
+function dailyIndex(){
+  if(!Array.isArray(DAILY_ARTICLES)||DAILY_ARTICLES.length===0)return 0;
+
+  const state=dailyState();
+  if(Number.isInteger(state.selectedIndex)){
+    return Math.max(0,Math.min(DAILY_ARTICLES.length-1,state.selectedIndex));
+  }
+
+  const origin=new Date('2026-08-05T00:00:00');
+  const today=new Date();
+  const diff=Math.floor((today-origin)/(24*60*60*1000));
+
+  return ((diff%DAILY_ARTICLES.length)+DAILY_ARTICLES.length)%DAILY_ARTICLES.length;
+}
+
 function currentDailyArticle(){
-  return DAILY_ARTICLES[dailyIndex()]||null;
+  if(!Array.isArray(DAILY_ARTICLES)||DAILY_ARTICLES.length===0)return null;
+  return DAILY_ARTICLES[dailyIndex()]||DAILY_ARTICLES[0]||null;
 }
 async function openDailyEnglish(){
   await loadDailyEnglishDatabase();
@@ -1229,7 +1246,7 @@ function saveDailyJournal(){const x=currentDailyArticle(),s=dailyState();s.journ
 function sendDailyJournalToAI(){const x=currentDailyArticle(),v=document.getElementById('dailyJournal').value.trim();if(!v)return toast('请先写一句英文');document.getElementById('aiSubject').value='英语';document.getElementById('aiMessage').value=`请温柔地修改这句英文。先说优点，再给更自然的表达，并解释一个最重要的修改点：${v}\n文章主题：${x.title}`;openView('ai')}
 function completeDailyEnglish(){saveDailyJournal();const x=currentDailyArticle(),s=dailyState(),today=dateKey();s.completed=s.completed||[];if(!s.completed.includes(x.id))s.completed.push(x.id);if(s.lastDate!==today){s.streak=(s.lastDate?Math.max(1,(s.streak||0)+1):1);s.lastDate=today}s.wordsLearned=s.completed.length*5;saveDailyState(s);document.getElementById('dailyStreak').textContent=`${s.streak} 天`;document.getElementById('dailyReadCount').textContent=`${s.completed.length} 篇`;document.getElementById('dailyWordCount').textContent=`${s.wordsLearned} 个`;const c=document.getElementById('dailyCompleteCard');c.classList.add('show');c.scrollIntoView({behavior:'smooth',block:'center'});markDay();addTask();updateAll()}
 
-const RELEASE_VERSION='V12 RC';
+const RELEASE_VERSION='V12 RC2';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
