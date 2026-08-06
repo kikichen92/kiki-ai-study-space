@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V12.1 American Voice Engine</title>
+<title>Kiki Academy V14 — Project Aurora</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -513,6 +513,245 @@ html[data-theme="dark"] .subject-tool{background:#202824}
 .voice-status.ready{color:var(--sage);font-weight:700}
 html[data-theme="dark"] .voice-engine{background:#202824}
 
+
+/* =========================================================
+   KIKI ACADEMY V14 — PROJECT AURORA
+   Calm. Focus. Grow.
+   ========================================================= */
+:root{
+  --aurora-ink:#26342d;
+  --aurora-muted:#718078;
+  --aurora-leaf:#567565;
+  --aurora-leaf-dark:#3f5f50;
+  --aurora-mist:#edf3ef;
+  --aurora-cream:#fbfaf6;
+  --aurora-line:rgba(63,95,80,.14);
+  --aurora-shadow:0 22px 60px rgba(49,72,60,.09);
+}
+body{
+  background:
+    radial-gradient(circle at 15% 0%,rgba(170,198,180,.18),transparent 34rem),
+    radial-gradient(circle at 100% 15%,rgba(226,216,191,.18),transparent 28rem),
+    var(--bg);
+}
+.sidebar{
+  border-right:1px solid var(--aurora-line);
+  box-shadow:none;
+}
+.brand .logo{
+  background:var(--aurora-mist);
+  box-shadow:none;
+}
+.side-note{display:none}
+#home{
+  max-width:980px;
+  margin:0 auto;
+}
+.aurora-hero{
+  min-height:420px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding:58px 48px;
+  margin-bottom:22px;
+  border:1px solid var(--aurora-line);
+  border-radius:32px;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,255,255,.82),transparent 15rem),
+    linear-gradient(145deg,#f5f8f5 0%,#edf3ef 52%,#f7f2e8 100%);
+  box-shadow:var(--aurora-shadow);
+  position:relative;
+  overflow:hidden;
+}
+.aurora-hero:after{
+  content:"🌿";
+  position:absolute;
+  right:42px;
+  bottom:22px;
+  font-size:116px;
+  opacity:.11;
+  transform:rotate(-8deg);
+}
+.aurora-kicker{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--aurora-leaf);
+}
+.aurora-hero h1{
+  max-width:650px;
+  margin:18px 0 12px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:1.03;
+  letter-spacing:-.045em;
+  color:var(--aurora-ink);
+}
+.aurora-hero p{
+  max-width:560px;
+  margin:0;
+  color:var(--aurora-muted);
+  font-size:17px;
+  line-height:1.8;
+}
+.aurora-time{
+  display:flex;
+  gap:22px;
+  align-items:center;
+  margin:26px 0 22px;
+  color:var(--aurora-muted);
+}
+.aurora-time strong{
+  display:block;
+  color:var(--aurora-ink);
+  font-size:23px;
+}
+.aurora-primary{
+  min-width:190px;
+  border:0;
+  border-radius:999px;
+  padding:15px 22px;
+  background:var(--aurora-leaf-dark);
+  color:white;
+  font:inherit;
+  font-weight:800;
+  box-shadow:0 12px 28px rgba(63,95,80,.20);
+}
+.aurora-primary:active{transform:translateY(1px)}
+.aurora-quote{
+  margin-top:24px;
+  color:var(--aurora-muted);
+  font-size:13px;
+}
+.aurora-section-title{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:18px;
+  margin:30px 4px 14px;
+}
+.aurora-section-title h2{
+  margin:0;
+  font-size:28px;
+  letter-spacing:-.025em;
+}
+.aurora-section-title span{
+  color:var(--aurora-muted);
+  font-size:13px;
+}
+.aurora-journey{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:16px;
+  margin-bottom:20px;
+}
+.aurora-card{
+  border:1px solid var(--aurora-line);
+  border-radius:24px;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 14px 40px rgba(49,72,60,.06);
+  padding:24px;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.aurora-card h3{margin:7px 0 7px;font-size:23px}
+.aurora-card p{color:var(--aurora-muted);line-height:1.65}
+.aurora-card .eyebrow{color:var(--aurora-leaf)}
+.aurora-card-actions{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+.aurora-soft-btn{
+  border:1px solid var(--aurora-line);
+  background:var(--aurora-mist);
+  color:var(--aurora-ink);
+  border-radius:999px;
+  padding:11px 15px;
+  font:inherit;
+  font-weight:750;
+}
+.aurora-progress{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:18px;
+}
+.aurora-progress-track{
+  flex:1;
+  height:8px;
+  border-radius:999px;
+  overflow:hidden;
+  background:#e2eae5;
+}
+.aurora-progress-track span{
+  display:block;
+  height:100%;
+  width:34%;
+  border-radius:inherit;
+  background:var(--aurora-leaf);
+}
+.aurora-progress small{color:var(--aurora-muted)}
+.aurora-explore{
+  margin-top:22px;
+  border-top:1px solid var(--aurora-line);
+  padding-top:20px;
+}
+.aurora-explore summary{
+  cursor:pointer;
+  color:var(--aurora-muted);
+  font-weight:750;
+  list-style:none;
+}
+.aurora-explore summary::-webkit-details-marker{display:none}
+.aurora-explore summary:after{content:"  ↓"}
+.aurora-explore[open] summary:after{content:"  ↑"}
+#home > .daily-english-card,
+#home > #learningCompanionCard{
+  display:none;
+}
+#home > .v12-status{
+  display:none !important;
+}
+.database-status{display:none}
+#home > .top{
+  display:none;
+}
+#home > .hero,
+#home > .grid,
+#home > .card,
+#home > .quick-grid{
+  margin-top:18px;
+}
+html[data-theme="dark"] .aurora-hero{
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,255,255,.04),transparent 15rem),
+    linear-gradient(145deg,#1f2924,#24312a 56%,#302c25);
+}
+html[data-theme="dark"] .aurora-hero h1,
+html[data-theme="dark"] .aurora-time strong,
+html[data-theme="dark"] .aurora-card h3{color:#f3f5f2}
+html[data-theme="dark"] .aurora-card{
+  background:rgba(31,41,36,.82);
+}
+html[data-theme="dark"] .aurora-soft-btn{
+  background:#26342d;
+  color:#edf3ef;
+}
+@media(max-width:760px){
+  #home{padding-top:2px}
+  .aurora-hero{
+    min-height:480px;
+    padding:42px 24px;
+    border-radius:27px;
+  }
+  .aurora-hero h1{font-size:48px}
+  .aurora-hero:after{right:13px;font-size:84px}
+  .aurora-journey{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body><script>
@@ -558,7 +797,7 @@ const KikiDiagnostics = {
 (function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V12.1</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V14</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button type="button" class="active" data-view="home">🏡 <span>首页</span></button>
     <button type="button" data-view="english">🇺🇸 <span>英语</span></button>
@@ -568,13 +807,69 @@ const KikiDiagnostics = {
     <button type="button" data-view="baby">👶 <span>宝宝成长</span></button>
     <button type="button" data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V12 Mobile Architecture：内部模块化，外部仍然只需更新一个 index.html。</div>
+  <div class="side-note">A calm place to learn.</div>
 </aside>
 
 <main>
 <section id="home" class="view active">
+  <div class="aurora-hero">
+    <div class="aurora-kicker">Kiki Academy · Project Aurora</div>
+    <h1 id="auroraGreeting">Welcome back, Kiki.</h1>
+    <p id="auroraMessage">今天不用完成很多。我们安静地学习一会儿，就很好。</p>
+
+    <div class="aurora-time">
+      <div>
+        <small>Today's journey</small>
+        <strong>15 min</strong>
+      </div>
+      <div>
+        <small>Focus</small>
+        <strong id="auroraFocus">Daily English</strong>
+      </div>
+    </div>
+
+    <button type="button" class="aurora-primary" onclick="startAuroraJourney()">
+      Continue Learning →
+    </button>
+    <div id="auroraQuote" class="aurora-quote">Grow a little. Every day.</div>
+  </div>
+
+  <div class="aurora-section-title">
+    <h2>Today</h2>
+    <span>A calm, focused learning journey.</span>
+  </div>
+
+  <div class="aurora-journey">
+    <article class="aurora-card">
+      <div class="eyebrow">01 · DAILY ENGLISH</div>
+      <h3 id="auroraEnglishTitle">The Power of Small Steps</h3>
+      <p>读一篇短文，听美式发音，学五个单词，再写下一句自己的英文。</p>
+      <div class="aurora-progress">
+        <div class="aurora-progress-track"><span id="auroraEnglishProgress"></span></div>
+        <small id="auroraEnglishProgressText">Ready</small>
+      </div>
+      <div class="aurora-card-actions">
+        <button type="button" class="aurora-soft-btn" onclick="openDailyEnglish()">Start English</button>
+      </div>
+    </article>
+
+    <article class="aurora-card">
+      <div class="eyebrow">02 · CONTINUE</div>
+      <h3 id="auroraContinueTitle">Continue yesterday</h3>
+      <p id="auroraContinueText">你的课程一直在这里。准备好了，我们就接着学。</p>
+      <div class="aurora-card-actions">
+        <button type="button" class="aurora-soft-btn" onclick="continueFromCompanion()">Continue course</button>
+        <button type="button" class="aurora-soft-btn" onclick="openView('reading')">Reflection</button>
+      </div>
+    </article>
+  </div>
+
+  <details class="aurora-explore">
+    <summary>Explore all learning spaces</summary>
+    <div style="margin-top:16px"></div>
+
   <div class="daily-english-card">
-    <div class="eyebrow">DAILY ENGLISH · V12.1</div><div class="database-status"><strong>Database First</strong> · 文章、单词和题目来自独立 JSON 文件。</div>
+    <div class="eyebrow">TODAY'S ENGLISH</div><div class="database-status"><strong>Database First</strong> · 文章、单词和题目来自独立 JSON 文件。</div>
     <h2>🇺🇸 每日英语</h2>
     <p id="dailyHomeTitle"><strong>The Power of Small Steps</strong></p>
     <div class="daily-meta"><span class="daily-pill">⏱️ 2 分钟</span><span class="daily-pill">⭐ A2</span><span class="daily-pill">📖 约 120 词</span></div>
@@ -583,7 +878,7 @@ const KikiDiagnostics = {
   </div>
 
   <div id="learningCompanionCard" class="companion-card">
-    <div class="eyebrow">LEARNING COMPANION · V12.1</div>
+    <div class="eyebrow">CONTINUE YOUR JOURNEY</div>
     <h2 id="companionGreeting">🌿 欢迎回来，Kiki。</h2>
     <p id="companionMessage" class="muted">今天不用着急，我们继续昨天。</p>
     <div id="companionStatus" class="companion-status"></div>
@@ -675,6 +970,7 @@ const KikiDiagnostics = {
       </div>
     </article>
   </div>
+  </details>
 </section>
 
 <section id="english" class="view">
@@ -1464,7 +1760,7 @@ function saveDailyJournal(){const x=currentDailyArticle(),s=dailyState();s.journ
 function sendDailyJournalToAI(){const x=currentDailyArticle(),v=document.getElementById('dailyJournal').value.trim();if(!v)return toast('请先写一句英文');document.getElementById('aiSubject').value='英语';document.getElementById('aiMessage').value=`请温柔地修改这句英文。先说优点，再给更自然的表达，并解释一个最重要的修改点：${v}\n文章主题：${x.title}`;openView('ai')}
 function completeDailyEnglish(){saveDailyJournal();const x=currentDailyArticle(),s=dailyState(),today=dateKey();s.completed=s.completed||[];if(!s.completed.includes(x.id))s.completed.push(x.id);if(s.lastDate!==today){s.streak=(s.lastDate?Math.max(1,(s.streak||0)+1):1);s.lastDate=today}s.wordsLearned=s.completed.length*5;saveDailyState(s);document.getElementById('dailyStreak').textContent=`${s.streak} 天`;document.getElementById('dailyReadCount').textContent=`${s.completed.length} 篇`;document.getElementById('dailyWordCount').textContent=`${s.wordsLearned} 个`;const c=document.getElementById('dailyCompleteCard');c.classList.add('show');c.scrollIntoView({behavior:'smooth',block:'center'});markDay();addTask();updateAll()}
 
-const RELEASE_VERSION='V12.1';
+const RELEASE_VERSION='V14';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
@@ -2257,6 +2553,83 @@ function askReadingAI(type){
 document.addEventListener('DOMContentLoaded',()=>{
   initializeAmericanVoiceEngine();
   console.info('Kiki Academy V12', KikiDiagnostics.run());const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();renderBookshelf();renderLearningEngine();renderLearningCompanion();renderReleaseScanner();loadDailyEnglishDatabase().then(renderDailyEnglish);document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();document.getElementById('detailCurrentPage')?.addEventListener('input',updateBookProgressPreview);document.getElementById('detailTotalPages')?.addEventListener('input',updateBookProgressPreview);const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
+
+/* =========================================================
+   V14 PROJECT AURORA — HOME EXPERIENCE
+   ========================================================= */
+const AURORA_QUOTES=[
+  'Grow a little. Every day.',
+  'A calm mind can learn deeply.',
+  'Today, one small lesson is enough.',
+  'Your learning is still here, waiting for you.',
+  'No rush. Just keep moving.'
+];
+
+function auroraDayPart(){
+  const hour=new Date().getHours();
+  if(hour<12)return 'Good morning';
+  if(hour<18)return 'Good afternoon';
+  return 'Good evening';
+}
+
+function renderAuroraHome(){
+  const greeting=document.getElementById('auroraGreeting');
+  const message=document.getElementById('auroraMessage');
+  const quote=document.getElementById('auroraQuote');
+  const englishTitle=document.getElementById('auroraEnglishTitle');
+  const continueTitle=document.getElementById('auroraContinueTitle');
+  const continueText=document.getElementById('auroraContinueText');
+  const progress=document.getElementById('auroraEnglishProgress');
+  const progressText=document.getElementById('auroraEnglishProgressText');
+
+  if(greeting)greeting.textContent=`${auroraDayPart()}, Kiki.`;
+  if(message){
+    message.textContent='今天不用完成很多。我们安静地学习一会儿，就很好。';
+  }
+  if(quote){
+    quote.textContent=AURORA_QUOTES[new Date().getDate()%AURORA_QUOTES.length];
+  }
+
+  try{
+    const article=typeof currentDailyArticle==='function'?currentDailyArticle():null;
+    if(article&&englishTitle)englishTitle.textContent=article.title;
+  }catch{}
+
+  try{
+    const daily=typeof dailyState==='function'?dailyState():{};
+    const completed=Array.isArray(daily.completed)?daily.completed.length:0;
+    const total=Array.isArray(DAILY_ARTICLES)&&DAILY_ARTICLES.length?DAILY_ARTICLES.length:30;
+    const pct=Math.max(6,Math.min(100,Math.round(completed/total*100)));
+    if(progress)progress.style.width=`${pct}%`;
+    if(progressText)progressText.textContent=completed?`${completed} completed`:'Ready';
+  }catch{}
+
+  try{
+    const flow=typeof loadFlowState==='function'?loadFlowState():null;
+    if(flow&&flow.index!==undefined){
+      const academy=typeof ACADEMIES!=='undefined'
+        ?ACADEMIES.find(x=>x.id===flow.subject)
+        :null;
+      if(continueTitle)continueTitle.textContent=academy
+        ?`${academy.icon} Continue ${academy.name}`
+        :'Continue your course';
+      if(continueText)continueText.textContent='我们已经保存了上次的位置，点击后从原来的步骤继续。';
+    }
+  }catch{}
+}
+
+async function startAuroraJourney(){
+  try{
+    if(typeof loadDailyEnglishDatabase==='function')await loadDailyEnglishDatabase();
+  }catch{}
+  openDailyEnglish();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(renderAuroraHome,80);
+  setTimeout(renderAuroraHome,900);
+});
+
 </script>
 </body>
 </html>
