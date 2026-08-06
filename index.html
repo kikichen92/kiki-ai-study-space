@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V12 RC2</title>
+<title>Kiki Academy V12.1 American Voice Engine</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -420,7 +420,7 @@ html[data-theme="dark"] .subject-tool{background:#202824}
 }
 
 
-/* V12 RC2 Release Scanner */
+/* V12.1 Release Scanner */
 .release-scanner{border:1px solid var(--line);background:var(--soft);border-radius:18px;padding:15px;margin-top:14px}
 .release-scanner-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
 .release-scanner-row:last-child{border-bottom:0}
@@ -476,6 +476,43 @@ html[data-theme="dark"] .subject-tool{background:#202824}
 }
 @media(max-width:640px){.v12-module-grid{grid-template-columns:1fr}}
 
+
+/* ===== V12.1 American Voice Engine ===== */
+.voice-engine{
+  margin-top:14px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:16px;
+  padding:13px
+}
+.voice-engine-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap
+}
+.voice-engine label{font-weight:700}
+.voice-select{
+  min-width:210px;
+  max-width:100%;
+  border:1px solid var(--line);
+  background:var(--soft);
+  color:var(--ink);
+  border-radius:12px;
+  padding:10px 12px;
+  font:inherit
+}
+.voice-status{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px;
+  line-height:1.5
+}
+.voice-status.ready{color:var(--sage);font-weight:700}
+html[data-theme="dark"] .voice-engine{background:#202824}
+
 </style>
 </head>
 <body><script>
@@ -521,7 +558,7 @@ const KikiDiagnostics = {
 (function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V12 RC2</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V12.1</span></strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button type="button" class="active" data-view="home">🏡 <span>首页</span></button>
     <button type="button" data-view="english">🇺🇸 <span>英语</span></button>
@@ -537,7 +574,7 @@ const KikiDiagnostics = {
 <main>
 <section id="home" class="view active">
   <div class="daily-english-card">
-    <div class="eyebrow">DAILY ENGLISH · V12 RC2</div><div class="database-status"><strong>Database First</strong> · 文章、单词和题目来自独立 JSON 文件。</div>
+    <div class="eyebrow">DAILY ENGLISH · V12.1</div><div class="database-status"><strong>Database First</strong> · 文章、单词和题目来自独立 JSON 文件。</div>
     <h2>🇺🇸 每日英语</h2>
     <p id="dailyHomeTitle"><strong>The Power of Small Steps</strong></p>
     <div class="daily-meta"><span class="daily-pill">⏱️ 2 分钟</span><span class="daily-pill">⭐ A2</span><span class="daily-pill">📖 约 120 词</span></div>
@@ -546,7 +583,7 @@ const KikiDiagnostics = {
   </div>
 
   <div id="learningCompanionCard" class="companion-card">
-    <div class="eyebrow">LEARNING COMPANION · V12 RC2</div>
+    <div class="eyebrow">LEARNING COMPANION · V12.1</div>
     <h2 id="companionGreeting">🌿 欢迎回来，Kiki。</h2>
     <p id="companionMessage" class="muted">今天不用着急，我们继续昨天。</p>
     <div id="companionStatus" class="companion-status"></div>
@@ -647,10 +684,24 @@ const KikiDiagnostics = {
 </section>
 
 <section id="dailyEnglish" class="view">
-  <div class="section-title"><h1>🇺🇸 Daily English <span class="badge">V12 RC2</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🇺🇸 Daily English <span class="badge">V12.1</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="daily-reading-grid">
     <div>
-      <div class="daily-section"><div class="eyebrow">TODAY'S READING</div><h2 id="dailyTitle"></h2><div class="daily-meta"><span id="dailyLevel" class="daily-pill"></span><span id="dailyTime" class="daily-pill"></span><span id="dailyTopic" class="daily-pill"></span></div><div id="dailyArticle" class="daily-article"></div><div class="daily-actions"><button type="button" class="btn" onclick="speakDaily(.8)">🔊 0.8×</button><button type="button" class="btn secondary" onclick="speakDaily(1)">🔊 1.0×</button><button type="button" class="btn secondary" onclick="speakDaily(1.2)">🔊 1.2×</button><button type="button" class="btn secondary" onclick="speechSynthesis.cancel()">停止</button></div></div>
+      <div class="daily-section"><div class="eyebrow">TODAY'S READING</div><h2 id="dailyTitle"></h2><div class="daily-meta"><span id="dailyLevel" class="daily-pill"></span><span id="dailyTime" class="daily-pill"></span><span id="dailyTopic" class="daily-pill"></span></div><div id="dailyArticle" class="daily-article"></div><div class="voice-engine">
+  <div class="voice-engine-top">
+    <label for="americanVoiceSelect">🇺🇸 美式语音</label>
+    <select id="americanVoiceSelect" class="voice-select" onchange="saveAmericanVoiceChoice(this.value)">
+      <option value="auto">自动选择最佳美式语音</option>
+    </select>
+  </div>
+  <span id="americanVoiceStatus" class="voice-status">正在读取设备上的美式语音……</span>
+</div>
+<div class="daily-actions">
+  <button type="button" class="btn" onclick="speakDaily(.8)">🔊 0.8×</button>
+  <button type="button" class="btn secondary" onclick="speakDaily(1)">🔊 1.0×</button>
+  <button type="button" class="btn secondary" onclick="speakDaily(1.2)">🔊 1.2×</button>
+  <button type="button" class="btn secondary" onclick="stopAmericanSpeech()">停止</button>
+</div></div>
       <div class="daily-section"><h3>📚 5 个重点词</h3><div id="dailyWords" class="daily-word-grid"></div></div>
     </div>
     <div>
@@ -663,9 +714,9 @@ const KikiDiagnostics = {
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V12 RC2</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V12.1</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="card" style="margin-bottom:16px">
-    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V12 RC2</div><div id="releaseScanner" class="release-scanner"></div>
+    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V12.1</div><div id="releaseScanner" class="release-scanner"></div>
     <h2>📚 九大学院，九种教学方式</h2>
     <p class="muted">数学重推理，语文重文本，英语重语境，理化重计算与实验，史地政重材料分析。V11 不再让所有学科共用同一种模板。</p>
   </div>
@@ -679,7 +730,7 @@ const KikiDiagnostics = {
       <div id="engineNextLesson" class="next-lesson-box"></div>
     </div>
     <div class="card">
-      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V12 RC2 在线</span></div>
+      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V12.1 在线</span></div>
       <div class="engine-stats">
         <div class="engine-stat">已完成课程<strong id="engineCompleted">0</strong></div>
         <div class="engine-stat">学院总进度<strong id="engineOverall">0%</strong></div>
@@ -1239,14 +1290,181 @@ async function openDailyEnglish(){
 function renderDailyEnglish(){
   if(!DAILY_DB_READY||!DAILY_ARTICLES.length){loadDailyEnglishDatabase().then(renderDailyEnglish);return;}
 const x=currentDailyArticle(),set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('dailyHomeTitle',x.title);set('dailyTitle',x.title);set('dailyLevel',x.level);set('dailyTime',x.time);set('dailyTopic',x.topic);set('dailyArticle',x.article);set('dailyReflection',x.reflection);const w=document.getElementById('dailyWords');if(w)w.innerHTML=x.words.map(a=>`<div class="daily-word"><strong>${a[0]}</strong><small>${a[1]} · ${a[2]}</small><small>${a[3]}</small><button type="button" class="btn secondary" style="margin-top:8px" onclick="speakWord('${a[0]}')">🔊 发音</button></div>`).join('');const q=document.getElementById('dailyQuestions');if(q)q.innerHTML=x.questions.map((a,qi)=>`<div class="daily-question"><strong>${qi+1}. ${a.q}</strong>${a.options.map((o,oi)=>`<button type="button" class="daily-option" onclick="answerDailyQuestion(this,${qi},${oi})">${o}</button>`).join('')}</div>`).join('');const s=dailyState(),j=document.getElementById('dailyJournal');if(j)j.value=(s.journals||{})[x.id]||'';document.getElementById('dailyCompleteCard')?.classList.remove('show')}
-function speakDaily(rate){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(currentDailyArticle().article);u.lang='en-US';u.rate=rate;const v=speechSynthesis.getVoices();u.voice=v.find(x=>x.lang==='en-US')||v.find(x=>x.lang.startsWith('en'))||null;speechSynthesis.speak(u)}
-function speakWord(word){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u)}
+
+const AMERICAN_VOICE_KEY='kikiAmericanVoiceV121';
+let AMERICAN_VOICES=[];
+
+function normalizeVoiceLanguage(lang){
+  return String(lang||'').replace('_','-').toLowerCase();
+}
+
+function isAmericanEnglishVoice(voice){
+  const lang=normalizeVoiceLanguage(voice?.lang);
+  return lang==='en-us'||lang.startsWith('en-us-');
+}
+
+function americanVoiceScore(voice){
+  const name=String(voice?.name||'').toLowerCase();
+  const uri=String(voice?.voiceURI||'').toLowerCase();
+  let score=0;
+
+  if(isAmericanEnglishVoice(voice))score+=100;
+  if(voice?.localService)score+=10;
+  if(voice?.default)score+=4;
+
+  const preferred=[
+    ['samantha',60],
+    ['ava',55],
+    ['allison',50],
+    ['susan',45],
+    ['zoe',42],
+    ['nathan',40],
+    ['aaron',38],
+    ['alex',36],
+    ['fred',30]
+  ];
+  preferred.forEach(([keyword,value])=>{
+    if(name.includes(keyword)||uri.includes(keyword))score+=value;
+  });
+
+  if(name.includes('compact'))score-=8;
+  if(name.includes('uk')||name.includes('british'))score-=80;
+  return score;
+}
+
+function refreshAmericanVoices(){
+  const voices=window.speechSynthesis?.getVoices?.()||[];
+  AMERICAN_VOICES=voices
+    .filter(isAmericanEnglishVoice)
+    .sort((a,b)=>americanVoiceScore(b)-americanVoiceScore(a));
+
+  renderAmericanVoiceSelector();
+  return AMERICAN_VOICES;
+}
+
+function storedAmericanVoice(){
+  return localStorage.getItem(AMERICAN_VOICE_KEY)||'auto';
+}
+
+function selectAmericanVoice(){
+  if(!AMERICAN_VOICES.length)refreshAmericanVoices();
+
+  const selected=storedAmericanVoice();
+  if(selected!=='auto'){
+    const exact=AMERICAN_VOICES.find(v=>v.voiceURI===selected||v.name===selected);
+    if(exact)return exact;
+  }
+
+  return AMERICAN_VOICES[0]||null;
+}
+
+function renderAmericanVoiceSelector(){
+  const select=document.getElementById('americanVoiceSelect');
+  const status=document.getElementById('americanVoiceStatus');
+  if(!select||!status)return;
+
+  const current=storedAmericanVoice();
+  select.innerHTML='<option value="auto">自动选择最佳美式语音</option>';
+
+  AMERICAN_VOICES.forEach(voice=>{
+    const option=document.createElement('option');
+    option.value=voice.voiceURI||voice.name;
+    option.textContent=`${voice.name} · ${voice.lang}`;
+    select.appendChild(option);
+  });
+
+  const values=[...select.options].map(x=>x.value);
+  select.value=values.includes(current)?current:'auto';
+
+  const chosen=selectAmericanVoice();
+  if(chosen){
+    status.textContent=`当前使用：${chosen.name}（${chosen.lang}）`;
+    status.classList.add('ready');
+  }else{
+    status.textContent='设备暂未返回 en-US 语音，将继续等待系统语音加载。';
+    status.classList.remove('ready');
+  }
+}
+
+function saveAmericanVoiceChoice(value){
+  localStorage.setItem(AMERICAN_VOICE_KEY,value||'auto');
+  renderAmericanVoiceSelector();
+  const voice=selectAmericanVoice();
+  toast(voice?`已选择美式语音：${voice.name}`:'已设为自动选择');
+}
+
+function createAmericanUtterance(content,rate=1){
+  const utterance=new SpeechSynthesisUtterance(content);
+  utterance.lang='en-US';
+  utterance.rate=rate;
+  utterance.pitch=1;
+
+  const voice=selectAmericanVoice();
+  if(voice)utterance.voice=voice;
+
+  utterance.onstart=()=>{
+    const status=document.getElementById('americanVoiceStatus');
+    if(status){
+      status.textContent=voice
+        ?`正在朗读：${voice.name}（美式英语）`
+        :'正在使用系统 en-US 语音朗读';
+      status.classList.add('ready');
+    }
+  };
+
+  utterance.onerror=()=>{
+    const status=document.getElementById('americanVoiceStatus');
+    if(status){
+      status.textContent='朗读没有成功，请再点一次或更换语音。';
+      status.classList.remove('ready');
+    }
+  };
+
+  utterance.onend=()=>renderAmericanVoiceSelector();
+  return utterance;
+}
+
+function stopAmericanSpeech(){
+  window.speechSynthesis?.cancel?.();
+  renderAmericanVoiceSelector();
+}
+
+function speakDaily(rate){
+  const article=currentDailyArticle();
+  if(!article?.article)return toast('今天的英语文章还没有准备好');
+
+  stopAmericanSpeech();
+  const utterance=createAmericanUtterance(article.article,rate);
+  window.speechSynthesis.speak(utterance);
+}
+
+function speakWord(word){
+  if(!word)return;
+  stopAmericanSpeech();
+  const utterance=createAmericanUtterance(word,.82);
+  window.speechSynthesis.speak(utterance);
+}
+
+function initializeAmericanVoiceEngine(){
+  refreshAmericanVoices();
+
+  if('speechSynthesis' in window){
+    window.speechSynthesis.onvoiceschanged=refreshAmericanVoices;
+
+    // Safari sometimes returns an empty list on the first call.
+    setTimeout(refreshAmericanVoices,250);
+    setTimeout(refreshAmericanVoices,900);
+    setTimeout(refreshAmericanVoices,1800);
+  }
+}
+
+
 function answerDailyQuestion(btn,qi,oi){const x=currentDailyArticle(),box=btn.closest('.daily-question'),correct=x.questions[qi].answer;box.querySelectorAll('.daily-option').forEach(b=>{b.disabled=true;b.classList.remove('correct','wrong')});box.querySelectorAll('.daily-option')[correct].classList.add('correct');if(oi!==correct)btn.classList.add('wrong')}
 function saveDailyJournal(){const x=currentDailyArticle(),s=dailyState();s.journals=s.journals||{};s.journals[x.id]=document.getElementById('dailyJournal').value.trim();saveDailyState(s);toast('今日英文句子已保存')}
 function sendDailyJournalToAI(){const x=currentDailyArticle(),v=document.getElementById('dailyJournal').value.trim();if(!v)return toast('请先写一句英文');document.getElementById('aiSubject').value='英语';document.getElementById('aiMessage').value=`请温柔地修改这句英文。先说优点，再给更自然的表达，并解释一个最重要的修改点：${v}\n文章主题：${x.title}`;openView('ai')}
 function completeDailyEnglish(){saveDailyJournal();const x=currentDailyArticle(),s=dailyState(),today=dateKey();s.completed=s.completed||[];if(!s.completed.includes(x.id))s.completed.push(x.id);if(s.lastDate!==today){s.streak=(s.lastDate?Math.max(1,(s.streak||0)+1):1);s.lastDate=today}s.wordsLearned=s.completed.length*5;saveDailyState(s);document.getElementById('dailyStreak').textContent=`${s.streak} 天`;document.getElementById('dailyReadCount').textContent=`${s.completed.length} 篇`;document.getElementById('dailyWordCount').textContent=`${s.wordsLearned} 个`;const c=document.getElementById('dailyCompleteCard');c.classList.add('show');c.scrollIntoView({behavior:'smooth',block:'center'});markDay();addTask();updateAll()}
 
-const RELEASE_VERSION='V12 RC2';
+const RELEASE_VERSION='V12.1';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
@@ -2037,6 +2255,7 @@ function askReadingAI(type){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
+  initializeAmericanVoiceEngine();
   console.info('Kiki Academy V12', KikiDiagnostics.run());const d=new Date(),h=d.getHours();document.getElementById('greeting').textContent=(h<6?'夜深了':h<12?'早上好':h<18?'下午好':'晚上好')+'，Kiki ☕';document.getElementById('today').textContent=d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'})+' · 今天也一起前进一步。';loadTasks();syncReviewTask();renderBookshelf();renderLearningEngine();renderLearningCompanion();renderReleaseScanner();loadDailyEnglishDatabase().then(renderDailyEnglish);document.querySelectorAll('[data-task]').forEach(e=>e.onchange=()=>{saveTasks();if(e.checked){markDay();addTask()}updateAll()});renderWords();renderCourses();loadVoices();loadReading();loadBaby();renderTimer();updateAll();refreshBrain();renderEvolution();document.getElementById('detailCurrentPage')?.addEventListener('input',updateBookProgressPreview);document.getElementById('detailTotalPages')?.addEventListener('input',updateBookProgressPreview);const c=localStorage.getItem('kikiAccessCode');if(c)document.getElementById('accessCode').value=c;applyTheme();updateNightGreeting();updateAiLock();if('speechSynthesis'in window)speechSynthesis.onvoiceschanged=loadVoices})
 </script>
 </body>
