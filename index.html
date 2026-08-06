@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f4efe7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Kiki Academy V14 Refined</title>
+<title>Kiki Academy</title>
 <style>
 :root{
   --bg:#f4efe7;--paper:#fffaf4;--soft:#f7efe5;--ink:#3e3934;--muted:#877e75;
@@ -442,41 +442,6 @@ html[data-theme="dark"] .subject-tool{background:#202824}
 .database-status strong{color:var(--sage)}
 
 
-/* ===== V12 Mobile Architecture ===== */
-.v12-status{
-  border:1px solid var(--line);
-  background:linear-gradient(135deg,var(--sage2),var(--soft));
-  border-radius:18px;
-  padding:14px;
-  margin:12px 0
-}
-.v12-status strong,.v12-status small{display:block}
-.v12-status small{color:var(--muted);margin-top:5px}
-.v12-module-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:12px
-}
-.v12-module{
-  border:1px solid var(--line);
-  background:var(--paper);
-  border-radius:15px;
-  padding:13px
-}
-.v12-module strong,.v12-module small{display:block}
-.v12-module small{color:var(--muted);margin-top:4px}
-.mobile-deploy-note{
-  margin-top:12px;
-  padding:12px 14px;
-  border-radius:14px;
-  background:var(--soft);
-  border:1px dashed var(--line);
-  font-size:13px
-}
-@media(max-width:640px){.v12-module-grid{grid-template-columns:1fr}}
-
-
 /* ===== V12.1 American Voice Engine ===== */
 .voice-engine{
   margin-top:14px;
@@ -735,6 +700,33 @@ html[data-theme="dark"] .reading-journey-step{
   .reading-journey-steps{grid-template-columns:repeat(2,1fr)}
 }
 
+
+/* ===== V14.1 Refined Hotfix ===== */
+#home > .daily-english-card{margin-bottom:16px}
+#home > #learningCompanionCard{margin-top:0;margin-bottom:18px}
+#home .hero{margin-top:18px!important}
+#home > .v12-status,
+#home .mobile-deploy-note,
+#home .database-status{display:none!important}
+@media(max-width:760px){
+  #home > .daily-english-card,
+  #home > #learningCompanionCard{margin-bottom:14px}
+}
+
+
+/* ===== Kiki Academy 2.0 RC1 Build 001 ===== */
+.side-note,
+.database-status,
+.mobile-deploy-note,
+.v12-status,
+.release-panel,
+.developer-panel,
+.debug-panel,
+#releaseScanner{
+  display:none!important;
+}
+.brand .badge{display:none!important}
+
 </style>
 </head>
 <body><script>
@@ -780,23 +772,23 @@ const KikiDiagnostics = {
 (function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy <span class="badge">V14 Refined</span></strong><small>LEARN · GROW · LIVE</small></div></div>
+  <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy</strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button type="button" class="active" data-view="home">🏡 <span>首页</span></button>
     <button type="button" data-view="english">🇺🇸 <span>英语</span></button>
     <button type="button" data-view="courses">🎓 <span>高中课程</span></button>
-    <button type="button" data-view="ai">🤖 <span>AI 老师</span></button>
-    <button type="button" data-view="reading">📖 <span>阅读</span></button>
+    <button type="button" data-view="ai">🤖 <span>AI Teacher</span></button>
+    <button type="button" data-view="reading">📖 <span>Journey</span></button>
     <button type="button" data-view="baby">👶 <span>宝宝成长</span></button>
     <button type="button" data-view="stats">📊 <span>统计</span></button>
   </nav>
-  <div class="side-note">V12 Mobile Architecture：内部模块化，外部仍然只需更新一个 index.html。</div>
+  
 </aside>
 
 <main>
 <section id="home" class="view active">
   <div class="daily-english-card">
-    <div class="eyebrow">DAILY ENGLISH · V12.1</div><div class="database-status"><strong>Database First</strong> · 文章、单词和题目来自独立 JSON 文件。</div>
+    <div class="eyebrow">DAILY ENGLISH</div>
     <h2>🇺🇸 每日英语</h2>
     <p id="dailyHomeTitle"><strong>The Power of Small Steps</strong></p>
     <div class="daily-meta"><span class="daily-pill">⏱️ 2 分钟</span><span class="daily-pill">⭐ A2</span><span class="daily-pill">📖 约 120 词</span></div>
@@ -806,7 +798,7 @@ const KikiDiagnostics = {
   </div>
 
   <div id="learningCompanionCard" class="companion-card">
-    <div class="eyebrow">LEARNING COMPANION · V14</div>
+    <div class="eyebrow">LEARNING COMPANION</div>
     <h2 id="companionGreeting">🌿 欢迎回来，Kiki。</h2>
     <p id="companionMessage" class="muted">今天不用着急，我们继续昨天。</p>
     <div id="companionStatus" class="companion-status"></div>
@@ -816,17 +808,7 @@ const KikiDiagnostics = {
     </div>
     <div id="companionMini" class="companion-mini"></div>
   </div>
-  <div class="v12-status">
-    <strong>📱 V12 Mobile Architecture</strong>
-    <small>为 iPhone、iPad 和 Working Copy 设计。部署时仍然只需要覆盖一个 index.html。</small>
-    <div class="v12-module-grid">
-      <div class="v12-module"><strong>🇺🇸 Daily English</strong><small>每日阅读、朗读、单词和 Journal</small></div>
-      <div class="v12-module"><strong>📚 High School</strong><small>课程数据库、Flow Mode 和 AI 讲解</small></div>
-      <div class="v12-module"><strong>📖 Reading</strong><small>阅读学院和学习记录</small></div>
-      <div class="v12-module"><strong>🤖 AI Teachers</strong><small>英语、数学、语文等学科老师</small></div>
-    </div>
-    <div class="mobile-deploy-note">以后更新方式不变：导入新的 index.html → Update 覆盖 → Commit → Push。</div>
-  </div>
+  
 
 
   <div class="top">
@@ -842,7 +824,7 @@ const KikiDiagnostics = {
       <button type="button" class="quick" onclick="openView('english')"><span>🇺🇸</span><strong>今日英语</strong><small>10 个词与美式发音</small></button>
       <button type="button" class="quick" onclick="openView('courses')"><span>🎓</span><strong>高中课程</strong><small>从九科中选一节</small></button>
       <button type="button" class="quick" onclick="openView('reading')"><span>📖</span><strong>阅读记录</strong><small>保存页数与感悟</small></button>
-      <button type="button" class="quick" onclick="openView('ai')"><span>🤖</span><strong>AI 老师</strong><small>答疑、讲课、出题</small></button>
+      <button type="button" class="quick" onclick="openView('ai')"><span>🤖</span><strong>AI Teacher</strong><small>答疑、讲课、出题</small></button>
     </div></article>
     <article class="card five"><div class="eyebrow">TODAY'S PLAN</div><h3>今日任务</h3>
       <div class="summary-row"><span>🇺🇸 英语 10 词</span><span id="sWords" class="status">未完成</span></div>
@@ -901,13 +883,13 @@ const KikiDiagnostics = {
 </section>
 
 <section id="english" class="view">
-  <div class="section-title"><h1>🇺🇸 英语学习 <span class="badge">每日 10 词</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🇺🇸 英语学习 </h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="card"><p class="muted">同一天保持同一组单词，第二天自动切换。点击星号加入复习。</p><div class="form-grid"><div><label>美式声音</label><select id="voice"></select></div><div style="align-self:end"><button type="button" class="btn secondary" onclick="testVoice()">试听声音</button></div></div><div id="words" style="margin-top:16px"></div><div class="notice"><b>今日一句：</b> <span id="sentence"></span> <button type="button" class="sound" onclick="speak(document.getElementById('sentence').textContent)">🔊</button></div><button type="button" class="btn" onclick="completeEnglish()">完成今日英语</button></div>
   <div class="card" style="margin-top:16px"><h3>⭐ 复习单词</h3><div id="reviewWords" class="muted">还没有收藏单词。</div></div>
 </section>
 
 <section id="dailyEnglish" class="view">
-  <div class="section-title"><h1>🇺🇸 Daily English <span class="badge">V12.1</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🇺🇸 Daily English </h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="daily-reading-grid">
     <div>
       <div class="daily-section"><div class="eyebrow">TODAY'S READING</div><h2 id="dailyTitle"></h2><div class="daily-meta"><span id="dailyLevel" class="daily-pill"></span><span id="dailyTime" class="daily-pill"></span><span id="dailyTopic" class="daily-pill"></span></div><div id="dailyArticle" class="daily-article"></div><div class="voice-engine">
@@ -937,9 +919,9 @@ const KikiDiagnostics = {
 </section>
 
 <section id="courses" class="view">
-  <div class="section-title"><h1>🏫 Kiki 高中学院 <span class="badge">V12.1</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🏫 Kiki 高中学院 </h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
   <div class="card" style="margin-bottom:16px">
-    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V12.1</div><div id="releaseScanner" class="release-scanner"></div>
+    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V12.1</div><div id="releaseScanner" class="release-scanner" hidden aria-hidden="true"></div>
     <h2>📚 九大学院，九种教学方式</h2>
     <p class="muted">数学重推理，语文重文本，英语重语境，理化重计算与实验，史地政重材料分析。V11 不再让所有学科共用同一种模板。</p>
   </div>
@@ -977,7 +959,7 @@ const KikiDiagnostics = {
 
   <div id="subjectHome" style="display:none">
     <div class="card">
-      <div class="breadcrumb"><button type="button" class="chip" onclick="backToAcademy()">高中学院</button><span>›</span><span id="subjectCrumb">数学学院</span></div>
+      <div class="breadcrumb"><button type="button" class="chip" onclick="backToAcademy()">High School</button><span>›</span><span id="subjectCrumb">数学学院</span></div>
       <div class="section-title"><div><div class="eyebrow">SUBJECT ACADEMY</div><h2 id="subjectTitle">📐 数学学院</h2><p id="subjectIntro" class="muted"></p></div><button type="button" class="btn secondary" onclick="backToAcademy()">返回学院</button></div>
       <h3>请选择年级</h3>
       <div class="grade-tabs">
@@ -994,7 +976,7 @@ const KikiDiagnostics = {
 </section>
 
 <section id="ai" class="view">
-  <div class="section-title"><h1>🤖 AI 学习导师 <span class="badge">V9.2</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>🤖 AI 学习导师 </h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
 
   <div class="guide-card">
     <div class="eyebrow">SMART LEARNING GUIDE</div>
@@ -1085,7 +1067,7 @@ const KikiDiagnostics = {
     </div>
   </div>
 
-  <div class="section-title"><h1>📚 阅读学院 <span class="badge">V9.2</span></h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div class="section-title"><h1>📚 阅读学院 </h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
 
   <div id="readingHome">
     <div class="card reading-hero">
@@ -1117,7 +1099,7 @@ const KikiDiagnostics = {
 
   <div id="bookDetail" style="display:none">
     <div class="card">
-      <div class="breadcrumb"><button type="button" class="chip" onclick="backToBookshelf()">阅读学院</button><span>›</span><span id="bookCrumb">书籍</span></div>
+      <div class="breadcrumb"><button type="button" class="chip" onclick="backToBookshelf()">Reading Journey</button><span>›</span><span id="bookCrumb">书籍</span></div>
       <div class="section-title">
         <div><div class="eyebrow">CURRENT BOOK</div><h2 id="detailBookTitle">📖 活着</h2><p id="detailBookAuthor" class="muted"></p></div>
         <button type="button" class="btn secondary" onclick="backToBookshelf()">返回书架</button>
@@ -1699,7 +1681,7 @@ function saveDailyJournal(){const x=currentDailyArticle(),s=dailyState();s.journ
 function sendDailyJournalToAI(){const x=currentDailyArticle(),v=document.getElementById('dailyJournal').value.trim();if(!v)return toast('请先写一句英文');document.getElementById('aiSubject').value='英语';document.getElementById('aiMessage').value=`请温柔地修改这句英文。先说优点，再给更自然的表达，并解释一个最重要的修改点：${v}\n文章主题：${x.title}`;openView('ai')}
 function completeDailyEnglish(){saveDailyJournal();const x=currentDailyArticle(),s=dailyState(),today=dateKey();s.completed=s.completed||[];if(!s.completed.includes(x.id))s.completed.push(x.id);if(s.lastDate!==today){s.streak=(s.lastDate?Math.max(1,(s.streak||0)+1):1);s.lastDate=today}s.wordsLearned=s.completed.length*5;saveDailyState(s);document.getElementById('dailyStreak').textContent=`${s.streak} 天`;document.getElementById('dailyReadCount').textContent=`${s.completed.length} 篇`;document.getElementById('dailyWordCount').textContent=`${s.wordsLearned} 个`;const c=document.getElementById('dailyCompleteCard');c.classList.add('show');c.scrollIntoView({behavior:'smooth',block:'center'});markDay();addTask();updateAll()}
 
-const RELEASE_VERSION='V14 Refined';
+const RELEASE_VERSION='2.0-rc1-build001';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
@@ -2341,7 +2323,7 @@ function generateGuidePlan(){
   document.getElementById('guidePlanItems').innerHTML=data.plan.map(item=>`
     <div class="plan-action">
       <div><strong>${item.icon} ${item.title}</strong><small>${item.desc}</small></div>
-      <span class="badge">${item.minutes} 分钟</span>
+      
     </div>`).join('');
   document.getElementById('guideResult').classList.add('show');
   window.kikiGuidePlan=data.plan;
