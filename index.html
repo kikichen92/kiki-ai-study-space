@@ -736,6 +736,43 @@ html[data-theme="dark"] .reading-journey-step{
 .real-life-line strong{display:block;color:var(--sage);margin-bottom:4px}.real-life-line span{line-height:1.65}
 .real-life-tip{background:linear-gradient(145deg,var(--soft),var(--paper))!important}
 
+
+/* ===== Build 003 · Learning Journey ===== */
+.real-life-journey{
+  margin-bottom:16px;padding:20px;border:1px solid var(--line);border-radius:22px;
+  background:linear-gradient(145deg,var(--sage2),var(--soft));
+  box-shadow:var(--refined-shadow,0 12px 30px rgba(0,0,0,.06));
+}
+.real-life-journey-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.real-life-journey h2{margin:5px 0 4px}
+.real-life-progress-number{
+  flex:none;min-width:64px;padding:9px 12px;border-radius:999px;background:var(--paper);
+  border:1px solid var(--line);text-align:center;font-weight:800
+}
+.real-life-progress-track{height:8px;margin:16px 0;border-radius:999px;background:rgba(79,111,96,.12);overflow:hidden}
+.real-life-progress-track span{display:block;width:0;height:100%;background:var(--sage);border-radius:inherit;transition:width .3s ease}
+.real-life-lesson-map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.real-life-map-item{min-width:0;padding:10px;border:1px solid var(--line);border-radius:15px;background:var(--paper)}
+.real-life-map-item.current{border-color:var(--sage);box-shadow:inset 0 0 0 1px var(--sage)}
+.real-life-map-item.done{background:rgba(102,137,113,.08)}
+.real-life-map-item.locked{opacity:.48}
+.real-life-map-dot{
+  display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;margin-bottom:7px;
+  border-radius:50%;background:var(--sage2);color:var(--sage);font-weight:900
+}
+.real-life-map-item strong,.real-life-map-item small,.real-life-map-status{display:block}
+.real-life-map-item small{
+  margin-top:3px;color:var(--muted);font-size:11px;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.real-life-map-status{margin-top:6px;color:var(--muted);font-size:10px}
+@media(max-width:760px){
+  .real-life-journey{padding:16px}
+  .real-life-lesson-map{grid-template-columns:1fr}
+  .real-life-map-item{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:8px}
+  .real-life-map-dot{margin:0}.real-life-map-status{margin:0}.real-life-map-item small{white-space:normal}
+}
+
 </style>
 </head>
 <body><script>
@@ -778,7 +815,128 @@ const KikiDiagnostics = {
   }
 };
 
-(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();</script>
+(function(){const c=localStorage.getItem('kikiTheme')||'system';const d=c==='dark'||(c==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'})();
+/* ===== Build 002 Hotfix · Single Lesson Data Source ===== */
+function syncDailyLessonContent(){
+  const lesson=currentDailyArticle();
+  if(!lesson)return;
+
+  const wordBox=document.getElementById('dailyWords');
+  if(wordBox){
+    wordBox.innerHTML=(lesson.words||[]).map(a=>`
+      <div class="daily-word">
+        <strong>${a[0]}</strong>
+        <small>${a[1]} · ${a[2]}</small>
+        <small>${a[3]}</small>
+        <button type="button" class="btn secondary" style="margin-top:8px" data-current-word="${String(a[0]).replace(/"/g,'&quot;')}">🔊 发音</button>
+      </div>
+    `).join('');
+
+    wordBox.querySelectorAll('[data-current-word]').forEach(btn=>{
+      btn.addEventListener('click',()=>speakWord(btn.dataset.currentWord));
+    });
+  }
+
+  const title=document.getElementById('dailyTitle');
+  const homeTitle=document.getElementById('dailyHomeTitle');
+  const article=document.getElementById('dailyArticle');
+  const level=document.getElementById('dailyLevel');
+  const time=document.getElementById('dailyTime');
+  const topic=document.getElementById('dailyTopic');
+
+  if(title)title.textContent=lesson.title||'';
+  if(homeTitle)homeTitle.textContent=lesson.title||'';
+  if(article)article.textContent=lesson.article||'';
+  if(level)level.textContent=lesson.level||'';
+  if(time)time.textContent=lesson.time||'';
+  if(topic)topic.textContent=lesson.topic||'';
+}
+
+
+/* ===== BUILD 003 — DAY PROGRESSION + COURSE MAP ===== */
+function realLifeCompletedCount(){
+  const state=realLifeProgress();
+  return REAL_LIFE_ENGLISH_COURSES.filter(c=>state[c.id]?.completed).length;
+}
+function realLifeCurrentPosition(){
+  const lesson=currentDailyArticle();
+  const index=Math.max(0,REAL_LIFE_ENGLISH_COURSES.findIndex(c=>c.id===lesson?.id));
+  return {lesson,index,total:REAL_LIFE_ENGLISH_COURSES.length};
+}
+function renderRealLifeJourney(){
+  const state=realLifeProgress();
+  const {lesson,total}=realLifeCurrentPosition();
+  const completed=realLifeCompletedCount();
+
+  const title=document.getElementById('realLifeJourneyTitle');
+  const subtitle=document.getElementById('realLifeJourneySubtitle');
+  const number=document.getElementById('realLifeProgressNumber');
+  const bar=document.getElementById('realLifeProgressBar');
+  const map=document.getElementById('realLifeLessonMap');
+
+  if(title)title.textContent=lesson?`Day ${lesson.day} · ${lesson.title}`:'Real Life English';
+  if(subtitle)subtitle.textContent=completed>=total
+    ?'第一阶段已完成。你可以继续复习这些真实生活课程。'
+    :'每天一课。完成今天后，下一课会自动解锁。';
+  if(number)number.textContent=`${completed} / ${total}`;
+  if(bar)bar.style.width=`${Math.round((completed/Math.max(1,total))*100)}%`;
+
+  if(map){
+    map.innerHTML=REAL_LIFE_ENGLISH_COURSES.map(course=>{
+      const done=!!state[course.id]?.completed;
+      const current=course.id===lesson?.id;
+      const locked=!done&&!current;
+      const icon=done?'✓':current?'▶':'•';
+      const status=done?'完成':current?'今天':'未解锁';
+      return `<div class="real-life-map-item ${done?'done':''} ${current?'current':''} ${locked?'locked':''}">
+        <span class="real-life-map-dot">${icon}</span>
+        <div><strong>Day ${course.day}</strong><small>${course.title}</small></div>
+        <span class="real-life-map-status">${status}</span>
+      </div>`;
+    }).join('');
+  }
+}
+function updateRealLifeCompletionCard(completedLesson){
+  const card=document.getElementById('dailyCompleteCard');
+  if(!card)return;
+
+  document.getElementById('realLifeNextLessonBtn')?.remove();
+
+  const state=realLifeProgress();
+  const next=REAL_LIFE_ENGLISH_COURSES.find(c=>!state[c.id]?.completed);
+  const total=REAL_LIFE_ENGLISH_COURSES.length;
+  const completed=realLifeCompletedCount();
+
+  const heading=card.querySelector('h2');
+  const paragraph=card.querySelector('p');
+  if(heading)heading.textContent=completed>=total?'第一阶段完成啦！':'今天这一课完成啦！';
+  if(paragraph)paragraph.textContent=completed>=total
+    ?`你已经完成全部 ${total} 节 Real Life English 首批课程。`
+    :`Day ${completedLesson?.day||completed} 已完成。下一课是 ${next?.title||'复习'}。`;
+
+  if(next){
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.id='realLifeNextLessonBtn';
+    btn.className='btn';
+    btn.style.marginTop='12px';
+    btn.textContent=`▶ 继续 Day ${next.day} · ${next.title}`;
+    btn.addEventListener('click',continueToNextRealLifeLesson);
+    card.appendChild(btn);
+  }
+}
+function continueToNextRealLifeLesson(){
+  document.getElementById('dailyCompleteCard')?.classList.remove('show');
+  renderDailyEnglish();
+  renderRealLifeJourney();
+  try{
+    const next=currentDailyArticle();
+    if(next?.id)markRealLifeLessonViewed(next.id);
+  }catch{}
+  document.getElementById('dailyEnglish')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+</script>
 <div class="app">
 <aside class="sidebar">
   <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy</strong><small>LEARN · GROW · LIVE</small></div></div>
@@ -899,6 +1057,18 @@ const KikiDiagnostics = {
 
 <section id="dailyEnglish" class="view">
   <div class="section-title"><h1>🇺🇸 Daily English </h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
+  <div id="realLifeJourney" class="real-life-journey">
+    <div class="real-life-journey-top">
+      <div>
+        <div class="eyebrow">YOUR LEARNING JOURNEY</div>
+        <h2 id="realLifeJourneyTitle">Day 1 · Real Life English</h2>
+        <p id="realLifeJourneySubtitle" class="muted">每天一课，学完自动进入下一课。</p>
+      </div>
+      <div class="real-life-progress-number" id="realLifeProgressNumber">0 / 5</div>
+    </div>
+    <div class="real-life-progress-track"><span id="realLifeProgressBar"></span></div>
+    <div id="realLifeLessonMap" class="real-life-lesson-map"></div>
+  </div>
   <div class="daily-reading-grid">
     <div>
       <div class="daily-section"><div class="eyebrow">TODAY'S READING</div><h2 id="dailyTitle"></h2><div class="daily-meta"><span id="dailyLevel" class="daily-pill"></span><span id="dailyTime" class="daily-pill"></span><span id="dailyTopic" class="daily-pill"></span></div><div id="dailyArticle" class="daily-article"></div><div class="voice-engine">
@@ -1535,7 +1705,13 @@ function dailyIndex(){
 
 function currentDailyArticle(){
   if(!Array.isArray(DAILY_ARTICLES)||!DAILY_ARTICLES.length)return null;
-  try{return lessonForToday()||DAILY_ARTICLES[0]}catch{return DAILY_ARTICLES[0]}
+  try{
+    const state=realLifeProgress();
+    const next=REAL_LIFE_ENGLISH_COURSES.find(c=>!state[c.id]?.completed);
+    return next||REAL_LIFE_ENGLISH_COURSES[REAL_LIFE_ENGLISH_COURSES.length-1]||DAILY_ARTICLES[0];
+  }catch{
+    return DAILY_ARTICLES[0];
+  }
 }
 async function openDailyEnglish(){
   try{const x=currentDailyArticle();if(x?.id)markRealLifeLessonViewed(x.id)}catch{}
@@ -1543,6 +1719,10 @@ async function openDailyEnglish(){
   await loadDailyEnglishDatabase();
   renderDailyEnglish();
   openView('dailyEnglish');
+
+
+  setTimeout(()=>{try{syncDailyLessonContent()}catch{}},60);
+
 }
 function renderDailyEnglish(){
   if(!DAILY_DB_READY||!DAILY_ARTICLES.length){loadDailyEnglishDatabase().then(renderDailyEnglish);return;}
@@ -1582,6 +1762,10 @@ function renderDailyEnglish(){
 
   const s=dailyState(),j=document.getElementById('dailyJournal'); if(j)j.value=(s.journals||{})[x.id]||'';
   document.getElementById('dailyCompleteCard')?.classList.remove('show');
+
+  syncDailyLessonContent();
+
+  renderRealLifeJourney();
 }
 
 const AMERICAN_VOICE_KEY='kikiAmericanVoiceV121';
@@ -1756,10 +1940,56 @@ function answerDailyQuestion(btn,qi,oi){const x=currentDailyArticle(),box=btn.cl
 function saveDailyJournal(){const x=currentDailyArticle(),s=dailyState();s.journals=s.journals||{};s.journals[x.id]=document.getElementById('dailyJournal').value.trim();saveDailyState(s);toast('今日英文句子已保存')}
 function sendDailyJournalToAI(){const x=currentDailyArticle(),v=document.getElementById('dailyJournal').value.trim();if(!v)return toast('请先写一句英文');document.getElementById('aiSubject').value='英语';document.getElementById('aiMessage').value=`请温柔地修改这句英文。先说优点，再给更自然的表达，并解释一个最重要的修改点：${v}\n文章主题：${x.title}`;openView('ai')}
 function completeDailyEnglish(){
-  try{const x=currentDailyArticle();if(x?.id)markRealLifeLessonCompleted(x.id)}catch{}
-saveDailyJournal();const x=currentDailyArticle(),s=dailyState(),today=dateKey();s.completed=s.completed||[];if(!s.completed.includes(x.id))s.completed.push(x.id);if(s.lastDate!==today){s.streak=(s.lastDate?Math.max(1,(s.streak||0)+1):1);s.lastDate=today}s.wordsLearned=s.completed.length*5;saveDailyState(s);document.getElementById('dailyStreak').textContent=`${s.streak} 天`;document.getElementById('dailyReadCount').textContent=`${s.completed.length} 篇`;document.getElementById('dailyWordCount').textContent=`${s.wordsLearned} 个`;const c=document.getElementById('dailyCompleteCard');c.classList.add('show');c.scrollIntoView({behavior:'smooth',block:'center'});markDay();addTask();updateAll()}
+  const completedLesson=currentDailyArticle();
+  if(!completedLesson)return;
 
-const RELEASE_VERSION='2.0-rc1-build002';
+  saveDailyJournal();
+
+  try{
+    if(completedLesson.id)markRealLifeLessonCompleted(completedLesson.id);
+  }catch{}
+
+  const s=dailyState(),today=dateKey();
+  s.completed=s.completed||[];
+  if(!s.completed.includes(completedLesson.id))s.completed.push(completedLesson.id);
+
+  if(s.lastDate!==today){
+    s.streak=(s.lastDate?Math.max(1,(s.streak||0)+1):1);
+    s.lastDate=today;
+  }
+
+  const learnedWords=new Set();
+  try{
+    const progress=realLifeProgress();
+    REAL_LIFE_ENGLISH_COURSES
+      .filter(c=>progress[c.id]?.completed)
+      .forEach(c=>(c.words||[]).forEach(w=>learnedWords.add(String(w[0]).toLowerCase())));
+  }catch{}
+  s.wordsLearned=learnedWords.size;
+  saveDailyState(s);
+
+  const streak=document.getElementById('dailyStreak');
+  const readCount=document.getElementById('dailyReadCount');
+  const wordCount=document.getElementById('dailyWordCount');
+  if(streak)streak.textContent=`${s.streak} 天`;
+  if(readCount)readCount.textContent=`${realLifeCompletedCount()} 课`;
+  if(wordCount)wordCount.textContent=`${s.wordsLearned} 个`;
+
+  renderRealLifeJourney();
+  updateRealLifeCompletionCard(completedLesson);
+
+  const c=document.getElementById('dailyCompleteCard');
+  if(c){
+    c.classList.add('show');
+    c.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  markDay();
+  addTask();
+  updateAll();
+}
+
+const RELEASE_VERSION='2.0-rc1-build003';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
