@@ -773,6 +773,12 @@ html[data-theme="dark"] .reading-journey-step{
   .real-life-map-dot{margin:0}.real-life-map-status{margin:0}.real-life-map-item small{white-space:normal}
 }
 
+
+/* ===== Build 003 Hotfix 1 · Unified English Entry ===== */
+#english{
+  display:none!important;
+}
+
 </style>
 </head>
 <body><script>
@@ -942,7 +948,7 @@ function continueToNextRealLifeLesson(){
   <div class="brand"><div class="logo">🌿</div><div><strong>Kiki Academy</strong><small>LEARN · GROW · LIVE</small></div></div>
   <nav class="nav">
     <button type="button" class="active" data-view="home">🏡 <span>首页</span></button>
-    <button type="button" data-view="english">🇺🇸 <span>英语</span></button>
+    <button type="button" data-view="dailyEnglish">🇺🇸 <span>英语</span></button>
     <button type="button" data-view="courses">🎓 <span>高中课程</span></button>
     <button type="button" data-view="ai">🤖 <span>AI Teacher</span></button>
     <button type="button" data-view="reading">📖 <span>Journey</span></button>
@@ -986,15 +992,15 @@ function continueToNextRealLifeLesson(){
 <button type="button" class="theme-btn" data-theme-choice="dark" onclick="setTheme('dark')">🌙</button>
 </div></div></div>
   <div class="grid">
-    <article class="card hero"><div><div class="eyebrow" style="color:rgba(255,255,255,.75)">KIKI AI · DAILY GUIDE</div><h2>今天先完成最重要的一小步。</h2><p>英语、高中课程、阅读和复习已经整理好。你可以按照自己的时间完成，不需要追求一次做很多。</p><button type="button" class="btn" style="background:#fff;color:#5d7058" onclick="openView('english')">开始今日学习 →</button></div><div class="orb">🌿</div></article>
+    <article class="card hero"><div><div class="eyebrow" style="color:rgba(255,255,255,.75)">KIKI AI · DAILY GUIDE</div><h2>今天先完成最重要的一小步。</h2><p>英语、高中课程、阅读和复习已经整理好。你可以按照自己的时间完成，不需要追求一次做很多。</p><button type="button" class="btn" style="background:#fff;color:#5d7058" onclick="openDailyEnglish()">开始今日学习 →</button></div><div class="orb">🌿</div></article>
     <article class="card full"><h3>快捷开始</h3><div class="quick-grid">
-      <button type="button" class="quick" onclick="openView('english')"><span>🇺🇸</span><strong>今日英语</strong><small>10 个词与美式发音</small></button>
+      <button type="button" class="quick" onclick="openDailyEnglish()"><span>🇺🇸</span><strong>今日英语</strong><small>真实生活课程与美式发音</small></button>
       <button type="button" class="quick" onclick="openView('courses')"><span>🎓</span><strong>高中课程</strong><small>从九科中选一节</small></button>
       <button type="button" class="quick" onclick="openView('reading')"><span>📖</span><strong>阅读记录</strong><small>保存页数与感悟</small></button>
       <button type="button" class="quick" onclick="openView('ai')"><span>🤖</span><strong>AI Teacher</strong><small>答疑、讲课、出题</small></button>
     </div></article>
     <article class="card five"><div class="eyebrow">TODAY'S PLAN</div><h3>今日任务</h3>
-      <div class="summary-row"><span>🇺🇸 英语 10 词</span><span id="sWords" class="status">未完成</span></div>
+      <div class="summary-row"><span>🇺🇸 Real Life English</span><span id="sWords" class="status">未完成</span></div>
       <div class="summary-row"><span>🎓 高中课程 1 节</span><span id="sCourse" class="status">未完成</span></div>
       <div class="summary-row"><span>📖 阅读 10 分钟</span><span id="sRead" class="status">未完成</span></div>
       <div id="reviewTaskRow" class="summary-row review-task-row" style="display:none">
@@ -1360,6 +1366,8 @@ let voice=null,timer=1200,timerHandle=null,aiMode='teacher';
 function dateKey(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function dayIndex(){const s=new Date(2026,7,1),d=new Date();s.setHours(0,0,0,0);d.setHours(0,0,0,0);return Math.max(0,Math.floor((d-s)/86400000))}
 function openView(id){
+  if(id==='english')id='dailyEnglish';
+
   if(id==='home')setTimeout(renderLearningCompanion,0);document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>openView(b.dataset.view));
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
@@ -1989,7 +1997,7 @@ function completeDailyEnglish(){
   updateAll();
 }
 
-const RELEASE_VERSION='2.0-rc1-build003';
+const RELEASE_VERSION='2.0-rc1-build003-hotfix1';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
@@ -2448,7 +2456,7 @@ function syncReviewTask(){
   }
 }
 function openReviewContent(){
-  openView('english');
+  openDailyEnglish();
   setTimeout(()=>document.getElementById('reviewWords')?.scrollIntoView({behavior:'smooth',block:'center'}),120);
 }
 function completeReviewTask(){
@@ -2500,7 +2508,7 @@ function brainPlan(){
     const review=reviewMaterial();if(review.available&&!taskStates.review)items.push({view:'english',icon:'🔁',title:'复习收藏单词',desc:review.words.slice(0,5).map(x=>x.w).join('、')});
     if(!taskStates.read)items.push({view:'reading',icon:'📖',title:'阅读 10 分钟',desc:'安静读几页，然后早点休息。'});
   }else{
-    if(!taskStates.english)items.push({view:'english',icon:'🇺🇸',title:'今日英语 10 词',desc:'先完成最容易开始的一项。'});
+    if(!taskStates.english)items.push({view:'english',icon:'🇺🇸',title:'今日Real Life English',desc:'先完成最容易开始的一项。'});
     if(!taskStates.course)items.push({view:'courses',icon:'🎓',title:'高中课程 1 节',desc:d.courses===0?'建议从数学或英语基础开始。':'继续完成一节基础课程。'});
     if(!taskStates.read)items.push({view:'reading',icon:'📖',title:'阅读 10 分钟',desc:'记录页数和一句自己的感受。'});
   }
