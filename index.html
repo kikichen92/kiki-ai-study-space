@@ -779,6 +779,126 @@ html[data-theme="dark"] .reading-journey-step{
   display:none!important;
 }
 
+
+/* ===== Build 004 · High School Academy ===== */
+.high-school-hero{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px;margin-bottom:16px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,var(--sage2),var(--soft));box-shadow:var(--refined-shadow,0 12px 30px rgba(0,0,0,.06))}
+.high-school-hero h2{margin:6px 0 8px}
+.high-school-overview{padding:22px;margin-bottom:16px;border:1px solid var(--line);border-radius:24px;background:var(--paper);box-shadow:var(--refined-shadow,0 12px 30px rgba(0,0,0,.05))}
+.high-school-overview-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+.high-school-overview h2{margin:6px 0}
+.high-school-percent{min-width:74px;padding:12px 14px;border:1px solid var(--line);border-radius:999px;background:var(--soft);font-size:20px;font-weight:900;text-align:center}
+.high-school-progress-track{height:9px;margin:16px 0;border-radius:999px;background:var(--soft);overflow:hidden}
+.high-school-progress-track>span{display:block;height:100%;width:0;border-radius:inherit;background:var(--sage);transition:width .3s ease}
+.high-school-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.high-school-stats>div{padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}
+.high-school-stats small,.high-school-stats strong{display:block}
+.high-school-stats small{color:var(--muted);margin-bottom:4px}
+.high-school-subject-card{text-align:left!important}
+.high-school-subject-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.subject-grade-badge{padding:5px 8px;border-radius:999px;background:var(--sage2);color:var(--sage);font-size:10px;font-weight:800}
+.high-school-subject-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:6px}
+.subject-journey{padding:16px;margin-bottom:18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,var(--soft),var(--paper))}
+.subject-journey-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.subject-journey-top h3{margin:5px 0}
+.subject-journey-top>strong{font-size:20px}
+.subject-grade-map{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.subject-grade-card{border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);padding:12px;text-align:left;font:inherit}
+.subject-grade-card span,.subject-grade-card strong,.subject-grade-card small{display:block}
+.subject-grade-card strong{font-size:18px;margin:3px 0}
+.subject-grade-card small{color:var(--muted)}
+.subject-grade-card.active{border-color:var(--sage);box-shadow:inset 0 0 0 1px var(--sage)}
+.subject-grade-card.done{background:rgba(102,137,113,.08)}
+.subject-grade-card.locked{opacity:.48}
+.subject-grade-progress{height:5px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:9px}
+.subject-grade-progress span{display:block;height:100%;background:var(--sage);border-radius:inherit}
+.mastery.done{background:rgba(102,137,113,.12);color:var(--sage)}
+@media(max-width:760px){
+  .high-school-hero{align-items:flex-start;flex-direction:column;padding:18px}
+  .high-school-stats{grid-template-columns:repeat(2,1fr)}
+  .subject-grade-map{grid-template-columns:1fr}
+}
+
+
+/* ===== Build 004 Hotfix · Real Quiz Engine ===== */
+.real-quiz-card{
+  padding:18px;
+  margin:14px 0;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--paper);
+}
+.real-quiz-question{
+  margin:7px 0 10px;
+  font-size:clamp(20px,3vw,28px);
+  line-height:1.5;
+}
+.real-quiz-input{
+  min-height:110px;
+  margin:12px 0;
+  background:var(--soft);
+}
+.real-quiz-input.quiz-correct{
+  border-color:var(--sage);
+  box-shadow:0 0 0 2px rgba(84,112,94,.12);
+}
+.real-quiz-feedback{
+  margin-top:12px;
+}
+.quiz-self-check{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.quiz-pass-note{
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(84,112,94,.1);
+}
+.quiz-retry-note{
+  padding:10px 12px;
+  border-radius:12px;
+  background:var(--soft);
+}
+
+
+/* ===== Build 005 · High School Content Engine ===== */
+.content-engine-card{
+  margin:16px 0;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:linear-gradient(145deg,var(--paper),var(--soft));
+}
+.content-engine-top{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:14px
+}
+.content-engine-top h3{margin:5px 0}
+.content-skill{
+  flex:none;padding:6px 9px;border-radius:999px;background:var(--sage2);
+  color:var(--sage);font-size:11px;font-weight:800
+}
+.content-engine-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px
+}
+.content-engine-grid>div{
+  padding:13px;border:1px solid var(--line);border-radius:15px;background:var(--paper)
+}
+.content-engine-grid strong{display:block;margin-bottom:6px}
+.content-engine-grid p{margin:0;line-height:1.65}
+.content-mistake{
+  display:flex;gap:8px;align-items:flex-start;margin-top:10px;padding:11px 12px;
+  border-radius:14px;background:rgba(180,145,85,.09)
+}
+.content-mistake strong{flex:none}
+.content-example-box{line-height:1.7}
+.math-content .content-skill::before{content:'∑ ';font-weight:900}
+.english-content .content-skill::before{content:'Aa ';font-weight:900}
+@media(max-width:760px){
+  .content-engine-grid{grid-template-columns:1fr}
+  .content-engine-top{flex-direction:column}
+}
+
 </style>
 </head>
 <body><script>
@@ -940,6 +1060,346 @@ function continueToNextRealLifeLesson(){
     if(next?.id)markRealLifeLessonViewed(next.id);
   }catch{}
   document.getElementById('dailyEnglish')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+
+/* ===== Build 004 · High School Academy ===== */
+function highSchoolAllLessonKeys(){
+  return ACADEMIES.flatMap(a=>[1,2,3].flatMap(g=>
+    (ACADEMY_CHAPTERS[a.id]?.[g]||[]).map((_,i)=>`${a.id}-${g}-${i}`)
+  ));
+}
+function highSchoolOverview(){
+  const completed=completedKeys();
+  const all=highSchoolAllLessonKeys();
+  const done=all.filter(k=>completed.includes(k)).length;
+  const percent=all.length?Math.round(done/all.length*100):0;
+  const next=firstAvailableNextLesson();
+  const academy=next.done?null:ACADEMIES.find(a=>a.id===next.subject);
+  return {completed,all,done,percent,next,academy};
+}
+function renderHighSchoolOverview(){
+  const data=highSchoolOverview();
+  const title=document.getElementById('hsOverviewTitle');
+  const subtitle=document.getElementById('hsOverviewSubtitle');
+  const percent=document.getElementById('hsOverviewPercent');
+  const bar=document.getElementById('hsOverviewBar');
+  const completed=document.getElementById('hsCompletedLessons');
+  const total=document.getElementById('hsTotalLessons');
+  const academy=document.getElementById('hsCurrentAcademy');
+  const nextLesson=document.getElementById('hsNextLesson');
+
+  if(title)title.textContent=data.done>=data.all.length&&data.all.length?'高中课程已全部完成 🎓':'高中学习旅程';
+  if(subtitle)subtitle.textContent=data.next.done
+    ?'当前九大学院课程都已完成。'
+    :`${data.academy?.icon||'📚'} ${data.academy?.name||''} · 高${['','一','二','三'][data.next.grade]} · 下一课已准备好`;
+  if(percent)percent.textContent=`${data.percent}%`;
+  if(bar)bar.style.width=`${data.percent}%`;
+  if(completed)completed.textContent=`${data.done} 节`;
+  if(total)total.textContent=`${data.all.length} 节`;
+  if(academy)academy.textContent=data.next.done?'已完成':(data.academy?.name||'—').replace('学院','');
+  if(nextLesson)nextLesson.textContent=data.next.done?'—':data.next.title;
+}
+function subjectProgressData(subject){
+  const completed=completedKeys();
+  const byGrade=[1,2,3].map(grade=>{
+    const lessons=ACADEMY_CHAPTERS[subject]?.[grade]||[];
+    const keys=lessons.map((_,i)=>`${subject}-${grade}-${i}`);
+    const done=keys.filter(k=>completed.includes(k)).length;
+    return {grade,total:lessons.length,done,percent:lessons.length?Math.round(done/lessons.length*100):0};
+  });
+  const total=byGrade.reduce((s,x)=>s+x.total,0);
+  const done=byGrade.reduce((s,x)=>s+x.done,0);
+  return {byGrade,total,done,percent:total?Math.round(done/total*100):0};
+}
+function renderSubjectJourney(){
+  if(!currentSubject)return;
+  const academy=ACADEMIES.find(a=>a.id===currentSubject);
+  const data=subjectProgressData(currentSubject);
+  const title=document.getElementById('subjectJourneyTitle');
+  const percent=document.getElementById('subjectJourneyPercent');
+  const bar=document.getElementById('subjectJourneyBar');
+  const map=document.getElementById('subjectGradeMap');
+
+  if(title)title.textContent=`${academy?.icon||''} ${academy?.name||'学院'} · ${data.done}/${data.total} 节`;
+  if(percent)percent.textContent=`${data.percent}%`;
+  if(bar)bar.style.width=`${data.percent}%`;
+
+  if(map){
+    const unlocked=unlockedGrade(currentSubject);
+    map.innerHTML=data.byGrade.map(g=>{
+      const isUnlocked=g.grade<=unlocked;
+      const isDone=g.total>0&&g.done===g.total;
+      const active=g.grade===currentGrade;
+      const label=isDone?'已完成':isUnlocked?(active?'当前年级':'已解锁'):'未解锁';
+      return `<button type="button"
+        class="subject-grade-card ${active?'active':''} ${isDone?'done':''} ${!isUnlocked?'locked':''}"
+        ${isUnlocked?`onclick="selectGrade(${g.grade})"`:'disabled'}>
+        <span>高${['','一','二','三'][g.grade]}</span>
+        <strong>${g.done}/${g.total}</strong>
+        <small>${label}</small>
+        <div class="subject-grade-progress"><span style="width:${g.percent}%"></span></div>
+      </button>`;
+    }).join('');
+  }
+}
+function highSchoolSubjectCard(a){
+  const data=subjectProgressData(a.id);
+  const next=getNextLesson(a.id);
+  const unlocked=unlockedGrade(a.id);
+  return `<button type="button" class="academy-card high-school-subject-card" onclick="openAcademy('${a.id}')">
+    <div class="high-school-subject-top">
+      <span class="academy-icon">${a.icon}</span>
+      <span class="subject-grade-badge">已解锁高${['','一','二','三'][unlocked]}</span>
+    </div>
+    <strong>${a.name}</strong>
+    <small>${a.intro}</small>
+    <div class="progress"><span style="width:${data.percent}%"></span></div>
+    <div class="high-school-subject-meta"><span>${data.done}/${data.total} 节</span><span>${data.percent}%</span></div>
+    <div class="subject-next">
+      <strong>${next.done?'🎓 已完成':'下一课：'+next.title}</strong>
+      <small>${next.done?'这个学院当前课程已全部完成':`高${['','一','二','三'][next.grade]} · 第${next.index+1}课`}</small>
+    </div>
+  </button>`;
+}
+
+
+/* =========================================================
+   BUILD 005 — HIGH SCHOOL CONTENT ENGINE
+   Math + English quality layer
+   ========================================================= */
+function highSchoolContentProfile(subject,c){
+  const title=String(c?.title||'');
+  const q=String(c?.q||'');
+  const a=String(c?.a||'');
+
+  if(subject==='math'){
+    const profiles=[
+      [/一元二次方程/,{
+        objective:'会识别一元二次方程，并能用因式分解、配方法或公式法求解。',
+        concept:'标准形式是 ax²+bx+c=0（a≠0）。解题先整理，再选择合适方法，最后把解代回检查。',
+        example:'例：x²−5x+6=0。因为 (x−2)(x−3)=0，所以 x=2 或 x=3。',
+        practice:'练习：解方程 x²−7x+12=0，并写出因式分解过程。',
+        practiceAnswer:'x²−7x+12=(x−3)(x−4)，所以 x=3 或 x=4。',
+        mistake:'常见错误：因式分解后只写一个根，或忘记检查二次项系数是否为 0。'
+      }],
+      [/函数概念|函数表示|函数基础/,{
+        objective:'理解“一个输入对应唯一输出”，并能从解析式、表格或图像读取函数信息。',
+        concept:'函数关注的是对应关系。先看定义域，再看自变量 x 与函数值 y 的对应。',
+        example:'例：y=2x+1。当 x=3 时，y=7；同一个 x 不会对应两个不同的 y。',
+        practice:'练习：已知 f(x)=3x−2，求 f(4)，并说明 x=4 对应的函数值。',
+        practiceAnswer:'f(4)=3×4−2=10。',
+        mistake:'常见错误：把 f(x) 当成 f×x，或忽略定义域。'
+      }],
+      [/一次函数|直线与方程/,{
+        objective:'理解斜率和截距，并能写出简单直线方程。',
+        concept:'一次函数常写成 y=kx+b。k 表示斜率，b 表示 y 轴截距。',
+        example:'例：过原点且斜率为 2 的直线是 y=2x。',
+        practice:'练习：写出斜率为 −1、y 轴截距为 3 的直线方程。',
+        practiceAnswer:'y=−x+3。',
+        mistake:'常见错误：把斜率和截距位置写反。'
+      }],
+      [/指数/,{
+        objective:'理解指数运算与指数函数的基本增长规律。',
+        concept:'同底数幂相乘指数相加；指数函数 y=aˣ 中通常要求 a>0 且 a≠1。',
+        example:'例：2³×2²=2⁵=32。',
+        practice:'练习：化简 3²×3⁴，并写成一个幂。',
+        practiceAnswer:'3⁶。',
+        mistake:'常见错误：同底数幂相乘时把指数相乘。'
+      }],
+      [/对数/,{
+        objective:'理解对数与指数互为逆运算，并会做基础转换。',
+        concept:'logₐb=c 等价于 aᶜ=b。',
+        example:'例：log₂8=3，因为 2³=8。',
+        practice:'练习：把 log₃27=3 改写成指数形式。',
+        practiceAnswer:'3³=27。',
+        mistake:'常见错误：混淆底数、真数和结果的位置。'
+      }],
+      [/等差数列/,{
+        objective:'识别等差数列并会使用公差和通项公式。',
+        concept:'相邻两项之差相等，aₙ=a₁+(n−1)d。',
+        example:'例：2,5,8,11,… 的公差 d=3。',
+        practice:'练习：等差数列首项为 4、公差为 2，求第 6 项。',
+        practiceAnswer:'a₆=4+5×2=14。',
+        mistake:'常见错误：把 n−1 写成 n。'
+      }],
+      [/等比数列/,{
+        objective:'识别等比数列并会使用公比和通项公式。',
+        concept:'相邻两项之比相等，aₙ=a₁qⁿ⁻¹。',
+        example:'例：2,6,18,54,… 的公比 q=3。',
+        practice:'练习：等比数列首项为 3、公比为 2，求第 5 项。',
+        practiceAnswer:'a₅=3×2⁴=48。',
+        mistake:'常见错误：把公比当成公差。'
+      }],
+      [/概率/,{
+        objective:'理解概率表示事件发生的可能性，并会处理基础等可能事件。',
+        concept:'概率在 0 到 1 之间。等可能情况下，P=有利结果数÷所有结果数。',
+        example:'例：公平硬币出现正面的概率是 1/2。',
+        practice:'练习：掷一个公平六面骰子，出现偶数的概率是多少？',
+        practiceAnswer:'偶数有 2、4、6 共 3 个，所以概率是 3/6=1/2。',
+        mistake:'常见错误：把“结果个数”与“有利结果个数”写反。'
+      }],
+      [/导数/,{
+        objective:'理解导数表示瞬时变化率，并能处理基础求导与单调性。',
+        concept:'导数可以理解为函数在某一点附近变化得有多快；f′(x)>0 常对应递增。',
+        example:'例：f(x)=x²，则 f′(x)=2x。',
+        practice:'练习：求 f(x)=x³ 的导数。',
+        practiceAnswer:'f′(x)=3x²。',
+        mistake:'常见错误：求导后忘记降低幂次。'
+      }],
+      [/圆的方程/,{
+        objective:'从圆的标准方程读出圆心和半径。',
+        concept:'(x−a)²+(y−b)²=r² 的圆心是 (a,b)，半径是 r。',
+        example:'例：x²+y²=9 的圆心是 (0,0)，半径是 3。',
+        practice:'练习：(x−2)²+(y+1)²=16 的圆心和半径分别是什么？',
+        practiceAnswer:'圆心 (2,−1)，半径 4。',
+        mistake:'常见错误：圆心坐标的符号读反。'
+      }]
+    ];
+    const hit=profiles.find(([re])=>re.test(title));
+    const p=hit?.[1]||{
+      objective:`掌握“${title}”的核心概念，并能把条件转化成可执行的数学步骤。`,
+      concept:`学习“${title}”时先明确已知量、未知量和适用条件，再选择公式或方法。`,
+      example:`本课示例思路：先读题 → 写条件 → 选择方法 → 完成运算 → 检查结果。`,
+      practice:`练习：围绕“${title}”，自己写出一个具体例子，并完整写出求解或判断步骤。`,
+      practiceAnswer:`参考标准：步骤应包含条件、方法、计算或推理、结论与检查。`,
+      mistake:'常见错误：直接套公式，没有说明条件或省略关键步骤。'
+    };
+    return {...p, subjectLabel:'数学', skill:'推理 · 计算 · 检查'};
+  }
+
+  if(subject==='english'){
+    const profiles=[
+      [/基础句型/,{
+        objective:'掌握英语最基本的主语 + 谓语结构，并能写完整句。',
+        concept:'完整句通常至少需要主语和谓语。be 动词句要根据主语选择 am/is/are。',
+        example:'Example: I am a student. / She is happy.',
+        practice:'Practice: 用英语写“他们是学生”。',
+        practiceAnswer:'They are students.',
+        mistake:'Common mistake: *They is students. 主语 they 要搭配 are。'
+      }],
+      [/一般现在时/,{
+        objective:'会用一般现在时表达习惯、事实和经常发生的动作。',
+        concept:'I/you/we/they 用动词原形；he/she/it 的动词通常加 -s/-es。',
+        example:'Example: I study every day. She studies every day.',
+        practice:'Practice: 补全句子：Tom ___ (play) basketball every weekend.',
+        practiceAnswer:'plays',
+        mistake:'Common mistake: 第三人称单数忘记给动词加 -s/-es。'
+      }],
+      [/一般过去时/,{
+        objective:'会用一般过去时表达已经发生并结束的动作。',
+        concept:'规则动词通常加 -ed；不规则动词需要记忆，如 go→went。',
+        example:'Example: I went to school yesterday.',
+        practice:'Practice: 把 “She visits her grandma.” 改成昨天发生。',
+        practiceAnswer:'She visited her grandma yesterday.',
+        mistake:'Common mistake: 已有 did 时，后面的实义动词仍写过去式。'
+      }],
+      [/一般将来时/,{
+        objective:'会用 will + 动词原形表达未来。',
+        concept:'will 后面永远接动词原形。',
+        example:'Example: I will read tomorrow.',
+        practice:'Practice: 翻译“我们明天会学习英语”。',
+        practiceAnswer:'We will study English tomorrow.',
+        mistake:'Common mistake: will 后面写成 studies/studied。'
+      }],
+      [/名词与冠词/,{
+        objective:'理解 a / an / the 的基本用法。',
+        concept:'a/an 表示一个不特指的人或物；an 用在元音音素开头的词前。',
+        example:'Example: an apple, a book.',
+        practice:'Practice: I saw ___ elephant at the zoo.',
+        practiceAnswer:'an',
+        mistake:'Common mistake: 只看字母，不看发音来判断 a/an。'
+      }],
+      [/代词/,{
+        objective:'会根据人和数量选择正确的人称代词。',
+        concept:'he 指男性单数，she 指女性单数，it 指事物，they 指复数。',
+        example:'Example: Tom is my friend. He is kind.',
+        practice:'Practice: Lucy is my sister. ___ likes music.',
+        practiceAnswer:'She',
+        mistake:'Common mistake: 人称和单复数不一致。'
+      }],
+      [/形容词与副词/,{
+        objective:'区分形容词修饰名词、副词修饰动词或形容词。',
+        concept:'slow 是形容词，slowly 是副词。',
+        example:'Example: He is a slow walker. / He walks slowly.',
+        practice:'Practice: She speaks English ___. (clear)',
+        practiceAnswer:'clearly',
+        mistake:'Common mistake: 动词后面直接放形容词。'
+      }],
+      [/介词/,{
+        objective:'掌握常见时间与位置介词的基本搭配。',
+        concept:'on 常用于表面或具体日期，in 常用于内部/较大时间范围，at 常用于具体点。',
+        example:'Example: The book is on the table.',
+        practice:'Practice: We meet ___ 7:00 p.m.',
+        practiceAnswer:'at',
+        mistake:'Common mistake: 把 in/on/at 当成可以随意互换。'
+      }],
+      [/情态动词/,{
+        objective:'会用 can/must/should 等表达能力、必须和建议。',
+        concept:'情态动词后接动词原形。',
+        example:'Example: I can swim. You should rest.',
+        practice:'Practice: 补全：She can ___ (speak) English.',
+        practiceAnswer:'speak',
+        mistake:'Common mistake: can 后面加 to 或第三人称 -s。'
+      }],
+      [/现在完成时/,{
+        objective:'理解 have/has + 过去分词，表达过去发生但与现在有关的动作。',
+        concept:'I/you/we/they 用 have；he/she/it 用 has。',
+        example:'Example: I have finished my homework.',
+        practice:'Practice: 补全：She ___ already ___ (finish) the work.',
+        practiceAnswer:'has; finished',
+        mistake:'Common mistake: 用一般过去时结构代替 have/has + 过去分词。'
+      }],
+      [/被动语态/,{
+        objective:'理解“动作承受者做主语”的被动结构。',
+        concept:'基本结构是 be + 过去分词。',
+        example:'Example: The room is cleaned every day.',
+        practice:'Practice: 把 “People speak English here.” 改成被动语态。',
+        practiceAnswer:'English is spoken here.',
+        mistake:'Common mistake: 只有 be，没有过去分词。'
+      }],
+      [/定语从句/,{
+        objective:'会用 who/which/that 把两个有关联的句子连接起来。',
+        concept:'关系词既连接句子，也在从句中承担成分。',
+        example:'Example: The girl who is singing is my sister.',
+        practice:'Practice: 合并：I know the boy. He won the race.',
+        practiceAnswer:'I know the boy who won the race.',
+        mistake:'Common mistake: 合并后重复主语，如 *the boy who he won...'
+      }]
+    ];
+    const hit=profiles.find(([re])=>re.test(title));
+    const p=hit?.[1]||{
+      objective:`掌握“${title}”的核心语言点，并能在完整语境中正确使用。`,
+      concept:`学习英语不要只记规则，要同时看句子结构、时态、主谓一致和语境。`,
+      example:`Example: 先观察一个正确句子，再替换主语、时间或关键词，检查形式是否随之变化。`,
+      practice:`Practice: 围绕“${title}”写一个完整英文句子，并检查主语、谓语和时态。`,
+      practiceAnswer:`参考标准：句子完整，语法形式与语境一致；可对照本课参考答案：${a}`,
+      mistake:'Common mistake: 只记中文意思，没有检查英文句子的结构和动词形式。'
+    };
+    return {...p, subjectLabel:'英语', skill:'语境 · 结构 · 表达'};
+  }
+
+  return null;
+}
+
+function renderHighSchoolContentCard(subject,c){
+  const p=highSchoolContentProfile(subject,c);
+  if(!p)return '';
+  return `<div class="content-engine-card ${subject==='math'?'math-content':'english-content'}">
+    <div class="content-engine-top">
+      <div>
+        <div class="eyebrow">CONTENT ENGINE · ${p.subjectLabel}</div>
+        <h3>🎯 本课目标</h3>
+      </div>
+      <span class="content-skill">${p.skill}</span>
+    </div>
+    <p>${p.objective}</p>
+    <div class="content-engine-grid">
+      <div><strong>核心理解</strong><p>${p.concept}</p></div>
+      <div><strong>先看一个例子</strong><p>${p.example}</p></div>
+    </div>
+    <div class="content-mistake"><strong>⚠️ 易错点</strong><span>${p.mistake}</span></div>
+  </div>`;
 }
 
 </script>
@@ -1105,10 +1565,32 @@ function continueToNextRealLifeLesson(){
 
 <section id="courses" class="view">
   <div class="section-title"><h1>🏫 Kiki 高中学院 </h1><button type="button" class="btn secondary" onclick="openView('home')">返回</button></div>
-  <div class="card" style="margin-bottom:16px">
-    <div class="eyebrow">REAL HIGH SCHOOL ENGINE · V12.1</div><div id="releaseScanner" class="release-scanner" hidden aria-hidden="true"></div>
-    <h2>📚 九大学院，九种教学方式</h2>
-    <p class="muted">数学重推理，语文重文本，英语重语境，理化重计算与实验，史地政重材料分析。V11 不再让所有学科共用同一种模板。</p>
+  <div class="high-school-hero">
+    <div>
+      <div class="eyebrow">HIGH SCHOOL JOURNEY</div>
+      <h2>🎓 九大学院，一步一步学完整个高中</h2>
+      <p class="muted">系统会保存每一课、每个年级和每个学院的完成记录，并自动找到下一步。</p>
+    </div>
+    <button type="button" class="btn" onclick="continueNextLesson()">▶ 继续下一课</button>
+  </div>
+  <div id="releaseScanner" class="release-scanner" hidden aria-hidden="true"></div>
+
+  <div class="high-school-overview">
+    <div class="high-school-overview-top">
+      <div>
+        <div class="eyebrow">YOUR PROGRESS</div>
+        <h2 id="hsOverviewTitle">高中学习旅程</h2>
+        <p id="hsOverviewSubtitle" class="muted">正在读取你的学习进度……</p>
+      </div>
+      <div id="hsOverviewPercent" class="high-school-percent">0%</div>
+    </div>
+    <div class="high-school-progress-track"><span id="hsOverviewBar"></span></div>
+    <div class="high-school-stats">
+      <div><small>已完成</small><strong id="hsCompletedLessons">0 节</strong></div>
+      <div><small>总课程</small><strong id="hsTotalLessons">0 节</strong></div>
+      <div><small>当前学院</small><strong id="hsCurrentAcademy">—</strong></div>
+      <div><small>下一课</small><strong id="hsNextLesson">—</strong></div>
+    </div>
   </div>
 
 
@@ -1120,7 +1602,7 @@ function continueToNextRealLifeLesson(){
       <div id="engineNextLesson" class="next-lesson-box"></div>
     </div>
     <div class="card">
-      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">V12.1 在线</span></div>
+      <div class="section-title"><h3>学习引擎</h3><span class="engine-tag">学习中</span></div>
       <div class="engine-stats">
         <div class="engine-stat">已完成课程<strong id="engineCompleted">0</strong></div>
         <div class="engine-stat">学院总进度<strong id="engineOverall">0%</strong></div>
@@ -1144,6 +1626,17 @@ function continueToNextRealLifeLesson(){
 
   <div id="subjectHome" style="display:none">
     <div class="card">
+      <div id="subjectJourney" class="subject-journey">
+        <div class="subject-journey-top">
+          <div>
+            <div class="eyebrow">SUBJECT JOURNEY</div>
+            <h3 id="subjectJourneyTitle">学院进度</h3>
+          </div>
+          <strong id="subjectJourneyPercent">0%</strong>
+        </div>
+        <div class="high-school-progress-track"><span id="subjectJourneyBar"></span></div>
+        <div id="subjectGradeMap" class="subject-grade-map"></div>
+      </div>
       <div class="breadcrumb"><button type="button" class="chip" onclick="backToAcademy()">High School</button><span>›</span><span id="subjectCrumb">数学学院</span></div>
       <div class="section-title"><div><div class="eyebrow">SUBJECT ACADEMY</div><h2 id="subjectTitle">📐 数学学院</h2><p id="subjectIntro" class="muted"></p></div><button type="button" class="btn secondary" onclick="backToAcademy()">返回学院</button></div>
       <h3>请选择年级</h3>
@@ -1462,16 +1955,10 @@ function academyProgress(subject){
   return Math.round(all.filter(x=>completed.includes(x)).length/all.length*100);
 }
 function renderCourses(){
-  document.getElementById('academyGrid').innerHTML=ACADEMIES.map(a=>{
-    const p=academyProgress(a.id),next=getNextLesson(a.id);
-    return `<button type="button" class="academy-card" onclick="openAcademy('${a.id}')">
-      <span class="academy-icon">${a.icon}</span><strong>${a.name}</strong><small>${a.intro}</small>
-      <div class="progress"><span style="width:${p}%"></span></div><small>${p}% 完成</small>
-      <div class="subject-next"><strong>${next.done?'🎓 已完成':'下一课：'+next.title}</strong>
-      <small>${next.done?'当前课程已全部完成':`高${['','一','二','三'][next.grade]} · 第${next.index+1}章`}</small></div>
-    </button>`;
-  }).join('');
+  const grid=document.getElementById('academyGrid');
+  if(grid)grid.innerHTML=ACADEMIES.map(highSchoolSubjectCard).join('');
   renderLearningEngine();
+  renderHighSchoolOverview();
 }
 function openAcademy(id){
   currentSubject=id;
@@ -1486,12 +1973,16 @@ function openAcademy(id){
   updateGradeTabs();
   document.querySelectorAll('.grade-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.grade)===currentGrade));
   renderChapters();
+
+  renderSubjectJourney();
 }
 function backToAcademy(){
   document.getElementById('academyHome').style.display='block';
   document.getElementById('subjectHome').style.display='none';
   document.getElementById('lessonStage').style.display='none';
   renderCourses();
+
+  renderHighSchoolOverview();
 }
 function selectGrade(g){
   if(!isGradeUnlocked(currentSubject,g)){
@@ -1503,6 +1994,8 @@ function selectGrade(g){
   document.querySelectorAll('.grade-tab').forEach(x=>x.classList.toggle('active',Number(x.dataset.grade)===g));
   document.getElementById('lessonStage').style.display='none';
   renderChapters();
+
+  renderSubjectJourney();
 }
 function renderChapters(){
   updateGradeTabs();
@@ -1528,7 +2021,7 @@ function renderChapters(){
           <small>${c.lesson}</small>
           <div class="lesson-id">${c.id||key} · 预计 ${c.minutes||20} 分钟</div>
         </div>
-        <span class="mastery">${done?'⭐ 已掌握':'0%'}</span>
+        <span class="mastery ${done?'done':''}">${done?'✓ 已完成':'待学习'}</span>
       </div>
       <div class="lesson-actions">
         <button type="button" class="btn" onclick="startFlowLesson(${i})">▶️ 开始学习</button>
@@ -1536,6 +2029,8 @@ function renderChapters(){
       </div>
     </div>`;
   }).join('');
+
+  renderSubjectJourney();
 }
 function openAcademyLesson(index,mode){
   if(mode!=='ai'){
@@ -1997,7 +2492,7 @@ function completeDailyEnglish(){
   updateAll();
 }
 
-const RELEASE_VERSION='2.0-rc1-build003-hotfix1';
+const RELEASE_VERSION='2.0-rc1-build005-content-engine';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
@@ -2066,17 +2561,19 @@ function subjectEngine(subject){
 
 function realHighSchoolActivity(subject,c){
   const title=c.title;
+  const profile=highSchoolContentProfile(subject,c);
+  if(profile){
+    return {
+      example:`<div class="content-example-box">${profile.example}</div>`,
+      task:profile.practice,
+      rubric:subject==='math'
+        ?'写出关键步骤；方法正确；计算清楚；最后检查答案。'
+        :'句子或答案完整；语法形式正确；符合题目语境；拼写基本准确。',
+      practiceAnswer:profile.practiceAnswer
+    };
+  }
+
   const defaults={
-    math:{
-      example:`已知本课主题是“${title}”。请先写出已知条件，再说明应该使用什么数学方法。`,
-      task:`完成一道与“${title}”有关的计算或判断题，并写出步骤。`,
-      rubric:'步骤完整；公式或方法正确；结果经过检查。'
-    },
-    english:{
-      example:`请用“${title}”涉及的语法或词汇写一个正确英文句子。`,
-      task:`完成一道选择或填空题，再解释为什么其他选项不合适。`,
-      rubric:'时态正确；主谓一致；拼写与语境合理。'
-    },
     chinese:{
       example:`阅读一段人物描写后，从语言、动作或神态中找出证据。`,
       task:`结合文本分析“${title}”，至少写出一个观点和一个文本依据。`,
@@ -2113,7 +2610,11 @@ function realHighSchoolActivity(subject,c){
       rubric:'紧扣材料；术语准确；理由完整；表达有层次。'
     }
   };
-  return defaults[subject]||defaults.math;
+  return defaults[subject]||{
+    example:`围绕“${title}”先确认本课核心概念。`,
+    task:`完成一道与“${title}”有关的练习。`,
+    rubric:'答案完整；依据清楚。'
+  };
 }
 
 function v11PracticePrompt(subject,c){
@@ -2123,6 +2624,13 @@ function v11PracticePrompt(subject,c){
 
 function v11AIMessage(subject,c){
   const engine=subjectEngine(subject);
+  const p=highSchoolContentProfile(subject,c);
+  if(subject==='math'&&p){
+    return `你是Kiki Academy数学老师。当前课程是“${c.title}”。教学目标：${p.objective}。请用“读条件 → 选方法 → 分步骤计算 → 检查”的方式辅导。先问我下一步应该做什么，不要直接把最终检测答案告诉我。`;
+  }
+  if(subject==='english'&&p){
+    return `你是Kiki Academy英语老师。当前课程是“${c.title}”。教学目标：${p.objective}。请用真实英文句子讲解，重点检查主语、谓语、时态和语境。先让我自己改句子或填空，再解释原因，不要直接公布最终检测答案。`;
+  }
   return `你是Kiki Academy的${engine.name}。当前课程是“${c.title}”。${engine.prompt} 请按真实高中课堂方式：先给一个具体材料或例题，再一步一步引导我作答，不要只解释概念。`;
 }
 
@@ -2146,30 +2654,105 @@ function flowScroll(id){
 function flowStepLabel(step){
   return ['','课程','练习','AI 辅导','小测验','完成'][step]||'课程';
 }
-function flowQuizChoices(c){
-  const correct=String(c.a||'').trim();
-  const banks={
-    english:['一般现在时只用于正在发生的动作。','所有主语后面的动词形式都完全一样。'],
-    chinese:['只要把原文重复一遍就算正确。','不需要结合文章内容，只写自己的想法。'],
-    math:['任何情况下都可以直接套用同一个公式。','计算时可以忽略定义域和题目条件。'],
-    physics:['公式中的适用条件可以忽略。','所有物理过程都可以看成静止状态。'],
-    chemistry:['实验条件对结果没有影响。','化学反应中质量可以随意消失。'],
-    biology:['所有生命活动都由同一个结构完成。','生物过程不需要能量。'],
-    geography:['所有地区的自然条件都完全一样。','只看单一因素就能解释所有地理现象。'],
-    history:['历史事件都只有一个原因。','只记年份，不需要理解背景和影响。'],
-    politics:['材料分析不需要联系知识点。','只写结论，不需要说明理由。']
-  };
-  const bank=banks[activeFlow?.subject]||banks.english;
-  const choices=[
-    {text:correct,correct:true},
-    {text:'错误说法：'+bank[0],correct:false},
-    {text:'错误说法：'+bank[1],correct:false}
+function buildFlowQuiz(c){
+  const question=String(c?.q||'请根据本课内容完成下面的问题。').trim();
+  const answer=String(c?.a||'').trim();
+  const subject=activeFlow?.subject||'';
+  const openSignals=['答案应','例如：','例如:','并举','说明理由','结合','分析','写出','请写','请说明','哪些','为什么','如何'];
+  const answerLooksOpen=openSignals.some(x=>answer.includes(x)) || answer.length>46;
+  const questionLooksOpen=openSignals.some(x=>question.includes(x)) && !/填|补全|多少|是否|是什么|等于|翻译/.test(question);
+  const open=['chinese','history','politics'].includes(subject) || answerLooksOpen || questionLooksOpen;
+  const subjectInstruction=subject==='math'
+    ?'这是本课最后一道独立检测。请写出答案；需要计算时建议在草稿中保留步骤。'
+    :subject==='english'
+      ?'这是本课最后一道独立检测。请根据句子结构和语境作答，不要只凭中文直觉。'
+      :open
+        ?'先独立写出答案，再对照参考答案检查要点。'
+        :'请先自己作答。提交后系统会检查答案，并给出参考解析。';
+  return {question,answer,mode:open?'open':'short',instruction:subjectInstruction};
+}
+function normalizeQuizAnswer(value){
+  return String(value||'')
+    .trim()
+    .toLowerCase()
+    .replace(/[。．.!！?？,，、;；:："'“”‘’（）()]/g,'')
+    .replace(/\s+/g,' ');
+}
+function quizAnswerMatches(user,answer){
+  const u=normalizeQuizAnswer(user);
+  const a=normalizeQuizAnswer(answer);
+  if(!u||!a)return false;
+  if(u===a)return true;
+  if(a.length>=4 && (u.includes(a)||a.includes(u)))return true;
+
+  const variants=[
+    ['是','yes'],['不是','no'],['不能','不可以'],['不可以','不能'],
+    ['1/2','0.5'],['0.5','1/2']
   ];
-  for(let i=choices.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [choices[i],choices[j]]=[choices[j],choices[i]];
+  for(const pair of variants){
+    if(pair.includes(u)&&pair.includes(a))return true;
   }
-  return choices;
+  return false;
+}
+function submitFlowQuiz(){
+  const c=flowLesson();
+  if(!c)return;
+  const quiz=buildFlowQuiz(c);
+  const input=document.getElementById('flowQuizInput');
+  const feedback=document.getElementById('flowQuizFeedback');
+  const finish=document.getElementById('flowFinishBtn');
+  const value=input?.value.trim()||'';
+
+  if(!value){
+    toast('先写下你的答案');
+    input?.focus();
+    return;
+  }
+
+  feedback?.classList.add('show');
+
+  if(quiz.mode==='short'){
+    const ok=quizAnswerMatches(value,quiz.answer);
+    if(feedback){
+      feedback.innerHTML=ok
+        ?`<strong>✅ 回答正确</strong><p>你的答案：${escapeFlowQuizText(value)}</p><p><b>参考答案：</b>${escapeFlowQuizText(quiz.answer)}</p>`
+        :`<strong>🌿 再检查一下</strong><p>你的答案：${escapeFlowQuizText(value)}</p><p><b>参考答案：</b>${escapeFlowQuizText(quiz.answer)}</p><p class="muted">对照题目条件和本课知识点，修改后可以再次提交。</p>`;
+    }
+    if(finish)finish.disabled=!ok;
+    if(input)input.classList.toggle('quiz-correct',ok);
+    return;
+  }
+
+  if(feedback){
+    feedback.innerHTML=`
+      <strong>📖 参考答案 / 评分要点</strong>
+      <p>${escapeFlowQuizText(quiz.answer)}</p>
+      <p class="muted">开放题不只看关键词。请比较你的答案是否包含主要观点、依据和必要解释。</p>
+      <div class="quiz-self-check">
+        <button type="button" class="btn" onclick="confirmOpenQuiz(true)">✅ 基本符合</button>
+        <button type="button" class="btn secondary" onclick="confirmOpenQuiz(false)">🔁 还需修改</button>
+      </div>`;
+  }
+}
+function confirmOpenQuiz(ok){
+  const feedback=document.getElementById('flowQuizFeedback');
+  const finish=document.getElementById('flowFinishBtn');
+  if(ok){
+    if(feedback)feedback.insertAdjacentHTML('beforeend','<p class="quiz-pass-note">✅ 已完成自我检查，可以完成本课。</p>');
+    if(finish)finish.disabled=false;
+  }else{
+    if(feedback)feedback.insertAdjacentHTML('beforeend','<p class="quiz-retry-note">把缺少的要点补进上面的答案，再重新检查。</p>');
+    document.getElementById('flowQuizInput')?.focus();
+    if(finish)finish.disabled=true;
+  }
+}
+function escapeFlowQuizText(value){
+  return String(value??'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
 }
 function startFlowLesson(index,startStep=1){
   activeFlow={subject:currentSubject,grade:currentGrade,index,step:startStep,startedAt:Date.now()};
@@ -2198,7 +2781,7 @@ function renderFlowLesson(){
   const step=Math.max(1,Math.min(5,activeFlow.step||1));
   const engine=subjectEngine(activeFlow.subject);
   const activity=realHighSchoolActivity(activeFlow.subject,c);
-  const choices=flowQuizChoices(c);
+  const quiz=buildFlowQuiz(c);
   const stage=document.getElementById('lessonStage');
   stage.style.display='block';
 
@@ -2206,7 +2789,7 @@ function renderFlowLesson(){
     <div class="flow-header">
       <div class="flow-header-top">
         <div>
-          <div class="eyebrow">V11 REAL HIGH SCHOOL · ${c.id||''}</div>
+          <div class="eyebrow">HIGH SCHOOL LESSON · ${c.id||''}</div>
           <h2>${a.icon} 第${activeFlow.index+1}课 · ${c.title}</h2>
           <div class="muted">高${['','一','二','三'][activeFlow.grade]} · ${engine.name} · 当前：${flowStepLabel(step)}</div>
         </div>
@@ -2236,6 +2819,7 @@ function renderFlowLesson(){
         <h3><span class="flow-number">1</span>📖 真实课堂</h3>
         <h2>${c.lesson}</h2>
         <p>${c.body}</p>
+        ${renderHighSchoolContentCard(activeFlow.subject,c)}
         <div class="real-example">
           <strong>课堂材料 / 例题</strong>
           ${activity.example}
@@ -2252,8 +2836,8 @@ function renderFlowLesson(){
         <button type="button" class="btn secondary" style="margin-top:12px" onclick="toggleFlowAnswer()">查看参考思路</button>
         <div id="flowAnswer" class="flow-answer">
           <strong>参考思路：</strong>
-          <p>${c.a}</p>
-          <p class="muted">真实高中题通常不只看结论，还要看过程和依据。</p>
+          <p>${activity.practiceAnswer||c.a}</p>
+          <p class="muted">${['math','english'].includes(activeFlow.subject)?'这道练习和最后的综合检测不是同一道题。先理解方法，再独立完成检测。':'真实高中题通常不只看结论，还要看过程和依据。'}</p>
         </div>
         <button type="button" class="btn flow-next" onclick="advanceFlow(3)">✅ 我完成了 · 进入分步讲解</button>
       </section>
@@ -2278,12 +2862,14 @@ function renderFlowLesson(){
 
       <section id="flowStep4" class="flow-section ${step<4?'locked':step===4?'active':'done'}">
         <h3><span class="flow-number">4</span>📝 综合检测</h3>
-        <p><strong>${v11PracticePrompt(activeFlow.subject,c)}</strong></p>
-        <p class="muted">先完成真实作答，再选择最符合本课要求的一项。</p>
-        <div class="flow-quiz-options">
-          ${choices.map(x=>`<button type="button" class="flow-quiz-option" onclick="selectFlowQuiz(this,${x.correct})">${x.text}</button>`).join('')}
+        <div class="real-quiz-card">
+          <div class="eyebrow">${quiz.mode==='open'?'OPEN RESPONSE':'QUICK CHECK'}</div>
+          <h2 class="real-quiz-question">${escapeFlowQuizText(quiz.question)}</h2>
+          <p class="muted">${quiz.instruction}</p>
+          <textarea id="flowQuizInput" class="response-box real-quiz-input" placeholder="${quiz.mode==='open'?'写下你的观点、依据或完整答案……':'在这里输入你的答案……'}"></textarea>
+          <button type="button" class="btn" onclick="submitFlowQuiz()">${quiz.mode==='open'?'查看参考答案并自评':'提交答案'}</button>
         </div>
-        <div id="flowQuizFeedback" class="flow-answer"></div>
+        <div id="flowQuizFeedback" class="flow-answer real-quiz-feedback"></div>
         <button type="button" id="flowFinishBtn" class="btn flow-next" onclick="finishFlowLesson()" disabled>🎉 完成本课</button>
       </section>
 
@@ -2323,7 +2909,7 @@ function openFlowAI(){
   document.getElementById('aiMessage').value=v11AIMessage(activeFlow.subject,c);
   saveFlowState(activeFlow);
   openView('ai');
-  toast('V11 学科讲解问题已准备好');
+  toast('学科讲解问题已准备好');
 }
 
 function prepareSubjectAI(mode){
@@ -2340,15 +2926,8 @@ function prepareSubjectAI(mode){
   openView('ai');
 }
 
-function selectFlowQuiz(button,isCorrect){
-  document.querySelectorAll('.flow-quiz-option').forEach(x=>x.classList.remove('selected'));
-  button.classList.add('selected');
-  const feedback=document.getElementById('flowQuizFeedback');
-  feedback.classList.add('show');
-  feedback.innerHTML=isCorrect
-    ?'<strong>✅ 回答正确！</strong><p>你已经掌握了这节课的核心内容。</p>'
-    :'<strong>🌿 还差一点。</strong><p>请回看参考答案，再重新选择。</p>';
-  document.getElementById('flowFinishBtn').disabled=!isCorrect;
+function selectFlowQuiz(){
+  /* Legacy compatibility: Build 004 Hotfix uses written-answer quiz engine. */
 }
 function finishFlowLesson(){
   if(!activeFlow)return;
@@ -2420,6 +2999,9 @@ function completeAcademyLesson(index){
   }else{
     toast(next.done?'该学院当前课程已完成':'课程完成，下一课已自动准备好');
   }
+
+  renderHighSchoolOverview();
+  renderSubjectJourney();
 }
 function completeEnglish(){document.getElementById('tWords').checked=true;saveTasks();addTask();markDay();updateAll();toast('今日英语已完成')}
 function taskKey(){return 'kikiV8Tasks_'+dateKey()}
