@@ -922,6 +922,16 @@ html[data-theme="dark"] .reading-journey-step{
   .real-life-phase-lessons{grid-template-columns:1fr}
 }
 
+
+/* ===== Build 005.3 · Chinese Content Engine ===== */
+.chinese-content .content-skill::before{content:'文 ';font-weight:900}
+.chinese-reading-text{margin:14px 0;padding:16px;border-left:4px solid var(--sage);border-radius:14px;background:var(--paper)}
+.chinese-reading-text strong{display:block;margin-bottom:8px}
+.chinese-reading-text p{margin:0;line-height:1.9}
+.chinese-analysis-box{margin-top:10px;padding:14px;border-radius:14px;background:var(--sage2)}
+.chinese-analysis-box strong{display:block;margin-bottom:6px}
+.chinese-analysis-box p{margin:0;line-height:1.75}
+
 </style>
 </head>
 <body><script>
@@ -1263,6 +1273,31 @@ function formalStudyReset(){
   renderCourses();
   renderHighSchoolOverview();
   toast('正式学习进度已重置，可以从数学高一第 1 课重新开始');
+}
+
+
+/* ===== Build 005.3 · Chinese Content Engine ===== */
+function chineseContentProfile(c){
+  const profiles={"CHI-G1-001":{"objective":"学会先读懂文章写了什么，再判断作者为什么这样写。","text":"傍晚，雨停了。小区门口的修鞋摊还亮着一盏黄灯。老人低着头，把一根细线穿过鞋底。一个放学的孩子站在旁边等，书包被雨水打湿了一角。老人抬头看了一眼，把自己的旧毛巾递过去，说：“先擦擦，别感冒。”孩子愣了一下，小声说了句谢谢。","questions":["这段文字主要写了什么事？","哪一个细节最能体现老人的性格？为什么？"],"analysis":"先抓人物、事件、结果，再回原文找证据。“递旧毛巾”比“修鞋”更能体现关心与善意。","practice":"用“人物 + 事件 + 结果”概括这段文字，不超过 40 字。","answer":"示例：雨后，一个修鞋老人主动把毛巾递给淋湿的学生，表现出他的善良与体贴。","mistake":"只写“老人很善良”，却没有原文证据。"},"CHI-G1-002":{"objective":"学会删除次要细节，保留人物、事件和结果。","text":"周末，学校组织学生清理旧图书室。大家把书一本本搬到走廊分类。小林发现有一箱旧杂志已经落满灰尘，便先用抹布擦干净，再按年份整理。原本杂乱的书架在下午重新排好，老师还把几本适合低年级阅读的书挑出来，准备送到班级图书角。","questions":["这段文字中哪些是主要信息？","哪些细节可以在概括时省略？"],"analysis":"概括保留“谁做了什么、结果怎样”，抹布、灰尘等细节可以省略。","practice":"把这段内容概括成一句话。","answer":"示例：学生们整理旧图书室，并重新分类图书，把部分书送到班级图书角。","mistake":"把原文几乎抄一遍，导致概括不够简洁。"},"CHI-G1-003":{"objective":"从语言、动作、神态和事件中寻找人物性格证据。","text":"公交车刚停稳，年轻人便快步下车。他走出几步后忽然停住，转身跑回车门口，把刚才捡到的钱包递给司机：“师傅，可能是上一站的人掉的，麻烦您交到总站。”司机问他姓名，他摆摆手：“不用了，人家找不到会着急。”","questions":["年轻人有哪些动作和语言值得注意？","这些细节表现了他怎样的性格？"],"analysis":"人物形象要用“特点 + 证据 + 解释”。“转身跑回”“不用留名”体现责任感和不求回报。","practice":"用三句话完成一次人物形象分析。","answer":"示例：年轻人有责任感、替他人着想。他捡到钱包后立即返回交给司机，还拒绝留下姓名。这说明他重视失主感受，也不求回报。","mistake":"堆很多形容词，却没有原文证据。"},"CHI-G1-004":{"objective":"识别记叙文的开端、发展、转折和结尾，并分析结构作用。","text":"我一直以为父亲不喜欢我的画。每次我把新画放到他面前，他只看一会儿，说一句“再仔细一点”。直到学校办画展那天，我看见父亲站在展板前，悄悄给我的画拍了好几张照片。回家后，我在他的手机相册里发现，从三年前开始，我每一张参加比赛的画都被保存着。那一刻，我才明白，他的沉默里一直有期待。","questions":["文章在哪一句发生明显转折？","结尾“沉默里一直有期待”有什么作用？"],"analysis":"结构是“误解—发现—理解”。画展和手机相册完成转折，结尾点明主题。","practice":"给这篇短文划分三个结构层次，并概括每一层作用。","answer":"示例：①误解，设置悬念；②发现相册，完成转折；③理解父亲，点明主题。","mistake":"只分段，不说明每个部分在全文中的作用。"},"CHI-G1-005":{"objective":"识别说明对象、说明顺序和说明方法。","text":"城市里的树木不仅可以遮阴，还能降低地表温度。树叶通过蒸腾作用释放水分，使周围空气变得更凉爽。有研究发现，在树冠覆盖较多的街区，夏季白天地表温度往往明显低于缺少绿化的区域。因此，合理增加城市绿地，是缓解“热岛效应”的一种方法。","questions":["这段话说明的对象是什么？","作者用了哪些说明方法？"],"analysis":"先找说明对象，再看作者如何说明。这里有作诠释、研究结论和因果说明。","practice":"用一句话概括树木降低城市温度的原因。","answer":"示例：树木通过遮阴和蒸腾作用降低地表及周围空气温度。","mistake":"只写“树”，没有说清楚具体说明内容。"},"CHI-G1-006":{"objective":"识别论点、论据和论证关系。","text":"真正有效的学习，不是把时间排得越满越好，而是能在学习后检查自己是否真正理解。一个学生如果每天做很多题，却从不整理错误，错误往往会重复出现。相反，每次只做适量练习，再认真分析错因，进步可能更稳定。因此，学习效率来自“有反馈的练习”，而不是单纯增加数量。","questions":["这段话的中心论点是什么？","作者用什么事实或道理支持论点？"],"analysis":"核心是“作者主张什么 + 用什么证明”。末句是论点，前文用两种学习方式对比论证。","practice":"写出“论点—论据—结论”结构。","answer":"示例：论点：有效学习重在反馈。论据：只刷题会重复犯错；分析错因更稳定。结论：效率来自有反馈的练习。","mistake":"把论据当成中心论点。"},"CHI-G1-007":{"objective":"理解意象是带有情感色彩的景物或事物。","text":"阅读：‘枯藤老树昏鸦，小桥流水人家，古道西风瘦马。’","questions":["句中有哪些意象？","这些意象共同营造了怎样的氛围？"],"analysis":"意象不能只列名词，还要分析组合后的氛围。这里共同营造萧瑟、苍凉的意境。","practice":"选择两个意象，说明它们如何帮助表达情感。","answer":"示例：“西风”与“瘦马”带有衰败、疲惫之感，强化旅人的孤独与漂泊感。","mistake":"只列意象名称，不分析情感作用。"},"CHI-G1-008":{"objective":"通过意象、关键词和表达方式判断诗歌情感。","text":"阅读：‘海内存知己，天涯若比邻。’","questions":["这两句表达了怎样的情感？","哪些词语支撑你的判断？"],"analysis":"结合“知己”“天涯”“若比邻”，说明虽相隔遥远，友情仍能跨越距离。","practice":"用“情感 + 关键词 + 解释”的格式回答。","answer":"示例：表达对真挚友情的珍视和旷达态度。“天涯”“若比邻”说明距离并不能削弱友情。","mistake":"只写“思念朋友”，忽略积极、旷达的情绪。"},"CHI-G1-009":{"objective":"结合语境判断常见文言实词含义。","text":"阅读：‘温故而知新，可以为师矣。’","questions":["“故”在这里是什么意思？","“知”在句中表达什么含义？"],"analysis":"实词要放进句子理解。“故”指旧知识，“知”是得到、懂得。","practice":"翻译整句。","answer":"示例：温习旧知识，从中获得新的理解，就可以凭这一点做老师了。","mistake":"直接套现代汉语常用义，不看上下文。"},"CHI-G1-010":{"objective":"认识常见虚词在句中的语法作用。","text":"阅读：‘学而时习之，不亦说乎？’","questions":["“而”连接了什么关系？","“之”指代什么内容？"],"analysis":"虚词看连接或指代功能。“而”连接前后动作，“之”指代所学内容。","practice":"解释“而”和“之”在句中的作用。","answer":"示例：“而”表示承接关系；“之”代指学过的知识。","mistake":"每个虚词都强行翻译成固定汉字。"},"CHI-G1-011":{"objective":"做到字字落实、句意通顺，并注意指代关系。","text":"阅读：‘三人行，必有我师焉。择其善者而从之，其不善者而改之。’","questions":["“善者”指什么？","后半句表达怎样的学习态度？"],"analysis":"先处理关键词，再整理成现代汉语。“从之”“改之”的“之”指向不同内容。","practice":"把整段翻译成现代汉语。","answer":"示例：几个人一起走，其中一定有可以做我老师的人。选择他们的优点学习，看到缺点就反省并改正自己。","mistake":"只追求顺口，却漏掉关键实词和指代关系。"},"CHI-G1-012":{"objective":"从理解结构入手背诵，而不是机械重复。","text":"背诵：‘学而不思则罔，思而不学则殆。’","questions":["包含哪两组相对的学习行为？","为什么结构容易记忆？"],"analysis":"“学—思”“罔—殆”形成对称关系，理解后再记更牢。","practice":"遮住原句，根据“学而不思… / 思而不学…”完整背出。","answer":"学而不思则罔，思而不学则殆。","mistake":"只记声音，不理解结构，容易混淆。"},"CHI-G1-013":{"objective":"写出有中心、有细节、有结尾回应的完整短文。","text":"写作题：以“一个让我改变想法的瞬间”为题，写一个 150 字左右的片段。","questions":["这个片段的中心变化是什么？","哪个具体细节最能体现变化？"],"analysis":"先确定“原来的想法—发生的事—新的理解”，再选动作、语言或场景细节。","practice":"列三行提纲：原来的想法 / 关键事件 / 最后的变化。","answer":"参考标准：结构清楚；至少有一个具体细节；结尾能回应“改变”。","mistake":"只有大道理，没有具体人物和事件。"},"CHI-G1-014":{"objective":"通过具体事件和细节推动情节，而不是平铺直叙。","text":"写作情境：放学后，你发现教室里只剩下一位同学在默默整理大家留下的桌椅。","questions":["你准备从哪个细节开始写？","怎样设置一个小转折？"],"analysis":"可以按“看见—犹豫—加入—交流—理解”推进，并用动作、声音、环境细节增强真实感。","practice":"写一个 100 字左右的开头，必须出现一个动作细节和一个环境细节。","answer":"参考标准：有明确场景；动作具体；不是直接讲道理；能自然引出后续事件。","mistake":"开头连续议论，没有进入具体场景。"},"CHI-G1-015":{"objective":"把生活经历整理成可用于不同作文主题的素材。","text":"素材：一次排队时，有人主动把位置让给行动不便的老人，自己重新走到队尾。","questions":["这个素材可以用于哪些作文主题？","写“规则与善意”时应突出哪个细节？"],"analysis":"一个素材可以多角度使用，关键是重新确定中心。可用于善意、规则、公共意识、选择、责任。","practice":"为这个素材分别写两个不同主题的中心句。","answer":"示例1：真正的善意常常意味着愿意付出一点自己的时间。示例2：规则让秩序成立，而体谅让规则更有人情味。","mistake":"只记发生了什么，没有整理能表达哪些主题。"},"CHI-G1-016":{"objective":"把现代文、古诗文和写作方法串联成完整学习框架。","text":"复习任务：分别写出“现代文阅读、古诗文、写作”最重要的一条答题或学习原则。","questions":["现代文阅读最重要的证据意识是什么？","古诗文和写作分别应该注意什么？"],"analysis":"现代文要回到文本，古诗文要结合语境，写作要有中心和细节。","practice":"完成一张三栏复习表：模块 / 核心方法 / 一个例子。","answer":"示例：现代文—观点必须有文本依据；古诗文—词义放回语境；写作—中心明确并用具体细节支撑。","mistake":"只复习知识名称，不复习答题方法。"}};
+  return c?.id?profiles[c.id]||null:null;
+}
+function renderChineseContentCard(c){
+  const p=chineseContentProfile(c);
+  if(!p)return '';
+  return `<div class="content-engine-card chinese-content">
+    <div class="content-engine-top">
+      <div><div class="eyebrow">FULL CONTENT · 语文</div><h3>🎯 本课目标</h3></div>
+      <span class="content-skill">文本 · 证据 · 表达</span>
+    </div>
+    <p>${p.objective}</p>
+    <div class="chinese-reading-text"><strong>📖 阅读材料</strong><p>${p.text}</p></div>
+    <div class="content-engine-grid">
+      <div><strong>问题 1</strong><p>${p.questions[0]}</p></div>
+      <div><strong>问题 2</strong><p>${p.questions[1]}</p></div>
+    </div>
+    <div class="chinese-analysis-box"><strong>🔎 阅读方法</strong><p>${p.analysis}</p></div>
+    <div class="content-mistake"><strong>⚠️ 易错点</strong><span>${p.mistake}</span></div>
+  </div>`;
 }
 
 </script>
@@ -2376,7 +2411,7 @@ function completeDailyEnglish(){
   updateAll();
 }
 
-const RELEASE_VERSION='2.0-rc1-build0052-real-life-phase2';
+const RELEASE_VERSION='2.0-rc1-build0053-chinese-content';
 function scanReleaseVersion(){
   const html=document.documentElement.outerHTML;
   const old=[...new Set((html.match(/(?:LEARNING COMPANION\s*·\s*|<span class="badge">)V10(?:\.\d+){0,2}/g)||[]))];
@@ -2458,11 +2493,19 @@ function realHighSchoolActivity(subject,c){
   }
 
   const defaults={
-    chinese:{
-      example:`阅读一段人物描写后，从语言、动作或神态中找出证据。`,
-      task:`结合文本分析“${title}”，至少写出一个观点和一个文本依据。`,
-      rubric:'观点明确；引用或概括文本依据；说明表达效果。'
-    },
+    chinese:(()=>{
+      const p=chineseContentProfile(c);
+      return p?{
+        example:`<div class="content-example-box">${p.text}</div>`,
+        task:p.practice,
+        rubric:'观点明确；必须引用或概括文本依据；说明理由或表达效果。',
+        practiceAnswer:p.answer
+      }:{
+        example:`阅读真实文本后再回答问题。`,
+        task:`结合文本分析“${title}”。`,
+        rubric:'观点明确；有文本依据。'
+      };
+    })(),
     physics:{
       example:`面对“${title}”问题，先明确研究对象、已知量和未知量。`,
       task:`列出适用的物理规律，并完成一个简单计算或实验判断。`,
@@ -2515,6 +2558,10 @@ function v11AIMessage(subject,c){
   if(subject==='english'&&p){
     return `你是Kiki Academy英语老师。当前课程是“${c.title}”。教学目标：${p.objective}。请用真实英文句子讲解，重点检查主语、谓语、时态和语境。先让我自己改句子或填空，再解释原因，不要直接公布最终检测答案。`;
   }
+  if(subject==='chinese'){
+    const p=chineseContentProfile(c);
+    if(p)return `你是Kiki Academy高中语文老师。当前课程是“${c.title}”。阅读材料：${p.text}。请严格基于这段文本提问和讲解，要求我先找原文证据，再分析作用，不要直接给完整答案。`;
+  }
   return `你是Kiki Academy的${engine.name}。当前课程是“${c.title}”。${engine.prompt} 请按真实高中课堂方式：先给一个具体材料或例题，再一步一步引导我作答，不要只解释概念。`;
 }
 
@@ -2539,13 +2586,22 @@ function flowStepLabel(step){
   return ['','课程','练习','AI 辅导','小测验','完成'][step]||'课程';
 }
 function buildFlowQuiz(c){
+  const subject=activeFlow?.subject||'';
+  if(subject==='chinese'){
+    const p=chineseContentProfile(c);
+    if(p)return {
+      question:p.practice,
+      answer:p.answer,
+      mode:'open',
+      instruction:'请先独立作答。完成后对照参考答案，检查是否有“观点 + 文本证据 + 分析”。'
+    };
+  }
   const question=String(c?.q||'请根据本课内容完成下面的问题。').trim();
   const answer=String(c?.a||'').trim();
-  const subject=activeFlow?.subject||'';
   const openSignals=['答案应','例如：','例如:','并举','说明理由','结合','分析','写出','请写','请说明','哪些','为什么','如何'];
   const answerLooksOpen=openSignals.some(x=>answer.includes(x)) || answer.length>46;
   const questionLooksOpen=openSignals.some(x=>question.includes(x)) && !/填|补全|多少|是否|是什么|等于|翻译/.test(question);
-  const open=['chinese','history','politics'].includes(subject) || answerLooksOpen || questionLooksOpen;
+  const open=['history','politics'].includes(subject) || answerLooksOpen || questionLooksOpen;
   const subjectInstruction=subject==='math'
     ?'这是本课最后一道独立检测。请写出答案；需要计算时建议在草稿中保留步骤。'
     :subject==='english'
@@ -2703,7 +2759,7 @@ function renderFlowLesson(){
         <h3><span class="flow-number">1</span>📖 真实课堂</h3>
         <h2>${c.lesson}</h2>
         <p>${c.body}</p>
-        ${renderHighSchoolContentCard(activeFlow.subject,c)}
+        ${renderHighSchoolContentCard(activeFlow.subject,c)}${activeFlow.subject==='chinese'?renderChineseContentCard(c):''}
         <div class="real-example">
           <strong>课堂材料 / 例题</strong>
           ${activity.example}
